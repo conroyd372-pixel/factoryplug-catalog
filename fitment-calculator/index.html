@@ -29,29 +29,49 @@
 <a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Carbon</a><a href="/factoryplug-catalog/manufacturers/">🏭 Who Makes What</a><a href="/factoryplug-catalog/guides/">📚 Guides</a><a href="/factoryplug-catalog/search.html" class="search-link">🔍 Search</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
 </nav>
 </div></header>
-<div class="wrap"><div class="crumbs"><a href="/factoryplug-catalog/">Home</a> / <a href="/factoryplug-catalog/guides/">Guides</a> / Tire Size Calculator</div></div>
+<div class="wrap"><nav aria-label="Breadcrumb"><ol class="crumbs">
+<li><a href="/factoryplug-catalog/">Home</a></li>
+<li><a href="/factoryplug-catalog/guides/">Guides</a></li>
+<li aria-current="page">Tire Size Calculator</li>
+</ol></nav></div>
+<article itemscope itemtype="https://schema.org/TechArticle">
 <section class="block" style="padding-top:14px"><div class="wrap">
 <div class="prose" style="padding-bottom:6px">
-<h1>🛞 Tire Size Calculator</h1>
+<header>
+<h1 itemprop="headline">🛞 Tire Size Calculator</h1>
 <p class="sec-sub">Compare any two tire sizes in seconds. Enter your <b>current</b> size and the <b>new</b> size you're considering — we'll show the diameter difference, speedometer error, and a straight verdict.</p>
+<p class="direct-answer">Tire size 225/45R17 reads as 225 millimeters of tread width, a 45% sidewall aspect ratio, radial construction, and a 17-inch rim. Overall diameter is (width × aspect ratio ÷ 100 × 2 ÷ 25.4) + rim diameter — about 25 inches here. Stay within 3% of your stock diameter and your speedometer, gearing, and clearances all behave.</p>
+</header>
 </div>
-<div class="calc" style="max-width:760px">
+<fieldset class="calc" style="max-width:760px;border:0;padding:0;margin:0">
+<legend class="sr-only">Enter two tire sizes to compare</legend>
 <div class="calc-row">
 <div><label for="cur">Current tire size</label><input id="cur" value="225/45R17" maxlength="12" inputmode="text" autocomplete="off"><div class="calc-hint">On your door jamb sticker, e.g. 225/45R17</div></div>
 <div><label for="new">New tire size</label><input id="new" value="225/40R18" maxlength="12" inputmode="text" autocomplete="off"><div class="calc-hint">The setup you're considering</div></div>
 </div>
 <div class="btn-row" style="margin-top:16px"><button class="btn" id="calcBtn" type="button">Compare sizes</button></div>
-<div class="calc-result" id="calcOut" role="status"></div>
-</div>
+<div class="calc-result" id="calcOut" role="status" aria-live="polite"></div>
+</fieldset>
 <div class="prose">
-<h2>How to read the result</h2>
-<p><b>Within 3%:</b> safe zone — speedometer stays accurate, clearances behave like stock. <b>3–5%:</b> check clearances carefully and expect a small speedometer error. <b>Over 5%:</b> too far — gearing, speedometer, and ABS behavior all shift, and rubbing risk climbs.</p>
-<h2>The math behind it</h2>
+<section aria-labelledby="read-result-h">
+<h2 id="read-result-h">How to read the result</h2>
+<dl class="verdicts">
+<dt>Within 3%</dt><dd>Safe zone — speedometer stays accurate, clearances behave like stock.</dd>
+<dt>3–5%</dt><dd>Check clearances carefully and expect a small speedometer error.</dd>
+<dt>Over 5%</dt><dd>Too far — gearing, speedometer, and ABS behavior all shift, and rubbing risk climbs.</dd>
+</dl>
+</section>
+<section aria-labelledby="tire-math-h">
+<h2 id="tire-math-h">The math behind it</h2>
 <p>Overall diameter = (width × aspect ratio ÷ 100 × 2 ÷ 25.4) + rim diameter. The percentage difference between old and new is what your speedometer feels: a new tire 3% taller means your speedo reads about 3% slow at any speed.</p>
+</section>
+<aside aria-label="Related fitment guides">
 <h2>Want the full picture?</h2>
 <p>Diameter is only half the fitment story. Read <a href="/factoryplug-catalog/guides/wheel-fitment-101.html">Wheel Fitment 101</a> for bolt pattern, offset, and center bore, <a href="/factoryplug-catalog/guides/tire-size-for-your-wheel-width.html">the tire width chart</a> to match rubber to rim, and <a href="/factoryplug-catalog/guides/how-to-pick-the-perfect-wheel-size.html">how to pick the perfect wheel size</a> before you buy. Then confirm everything against your VIN with the seller.</p>
+</aside>
 </div>
 </div></section>
+</article>
 <script>
 (function(){
 function parse(s){
