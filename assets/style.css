@@ -148,6 +148,19 @@ dl.verdicts dd{margin:0}
 ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:18px}
 ol.steps>li{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
 ol.steps>li h2{margin-top:0}
+.supply-matrix{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:22px 0}
+.supply-matrix .lede{font-size:1.02rem;color:var(--text)}
+.supply-matrix h3{margin-top:26px}
+.table-wrap{overflow-x:auto;margin:14px 0}
+.supply-matrix table{border-collapse:collapse;width:100%;min-width:760px;font-size:.88rem}
+.supply-matrix caption{text-align:left;font-weight:700;padding:8px 0;color:var(--text)}
+.supply-matrix th,.supply-matrix td{border:1px solid var(--line);padding:10px 12px;vertical-align:top;text-align:left}
+.supply-matrix thead th{background:var(--card2);color:var(--gold)}
+.supply-matrix tbody th{color:var(--text)}
+.src{font-size:.78rem;color:var(--gold);white-space:nowrap}
+.manifest-example{background:var(--bg2);border:1px dashed var(--line2);border-radius:10px;padding:14px 16px;margin:14px 0;font-size:.9rem}
+.note{font-size:.85rem;color:var(--muted);border-left:3px solid var(--line2);padding:8px 12px;margin:14px 0}
+.supply-matrix .url{word-break:break-all;color:var(--muted2);font-size:.8rem}
 .prod-hero{display:grid;grid-template-columns:1fr;gap:20px;padding:22px 0 36px;align-items:start}
 .prod-hero .pimg-main{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);background:#0a0d13;position:relative}
 .prod-hero .pimg-main img{width:100%;display:block;aspect-ratio:4/3;object-fit:cover}
