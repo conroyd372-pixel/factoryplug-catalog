@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who Makes What — Verified Car Parts Manufacturer Directory | FactoryPlug</title>
+<meta name="description" content="Who actually makes your car parts? Search the verified manufacturer directory: brake kit makers, forged wheel factories, locations, ratings, and what each company builds.">
+
+<link rel="canonical" href="https://conroyd372-pixel.github.io/factoryplug-catalog/manufacturers/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FactoryPlug">
+<meta property="og:title" content="Who Makes What — Verified Car Parts Manufacturer Directory | FactoryPlug">
+<meta property="og:description" content="Who actually makes your car parts? Search the verified manufacturer directory: brake kit makers, forged wheel factories, locations, ratings, and what each company builds.">
+<meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/manufacturers/">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Who Makes What — Verified Car Parts Manufacturer Directory | FactoryPlug">
+<meta name="twitter:description" content="Who actually makes your car parts? Search the verified manufacturer directory: brake kit makers, forged wheel factories, locations, ratings, and what each company builds.">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
+<script src="/factoryplug-catalog/assets/fx.js" defer></script>
+<script src="/factoryplug-catalog/assets/search.js" defer></script>
+
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<nav>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Carbon</a><a href="/factoryplug-catalog/manufacturers/">🏭 Who Makes What</a><a href="/factoryplug-catalog/guides/">📚 Guides</a><a href="/factoryplug-catalog/search.html" class="search-link">🔍 Search</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+</nav>
+</div></header>
+<div class="wrap"><div class="crumbs"><a href="/factoryplug-catalog/">Home</a> / Who Makes What</div></div>
+<section class="block" style="padding-top:14px"><div class="wrap">
+<h2 class="sec">🏭 Who Makes What</h2>
+<p class="sec-sub">The encyclopedia of who actually makes car parts. Every profile is
+verified from a real supplier page or confirmed manufacturer knowledge — no guessing,
+no invented entries. Search a company, a product, or filter by category.</p>
+<form class="search-hero" id="mfr-search" onsubmit="return false" role="search">
+<input type="search" id="mfr-q" placeholder="Search companies or what they make… try “brake”, “forged”, “Nanjing”" aria-label="Search manufacturers">
+</form>
+<div class="filter-row" id="mfr-filters">
+<button type="button" class="filter-btn active" data-cat="">All</button><button type="button" class="filter-btn" data-cat="wheels">🛞 Forged Wheels</button><button type="button" class="filter-btn" data-cat="brakes">🛑 Brakes</button>
+</div>
+<div class="cat-grid" id="mfr-grid"><a class="cat-card mfr-card" href="/factoryplug-catalog/manufacturers/icooh.html"
+   data-cats="brakes"
+   data-search="icooh icooh performance big brake kits, brake calipers, carbon-ceramic brake systems china (exact city pending)">
+<div class="icon">🏭</div><h3>ICOOH</h3>
+<p>performance big brake kits, brake calipers, carbon-ceramic brake systems</p>
+<div class="meta">China (exact city pending) · Conroy&#x27;s designated brake supplier</div>
+<span class="count">Brakes</span></a>
+<a class="cat-card mfr-card" href="/factoryplug-catalog/manufacturers/nanjing-qiusheng-technology-co-ltd.html"
+   data-cats="wheels"
+   data-search="nanjing qiusheng technology co., ltd. nanjing qiusheng forged wheels (vs-5rs-style forged t6061 monoblock, 18–20 inch, deep concave) nanjing, china (province pending)">
+<div class="icon">🏭</div><h3>Nanjing Qiusheng Technology Co., Ltd.</h3>
+<p>forged wheels (VS-5RS-style forged T6061 monoblock, 18–20 inch, deep concave)</p>
+<div class="meta">Nanjing, China (province pending) · 4.7/5 from 224 ratings</div>
+<span class="count">Forged Wheels</span></a></div>
+<p style="margin-top:22px;font-size:.85rem;color:var(--muted)">🔒 Verified-only directory:
+every listing here is backed by an actual supplier page or confirmed knowledge.
+Unknown facts are marked “pending” — never guessed. Spot an error? DM
+<a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">@royblinge90</a>.</p>
+</div></section>
+<script>
+(function(){
+  var q = document.getElementById('mfr-q');
+  var cards = Array.prototype.slice.call(document.querySelectorAll('#mfr-grid .mfr-card'));
+  var btns = Array.prototype.slice.call(document.querySelectorAll('#mfr-filters .filter-btn'));
+  var activeCat = '';
+  function apply(){
+    var term = q.value.trim().toLowerCase();
+    cards.forEach(function(c){
+      var okSearch = !term || c.getAttribute('data-search').indexOf(term) !== -1;
+      var okCat = !activeCat || c.getAttribute('data-cats').split(' ').indexOf(activeCat) !== -1;
+      c.style.display = (okSearch && okCat) ? '' : 'none';
+    });
+  }
+  q.addEventListener('input', apply);
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      btns.forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active');
+      activeCat = b.getAttribute('data-cat');
+      apply();
+    });
+  });
+})();
+</script>
+<footer class="site"><div class="wrap"><div class="cols">
+<div><b style="color:var(--text)">FACTORYPLUG</b><br>Factory-direct car parts.<br>Without the dealer markup.</div>
+<div><b style="color:var(--text)">Shop</b><br>
+<a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
+<div><b style="color:var(--text)">More</b><br>
+<a href="/factoryplug-catalog/manufacturers/">🏭 Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
+<div><b style="color:var(--text)">Trust</b><br>
+<a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/contact.html">Contact</a><br><a href="https://partsplugvault.store/parts">Parts Plug Vault 🔌</a></div>
+</div>
+<small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN with the seller before buying.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+&copy; 2026 FactoryPlug. All rights reserved.</small>
+</div></footer>
+</body>
+</html>
