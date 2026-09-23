@@ -100,16 +100,18 @@
   window.__fp_convert = convertScope;
   window.__factoryplug_fx = api;
 
-  // ---- Fitment verification modal (Buyer-to-Supplier Communication Protocol) ----
+  // ---- "Before you contact the supplier" modal (Buyer-to-Supplier Communication Protocol) ----
   // Intercepts all outbound sponsored supplier links so the buyer reads the
   // 5-point fitment briefing before reaching the supplier chat. Professional
-  // B2B-sourcing framing: no scam talk, just standard procedure.
+  // B2B-sourcing framing: no scam talk, just standard procedure. This is a
+  // reminder, not a verification — reading it never creates a fitment badge.
   (function fitmentModal() {
     var MODAL_HTML =
       '<div class="fp-modal-backdrop" id="fpFitModal" role="dialog" aria-modal="true" aria-labelledby="fpFitTitle">' +
       '<div class="fp-modal">' +
-      '<h2 id="fpFitTitle">Fitment Verification</h2>' +
+      '<h2 id="fpFitTitle">Before you contact the supplier</h2>' +
       '<p class="fp-sub">You\'re one click from the supplier. Professional buyers on Alibaba confirm fitment <b>in writing</b> before money moves — this is standard operating procedure in global B2B automotive sourcing. Have these five things ready:</p>' +
+      '<div class="fp-state" id="fpFitStateBox"></div>' +
       '<p class="fp-vehicle" id="fpVehicle" hidden></p>' +
       '<ol class="fp-checklist">' +
       '<li><b>1. Exact chassis code + trim/package</b>Year/make/model isn\'t enough. Send the chassis code (F30, G80, S650\u2026) and your exact trim/package — they determine mounting points, clearances, and connector types.</li>' +
@@ -118,12 +120,20 @@
       '<li><b>4. Clear photos</b>Sharp shots of the mounting points and connectors. If anything looks off, the engineer will spot it before you pay.</li>' +
       '<li><b>5. Written confirmation</b>Get the supplier\'s fitment confirmation in writing in the Alibaba chat <b>before</b> payment. A one-line &ldquo;yes, it fits&rdquo; is your evidence if the wrong part shows up.</li>' +
       '</ol>' +
+      '<ul class="fp-states">' +
+      '<li><b>Not checked</b> — no vehicle information in the listing yet.</li>' +
+      '<li><b>Listed by supplier</b> — the listing names a vehicle, but details still needed.</li>' +
+      '<li><b>Does not match</b> — the listing conflicts with your vehicle\u2019s requirements.</li>' +
+      '<li><b>Documented match</b> — confirmed with evidence (test-fit, installation record, or the supplier\u2019s written confirmation for your exact build).</li>' +
+      '<li><b>Custom / universal</b> — needs your measurements or fabrication.</li>' +
+      '</ul>' +
       '<div class="fp-actions">' +
       '<button class="fp-continue" id="fpFitContinue">Continue to supplier &rarr;</button>' +
       '<a class="fp-scripts" href="/factoryplug-catalog/guides/alibaba-chat-scripts.html">Copy a supplier chat script</a>' +
       '<button class="fp-close" id="fpFitClose">Not yet</button>' +
       '</div>' +
       '<p class="fp-note">Keep the whole conversation in the Alibaba chat — every message is timestamped in your order record.</p>' +
+      '<p class="fp-note">Reading this checklist doesn\'t verify fitment — it just gets you ready. Only the supplier\'s written confirmation for your exact build counts.</p>' +
       '</div></div>';
 
     var pendingHref = null;
@@ -184,6 +194,17 @@
       if (vEl) {
         if (vehLine) { vEl.innerHTML = vehLine; vEl.hidden = false; }
         else { vEl.innerHTML = ''; vEl.hidden = true; }
+      }
+      // Per-page compatibility state (product pages render a hidden
+      // #fpFitState element; other pages fall back to "not checked").
+      // Display-only: this reminder never creates a verified-fitment badge.
+      var stEl = document.getElementById('fpFitState');
+      var stBox = backdrop.querySelector('#fpFitStateBox');
+      if (stBox) {
+        var stTxt = stEl && stEl.textContent ? stEl.textContent.trim() : '';
+        if (!stTxt) { stTxt = 'Not checked on this page — confirm with the supplier.'; }
+        stBox.innerHTML = '<b>Compatibility status for this listing:</b> ' +
+          stTxt.replace(/</g, '&lt;');
       }
       var btn = backdrop.querySelector('#fpFitContinue');
       if (btn) btn.focus();
