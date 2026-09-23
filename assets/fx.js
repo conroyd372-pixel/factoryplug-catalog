@@ -100,9 +100,9 @@
   window.__fp_convert = convertScope;
   window.__factoryplug_fx = api;
 
-  // ---- Fitment verification modal (Buyer-to-Factory Communication Protocol) ----
+  // ---- Fitment verification modal (Buyer-to-Supplier Communication Protocol) ----
   // Intercepts all outbound sponsored supplier links so the buyer reads the
-  // 5-point fitment briefing before reaching the factory chat. Professional
+  // 5-point fitment briefing before reaching the supplier chat. Professional
   // B2B-sourcing framing: no scam talk, just standard procedure.
   (function fitmentModal() {
     var MODAL_HTML =
@@ -110,16 +110,17 @@
       '<div class="fp-modal">' +
       '<h2 id="fpFitTitle">Fitment Verification</h2>' +
       '<p class="fp-sub">You\'re one click from the supplier. Professional buyers on Alibaba confirm fitment <b>in writing</b> before money moves — this is standard operating procedure in global B2B automotive sourcing. Have these five things ready:</p>' +
+      '<p class="fp-vehicle" id="fpVehicle" hidden></p>' +
       '<ol class="fp-checklist">' +
       '<li><b>1. Exact chassis code + trim/package</b>Year/make/model isn\'t enough. Send the chassis code (F30, G80, S650\u2026) and your exact trim/package — they determine mounting points, clearances, and connector types.</li>' +
-      '<li><b>2. Your full 17-digit VIN</b>Find it on the driver-side dash, the door jamb, or the B-pillar sticker. The VIN pins down your exact build — send it so the factory can verify against the right specification.</li>' +
+      '<li><b>2. Your full 17-digit VIN</b>Find it on the driver-side dash, the door jamb, or the B-pillar sticker. The VIN pins down your exact build — send it so the supplier can verify against the right specification.</li>' +
       '<li><b>3. The OE part number</b>Read the Original Equipment number off your existing component. It\'s the most precise way to match the replacement.</li>' +
       '<li><b>4. Clear photos</b>Sharp shots of the mounting points and connectors. If anything looks off, the engineer will spot it before you pay.</li>' +
-      '<li><b>5. Written confirmation</b>Get the factory\'s fitment confirmation in writing in the Alibaba chat <b>before</b> payment. A one-line &ldquo;yes, it fits&rdquo; is your evidence if the wrong part shows up.</li>' +
+      '<li><b>5. Written confirmation</b>Get the supplier\'s fitment confirmation in writing in the Alibaba chat <b>before</b> payment. A one-line &ldquo;yes, it fits&rdquo; is your evidence if the wrong part shows up.</li>' +
       '</ol>' +
       '<div class="fp-actions">' +
       '<button class="fp-continue" id="fpFitContinue">Continue to supplier &rarr;</button>' +
-      '<a class="fp-scripts" href="/factoryplug-catalog/guides/alibaba-chat-scripts.html">Copy a factory chat script</a>' +
+      '<a class="fp-scripts" href="/factoryplug-catalog/guides/alibaba-chat-scripts.html">Copy a supplier chat script</a>' +
       '<button class="fp-close" id="fpFitClose">Not yet</button>' +
       '</div>' +
       '<p class="fp-note">Keep the whole conversation in the Alibaba chat — every message is timestamped in your order record.</p>' +
@@ -132,6 +133,24 @@
     function openModal(href, trigger) {
       pendingHref = href;
       triggerEl = trigger || null;
+      // Reflect the buyer's fitment inputs (the Year/Make/Model/chassis
+      // block above the CTA) in the modal. Values are display-only: never
+      // stored, never transmitted anywhere.
+      var vehLine = null;
+      try {
+        var gv = function (id) {
+          var el = document.getElementById(id);
+          return el ? el.value.trim() : '';
+        };
+        var veh = [gv('fiYear'), gv('fiMake'), gv('fiModel')].filter(Boolean).join(' ');
+        var ch = gv('fiChassis');
+        if (veh || ch) {
+          vehLine = 'Checking fitment for: <b>' +
+            (veh ? veh.replace(/</g, '&lt;') : 'your vehicle') +
+            (ch ? ' (' + ch.replace(/</g, '&lt;').toUpperCase() + ')' : '') + '</b>' +
+            ' — send these details plus your VIN and OE part number in the supplier chat.';
+        }
+      } catch (err) {}
       if (!backdrop) {
         var wrap = document.createElement('div');
         wrap.innerHTML = MODAL_HTML;
@@ -161,6 +180,11 @@
       }
       backdrop.classList.add('open');
       document.body.style.overflow = 'hidden';
+      var vEl = backdrop.querySelector('#fpVehicle');
+      if (vEl) {
+        if (vehLine) { vEl.innerHTML = vehLine; vEl.hidden = false; }
+        else { vEl.innerHTML = ''; vEl.hidden = true; }
+      }
       var btn = backdrop.querySelector('#fpFitContinue');
       if (btn) btn.focus();
     }

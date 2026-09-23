@@ -86,6 +86,12 @@ p.sec-sub{color:var(--muted);margin-bottom:20px;max-width:720px;font-size:.95rem
 .prod-card{background:linear-gradient(180deg,var(--card) 0%,#0f141e 100%);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:transform .14s ease,border-color .14s ease,box-shadow .14s ease;box-shadow:var(--shadow-s)}
 .prod-card:hover{transform:translateY(-3px);border-color:rgba(234,181,67,.55);box-shadow:var(--shadow)}
 .prod-card .pimg{display:block;position:relative;background:#0a0d13}
+/* Skeleton shimmer: reserved image boxes shimmer while photos load
+   (Core Web Vitals — perceived speed on image-heavy grids). */
+@keyframes fp-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+.skel,.prod-card .pimg,.pimg-main,.prod-gallery{background-image:linear-gradient(90deg,#0a0d13 25%,#161b26 50%,#0a0d13 75%);background-size:800px 100%;animation:fp-shimmer 1.4s linear infinite}
+.prod-card .pimg img,.pimg-main img,.prod-gallery img{position:relative;background:#0a0d13}
+@media (prefers-reduced-motion:reduce){.skel,.prod-card .pimg,.pimg-main,.prod-gallery{animation:none}}
 .prod-card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
 .win-badge{position:absolute;top:10px;left:10px;background:linear-gradient(180deg,#ff9d3c,#e06c00);color:#1a0e00;font-size:.72rem;font-weight:800;padding:5px 11px;border-radius:20px;box-shadow:0 3px 10px rgba(0,0,0,.4);letter-spacing:.3px}
 .prod-card .body{padding:13px 13px 12px;display:flex;flex-direction:column;gap:8px;flex:1}
@@ -214,6 +220,18 @@ border-radius:14px;border:1px solid var(--line);background:#0b0f16}
 .disclosure-mini{font-size:.76rem;color:var(--muted2);text-align:center}
 .fitment{background:#1c1508;border:1px solid #54401a;border-radius:var(--radius-s);padding:14px 15px;margin-top:16px;font-size:.88rem;color:#e8d9b8}
 .fitment b{color:var(--gold)}
+/* Fitment input — highest-priority UI on the product page: sits directly
+   above the buy CTA (owner UX directive 2026-09-23). Buyer enters their
+   vehicle; the values are reflected in the fitment modal and never stored
+   or transmitted. */
+.fitment-input{margin-top:18px;background:#141007;border:2px solid var(--gold);border-radius:var(--radius-s);padding:14px 15px}
+.fitment-input .fi-title{display:block;font-weight:800;color:var(--gold);font-size:.92rem;margin-bottom:10px}
+.fi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fi-grid input{background:#0d0a05;border:1px solid #54401a;border-radius:8px;color:#fff;font-size:16px;padding:11px 12px;width:100%;box-sizing:border-box}
+.fi-grid input::placeholder{color:#8a7a5c}
+.fi-grid input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(234,181,67,.25)}
+.fi-hint{margin:8px 0 0;font-size:.78rem;color:#a89372}
+.fi-hint b{color:var(--gold)}
 .win-note{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(180deg,#ff9d3c,#e06c00);color:#1a0e00;font-size:.78rem;font-weight:800;padding:6px 13px;border-radius:20px;margin-bottom:2px}
 .discount-box{background:#121a0e;border:1px solid #3f5a2a;border-radius:var(--radius-s);padding:14px 15px;margin-top:14px;font-size:.9rem}
 .discount-box b{color:var(--gold)}
@@ -376,6 +394,8 @@ footer.site small{display:block;margin-top:18px;line-height:1.7;color:var(--mute
 .fp-modal .fp-scripts{color:#8fd0ff;font-size:.9rem;text-decoration:underline}
 .fp-modal .fp-close{background:transparent;border:1px solid #3a4150;color:#c6ccd8;border-radius:9px;padding:12px 16px;font-size:.9rem;cursor:pointer}
 .fp-modal .fp-note{margin-top:14px;font-size:.8rem;color:#7c8494;line-height:1.5}
+.fp-modal .fp-vehicle{background:#0d1a0d;border:1px solid #3f5a2a;border-radius:10px;padding:10px 14px;font-size:.9rem;color:#cfe3b8;margin:0 0 18px}
+.fp-modal .fp-vehicle b{color:#ffd34d}
 /* Chat script blocks */
 blockquote.script{background:#0d1016;border:1px solid #232833;border-left:4px solid #e8b308;border-radius:10px;padding:16px 18px;margin:18px 0;font-size:.95rem;line-height:1.65;color:#e8eaf0}
 blockquote.script p{margin:0}
