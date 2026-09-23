@@ -2,11 +2,190 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Moved &mdash; search.html</title>
-<meta http-equiv="refresh" content="0; url=https://conroyd372-pixel.github.io/search.html">
-<link rel="canonical" href="https://conroyd372-pixel.github.io/search.html">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Search Parts | FactoryPlug</title>
+<meta name="description" content="Search every FactoryPlug part instantly — filter by category, car/chassis, and price. Slang, old-school terms, and technical names all work.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://conroyd372-pixel.github.io/factoryplug-catalog/search.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FactoryPlug">
+<meta property="og:title" content="Search Parts | FactoryPlug">
+<meta property="og:description" content="Search every FactoryPlug part instantly — filter by category, car/chassis, and price. Slang, old-school terms, and technical names all work.">
+<meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/search.html">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Search Parts | FactoryPlug">
+<meta name="twitter:description" content="Search every FactoryPlug part instantly — filter by category, car/chassis, and price. Slang, old-school terms, and technical names all work.">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
+<script src="/factoryplug-catalog/assets/fx.js" defer></script>
+<script src="/factoryplug-catalog/assets/search.js" defer></script>
+
 </head>
 <body>
-<p>This page has moved to its permanent home: <a href="https://conroyd372-pixel.github.io/search.html">https://conroyd372-pixel.github.io/search.html</a>.</p>
+<header class="site"><div class="wrap nav">
+<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<nav>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+</nav>
+</div></header>
+<div class="wrap"><div class="prose" style="max-width:920px">
+<h1>Search parts</h1>
+<p class="sec-sub">Instant results as you type — filter by category, your car, and price. Gen Z slang, old-school terms, and shop-manual names all work.</p>
+<form class="search-hero" id="search-form" action="/factoryplug-catalog/search.html" method="get" role="search" style="margin:16px 0 4px">
+<input type="search" name="q" id="search-input" placeholder="Try “G80 front lip”, “rims”, “coilovers”…" aria-label="Search parts" autocomplete="off">
+<button type="submit">Search</button>
+</form>
+<div class="filter-panel">
+<div class="filter-group"><span>Category</span>
+<div class="lt-chips" id="f-cat">
+<button type="button" class="lchip active" data-cat="">All</button><button type="button" class="lchip" data-cat="wheels">Forged Wheels</button><button type="button" class="lchip" data-cat="brakes">Brakes &amp; Rotors</button><button type="button" class="lchip" data-cat="exhaust">Exhaust Systems</button><button type="button" class="lchip" data-cat="carbon">Aerodynamics &amp; Exterior</button><button type="button" class="lchip" data-cat="lighting">Lighting</button><button type="button" class="lchip" data-cat="suspension">Suspension</button><button type="button" class="lchip" data-cat="engine">Engine &amp; Fuel</button><button type="button" class="lchip" data-cat="interior">Interior Accessories</button><button type="button" class="lchip" data-cat="offroad">Off-Road &amp; Trucks</button><button type="button" class="lchip" data-cat="exterior">Exterior Accessories</button><button type="button" class="lchip" data-cat="drivetrain">Drivetrain &amp; Transmission</button><button type="button" class="lchip" data-cat="electronics">Electronics &amp; Gauges</button><button type="button" class="lchip" data-cat="vinyl">Vinyl Wrap &amp; Paint Protection</button><button type="button" class="lchip" data-cat="k-swap">K-Swap</button><button type="button" class="lchip" data-cat="conversion-kits">Body Conversion Kits</button>
+</div></div>
+<div class="filter-group"><span>Your car / chassis</span>
+<select id="f-ch" class="filter-select" aria-label="Filter by car or chassis">
+<option value="">All cars</option><option value="E92">E92 (44)</option><option value="E90">E90 (34)</option><option value="E93">E93 (28)</option><option value="G80">G80 (26)</option><option value="G82">G82 (24)</option><option value="F30">F30 (21)</option><option value="G20">G20 (20)</option><option value="F80">F80 (15)</option><option value="G83">G83 (12)</option><option value="F82">F82 (12)</option><option value="F32">F32 (11)</option><option value="G22">G22 (10)</option><option value="Z06">Z06 (9)</option><option value="G30">G30 (9)</option><option value="F36">F36 (9)</option><option value="E46">E46 (8)</option><option value="F10">F10 (8)</option><option value="G87">G87 (7)</option><option value="F33">F33 (7)</option><option value="G42">G42 (6)</option><option value="F35">F35 (6)</option><option value="F18">F18 (5)</option><option value="Q50">Q50 (5)</option><option value="F85">F85 (5)</option><option value="A90">A90 (4)</option><option value="G26">G26 (4)</option><option value="F90">F90 (4)</option><option value="G28">G28 (4)</option><option value="G38">G38 (4)</option><option value="F22">F22 (4)</option><option value="E82">E82 (4)</option><option value="E36">E36 (4)</option><option value="E60">E60 (4)</option><option value="997">997 (4)</option><option value="F83">F83 (3)</option><option value="G81">G81 (3)</option><option value="F12">F12 (3)</option><option value="Q60">Q60 (3)</option><option value="991">991 (3)</option><option value="S650">S650 (2)</option><option value="MK7">MK7 (2)</option><option value="W205">W205 (2)</option><option value="G16">G16 (2)</option><option value="WRX">WRX (2)</option><option value="G60">G60 (2)</option><option value="G68">G68 (2)</option><option value="E88">E88 (2)</option><option value="W167">W167 (2)</option><option value="F20">F20 (2)</option><option value="E91">E91 (2)</option><option value="G23">G23 (2)</option><option value="F31">F31 (2)</option><option value="F86">F86 (2)</option><option value="E30">E30 (2)</option><option value="992">992 (2)</option><option value="G07">G07 (2)</option><option value="F23">F23 (2)</option><option value="G29">G29 (2)</option><option value="F87">F87 (1)</option><option value="F97">F97 (1)</option><option value="F98">F98 (1)</option><option value="G32">G32 (1)</option><option value="G11">G11 (1)</option><option value="G12">G12 (1)</option><option value="G15">G15 (1)</option><option value="G01">G01 (1)</option><option value="G02">G02 (1)</option><option value="G21">G21 (1)</option><option value="F152">F152 (1)</option><option value="G61">G61 (1)</option><option value="S550">S550 (1)</option><option value="E39">E39 (1)</option><option value="E63">E63 (1)</option><option value="W166">W166 (1)</option><option value="92A">92A (1)</option><option value="F06">F06 (1)</option><option value="E87">E87 (1)</option><option value="964">964 (1)</option><option value="G90">G90 (1)</option><option value="F21">F21 (1)</option><option value="F34">F34 (1)</option><option value="F11">F11 (1)</option><option value="F07">F07 (1)</option><option value="350Z">350Z (1)</option><option value="370Z">370Z (1)</option><option value="RZ34">RZ34 (1)</option><option value="E70">E70 (1)</option><option value="E71">E71 (1)</option><option value="981">981 (1)</option>
+</select></div>
+<div class="filter-group"><span>Price</span>
+<select id="f-pb" class="filter-select" aria-label="Filter by price band">
+<option value="">Any price</option><option value="under-100">Under $100</option><option value="100-300">$100–$300</option><option value="300-600">$300–$600</option><option value="600-plus">$600+</option>
+</select></div>
+<div class="filter-group"><span>Sort</span>
+<select id="f-sort" class="filter-select" aria-label="Sort results">
+<option value="relevance">Most relevant</option>
+<option value="price-asc">Price: low to high</option>
+<option value="price-desc">Price: high to low</option>
+<option value="rating">Top rated</option>
+</select></div>
+</div>
+<div id="search-status" style="color:var(--muted);font-size:.9rem;margin:6px 0"></div>
+<div id="search-results"></div>
+</div></div>
+<script>
+/* Instant filtered search. Reads ?q=, ?cat=, ?ch=, ?pb= on load so the
+   homepage chassis chips and live panel deep-link here with filters set. */
+document.addEventListener("DOMContentLoaded", function () {
+  var params = new URLSearchParams(window.location.search);
+  var input = document.getElementById("search-input");
+  var status = document.getElementById("search-status");
+  var results = document.getElementById("search-results");
+  var fCh = document.getElementById("f-ch");
+  var fPb = document.getElementById("f-pb");
+  var fSort = document.getElementById("f-sort");
+  var catChips = Array.prototype.slice.call(
+    document.querySelectorAll("#f-cat .lchip"));
+  var activeCat = params.get("cat") || "";
+  input.value = params.get("q") || "";
+  fCh.value = params.get("ch") || "";
+  fPb.value = params.get("pb") || "";
+
+  catChips.forEach(function (ch) {
+    var on = ch.getAttribute("data-cat") === activeCat;
+    ch.classList.toggle("active", on);
+    ch.addEventListener("click", function () {
+      catChips.forEach(function (x) { x.classList.remove("active"); });
+      ch.classList.add("active");
+      activeCat = ch.getAttribute("data-cat");
+      run();
+    });
+  });
+
+  function num(v) { v = parseFloat(v); return isNaN(v) ? null : v; }
+
+  function run() {
+    var q = input.value.trim();
+    var ch0 = fCh.value, pb0 = fPb.value;
+    var hasFilters = activeCat || ch0 || pb0;
+    /* Fix: filters alone are a valid browse — only demand typed input
+       when nothing else narrows the catalog. */
+    if (q.length < 2 && !hasFilters) {
+      status.textContent = "Type at least 2 characters — or pick filters and browse.";
+      results.innerHTML = "";
+      return;
+    }
+    FPSearch.loadIndex().then(function (docs) {
+      if (input.value.trim() !== q) return;
+      var words = FPSearch.wordsOf(q);
+      /* empty/short query + active filters = browse mode: every doc is a
+         candidate, ranked by sort mode instead of keyword score */
+      var scored = words.length ? FPSearch.score(docs, q)
+        : docs.map(function (d) { return {doc: d, score: 0}; });
+      var ch = fCh.value, pb = fPb.value, mode = fSort.value;
+      var filtered = scored.filter(function (r) {
+        var d = r.doc;
+        if (activeCat && d.cat !== activeCat) return false;
+        if (ch && (!d.ch || d.ch.indexOf(ch) === -1)) return false;
+        if (pb && d.pb !== pb) return false;
+        return true;
+      });
+      if (mode === "price-asc" || mode === "price-desc") {
+        filtered.sort(function (a, b) {
+          var pa = num(a.doc.pm), pbv = num(b.doc.pm);
+          if (pa === null && pbv === null) return 0;
+          if (pa === null) return 1;
+          if (pbv === null) return -1;
+          return mode === "price-asc" ? pa - pbv : pbv - pa;
+        });
+      } else if (mode === "rating") {
+        filtered.sort(function (a, b) {
+          return (b.doc.rt || 0) - (a.doc.rt || 0) || b.score - a.score;
+        });
+      }
+      var top = filtered.slice(0, 40);
+      var browseMode = words.length === 0;
+      var label = browseMode ? "browsing with filters"
+        : 'for "' + q + '"';
+      status.textContent = top.length
+        ? top.length + " result" + (top.length === 1 ? "" : "s") + " " + label +
+          (filtered.length > 40 ? " (showing top 40)" : "")
+        : browseMode
+          ? "No matches with these filters. Loosen a filter to see more."
+          : 'No matches for "' + q + '" with these filters. Loosen a filter or try the technical name, slang ("rims"), or old-school term ("mags").';
+      results.innerHTML = top.map(function (r) {
+        return FPSearch.resultRow(r.doc, words);
+      }).join("");
+      if (window.__fp_convert) window.__fp_convert(results);
+    }).catch(function () {
+      status.textContent = "Search index failed to load. Check your connection and try again.";
+    });
+  }
+
+  var deb = null;
+  input.addEventListener("input", function () {
+    clearTimeout(deb);
+    deb = setTimeout(run, 160);
+  });
+  [fCh, fPb, fSort].forEach(function (el) {
+    el.addEventListener("change", run);
+  });
+  document.getElementById("search-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    run();
+  });
+  /* Progressive index shards: re-run the current query as each category
+     shard arrives, so results fill in without retyping. */
+  var shardT = null;
+  if (window.FPSearch) FPSearch.onShard = function () {
+    clearTimeout(shardT);
+    shardT = setTimeout(run, 250);
+  };
+  run();
+});
+</script>
+<footer class="site"><div class="wrap"><div class="cols">
+<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:var(--text)">Catalog</b><br>
+<a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
+<div><b style="color:var(--text)">More</b><br>
+<a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
+<div><b style="color:var(--text)">Trust</b><br>
+<a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/contact.html">Contact</a><br><a href="https://partsplugvault.store/parts">Parts Plug Vault 🔌</a></div>
+<div><b style="color:var(--text)">Follow Conroy</b><br>
+<a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
+<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+</div>
+<small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+&copy; 2026 FactoryPlug. All rights reserved.</small>
+</div></footer>
 </body>
 </html>
