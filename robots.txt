@@ -1,3 +1,2 @@
 User-agent: *
 Allow: /
-Sitemap: https://conroyd372-pixel.github.io/factoryplug-catalog/sitemap.xml
