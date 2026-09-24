@@ -129,7 +129,7 @@
       '</ul>' +
       '<div class="fp-actions">' +
       '<button class="fp-continue" id="fpFitContinue">Continue to supplier &rarr;</button>' +
-      '<a class="fp-scripts" href="/guides/alibaba-chat-scripts.html">Copy a supplier chat script</a>' +
+      '<a class="fp-scripts" href="/factoryplug-catalog/guides/alibaba-chat-scripts.html">Copy a supplier chat script</a>' +
       '<button class="fp-close" id="fpFitClose">Not yet</button>' +
       '</div>' +
       '<p class="fp-note">Keep the whole conversation in the Alibaba chat — every message is timestamped in your order record.</p>' +
