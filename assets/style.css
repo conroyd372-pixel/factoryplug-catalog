@@ -61,6 +61,7 @@ header.site{position:sticky;top:0;z-index:60;background:rgba(10,12,17,.9);backdr
 .btn.disabled{background:#232a38;color:var(--muted);cursor:not-allowed;border:1px dashed var(--line2);box-shadow:none}
 .btn.deal{width:100%;padding:12px 14px;font-size:.93rem}
 .btn.buy{width:100%;padding:17px 20px;font-size:1.08rem;border-radius:14px}
+.btn.buy-amz{width:100%;padding:17px 20px;font-size:1.08rem;border-radius:14px}
 .btn-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 /* ---------- sections ---------- */
 section.block{padding:40px 0}
