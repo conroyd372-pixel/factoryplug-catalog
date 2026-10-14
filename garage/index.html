@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Garage — Shop by Your Car | FactoryPlug</title>
+<meta name="description" content="Pick your vehicle once and pull every compatible part in the catalog — exhaust, wheels, suspension, aero and more. Your garage saves on this device.">
+
+<link rel="canonical" href="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FactoryPlug">
+<meta property="og:title" content="My Garage — Shop by Your Car | FactoryPlug">
+<meta property="og:description" content="Pick your vehicle once and pull every compatible part in the catalog — exhaust, wheels, suspension, aero and more. Your garage saves on this device.">
+<meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="My Garage — Shop by Your Car | FactoryPlug">
+<meta name="twitter:description" content="Pick your vehicle once and pull every compatible part in the catalog — exhaust, wheels, suspension, aero and more. Your garage saves on this device.">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
+<script src="/factoryplug-catalog/assets/fx.js" defer></script>
+<script src="/factoryplug-catalog/assets/search.js" defer></script>
+<script>var FP_CAT_ORDER=["wheels", "brakes", "exhaust", "carbon", "lighting", "suspension", "engine", "interior", "offroad", "exterior", "drivetrain", "electronics", "vinyl", "tools", "k-swap", "conversion-kits"];var FP_CAT_TITLES={"wheels": "Forged Wheels", "brakes": "Brakes & Rotors", "exhaust": "Exhaust Systems", "carbon": "Aerodynamics & Exterior", "lighting": "Lighting", "suspension": "Suspension", "engine": "Engine & Fuel", "interior": "Interior Accessories", "offroad": "Off-Road & Trucks", "exterior": "Exterior Accessories", "drivetrain": "Drivetrain & Transmission", "electronics": "Electronics & Gauges", "vinyl": "Vinyl Wrap & Paint Protection", "tools": "Tools & Garage", "k-swap": "K-Swap", "conversion-kits": "Body Conversion Kits"};</script>
+<script>
+/* My Garage: Year -> Make -> Model -> Chassis picker + "Everything for your
+   X" client-side results, persisted in localStorage (key fp_garage_v1).
+   All picker options derive from /garage/vehicles.json, which is built from
+   the catalog's own chassis detections — never hand-typed. Used on /garage/
+   (picker + results + indicator) and vehicle pages (indicator only). */
+(function(){
+  var KEY = 'fp_garage_v1';
+  var CATALOG_URL = '/garage/catalog.json';
+  var VEHICLES_URL = '/garage/vehicles.json';
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY)); } catch(e){ return null; } }
+  function save(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+  function clear(){ try { localStorage.removeItem(KEY); } catch(e){} }
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  /* ---- saved-garage indicator: "Shopping for: F80 M3" + change/clear ---- */
+  var ind = document.getElementById('garage-indicator');
+  var g = load();
+  if (g && g.code && ind) {
+    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.classList.remove('hidden');
+    var c = document.getElementById('garage-clear');
+    if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+  }
+
+  /* ---- picker (hub page only) ---- */
+  var yearSel = document.getElementById('garage-year');
+  var makeSel = document.getElementById('garage-make');
+  var modelSel = document.getElementById('garage-model');
+  var chassisSel = document.getElementById('garage-chassis');
+  var goBtn = document.getElementById('garage-go');
+  var results = document.getElementById('garage-results');
+  if (!yearSel || !makeSel || !modelSel || !chassisSel) {
+    return; /* vehicle landing pages: indicator only */
+  }
+  function resetSel(sel, label){
+    sel.innerHTML = '<option value="">' + label + '</option>';
+    sel.disabled = true;
+  }
+  function covers(v, y){ return v.y0 != null && v.y1 != null && y >= v.y0 && y <= v.y1; }
+
+  fetch(VEHICLES_URL).then(function(r){ return r.json(); }).then(function(data){
+    var codes = Object.keys(data).filter(function(code){
+      var v = data[code]; return v.y0 != null && v.y1 != null;
+    });
+    if (!codes.length) return;
+    var minY = Math.min.apply(null, codes.map(function(c){ return data[c].y0; }));
+    var maxY = Math.max.apply(null, codes.map(function(c){ return data[c].y1; }));
+    for (var y = maxY; y >= minY; y--) {
+      var o = document.createElement('option');
+      o.value = y; o.textContent = y;
+      yearSel.appendChild(o);
+    }
+    function makesFor(year){
+      var seen = {};
+      codes.forEach(function(code){
+        if (covers(data[code], year)) seen[data[code].make] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function modelsFor(year, make){
+      var seen = {};
+      codes.forEach(function(code){
+        var v = data[code];
+        if (v.make === make && covers(v, year)) seen[v.model] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function chassisFor(year, make, model){
+      return codes.filter(function(code){
+        var v = data[code];
+        return v.make === make && v.model === model && covers(v, year);
+      }).sort(function(a, b){ return data[b].count - data[a].count; });
+    }
+    yearSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(makeSel, 'Select make…'); resetSel(modelSel, 'Select model…');
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!year) return;
+      makesFor(year).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        makeSel.appendChild(o);
+      });
+      makeSel.disabled = false;
+    });
+    makeSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(modelSel, 'Select model…'); resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!makeSel.value) return;
+      modelsFor(year, makeSel.value).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        modelSel.appendChild(o);
+      });
+      modelSel.disabled = false;
+    });
+    modelSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!modelSel.value) return;
+      chassisFor(year, makeSel.value, modelSel.value).forEach(function(code){
+        var v = data[code];
+        var o = document.createElement('option');
+        o.value = code;
+        o.textContent = code + ' — ' + v.years + ' (' + v.count + ' parts)';
+        chassisSel.appendChild(o);
+      });
+      chassisSel.disabled = false;
+    });
+    chassisSel.addEventListener('change', function(){
+      if (goBtn) goBtn.disabled = !chassisSel.value;
+    });
+    if (goBtn) goBtn.addEventListener('click', function(){
+      var code = chassisSel.value;
+      if (!code || !data[code]) return;
+      var v = data[code];
+      var _mt = (v.model || '').trim();
+      var _first = _mt.split(' ')[0].split('/')[0].toLowerCase();
+      // Never "Q50 Q50": when the model already starts with the chassis code,
+      // the model alone is the label (2026-10-07 fix).
+      var label = (_first === String(code).toLowerCase()) ? _mt : code + ' ' + _mt;
+      save({ code: code, make: v.make, label: label });
+      g = load();
+      if (ind) {
+        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.classList.remove('hidden');
+        var cc = document.getElementById('garage-clear');
+        if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+      }
+      renderResults(code, data);
+      if (results && results.scrollIntoView) results.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    /* Saved garage? show its parts right away. */
+    if (g && g.code && data[g.code] && results) renderResults(g.code, data);
+  }).catch(function(){ /* picker degrades silently; browse grid still works */ });
+
+  /* ---- "Everything for your X", grouped by category, from catalog.json ---- */
+  var catalogCache = null;
+  function getCatalog(cb){
+    if (catalogCache) { cb(catalogCache); return; }
+    fetch(CATALOG_URL).then(function(r){ return r.json(); }).then(function(j){
+      catalogCache = j; cb(j);
+    }).catch(function(){ cb(null); });
+  }
+  function card(p){
+    return '<a class="gcard" href="' + esc(p.url) + '">' +
+      '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy">' +
+      '<span class="gcard-body"><span class="gcard-title">' + esc(p.title) + '</span>' +
+      '<span class="gcard-link">View part →</span></span></a>';
+  }
+  function renderResults(code, vdata){
+    if (!results) return;
+    var v = vdata[code];
+    results.innerHTML = '<p class="garage-loading">Pulling every part for your ' +
+      esc(code) + '…</p>';
+    getCatalog(function(cat){
+      if (!cat || !v) {
+        results.innerHTML = '<p class="garage-loading">Could not load the parts index — ' +
+          '<a href="' + esc(v ? v.url : '/garage/') + '">open the ' + esc(code) +
+          ' garage page →</a></p>';
+        return;
+      }
+      var items = cat.filter(function(p){
+        return p.chassis && p.chassis.indexOf(code) !== -1;
+      });
+      var order = (typeof FP_CAT_ORDER !== 'undefined') ? FP_CAT_ORDER : [];
+      var titles = (typeof FP_CAT_TITLES !== 'undefined') ? FP_CAT_TITLES : {};
+      var groups = {};
+      items.forEach(function(p){
+        (groups[p.category] = groups[p.category] || []).push(p);
+      });
+      var html = '<div class="res-head"><h2 class="sec">Everything for your ' +
+        esc(code) + '</h2><a class="btn ghost" href="' + esc(v.url) +
+        '">Full ' + esc(code) + ' page →</a></div>' +
+        '<p class="res-sub">' + items.length + ' parts that fit the ' +
+        esc(v.make + ' ' + v.model) + ' (' + esc(v.years) +
+        ') — grouped by category. Only catalog parts with detected ' +
+        esc(code) + ' fitment are shown.</p>';
+      var seenCats = {};
+      order.forEach(function(slug){
+        if (groups[slug]) { seenCats[slug] = true; html += groupHtml(slug, groups[slug], titles); }
+      });
+      Object.keys(groups).sort().forEach(function(slug){
+        if (!seenCats[slug]) html += groupHtml(slug, groups[slug], titles);
+      });
+      if (!items.length) {
+        html += '<p class="garage-loading">No parts tagged for ' + esc(code) +
+          ' yet — try the browse grid below.</p>';
+      }
+      html += '<p class="fine">Fitment is never guaranteed — always confirm year, ' +
+        'model, trim and VIN directly with the supplier contact before buying.</p>';
+      results.innerHTML = html;
+    });
+  }
+  function groupHtml(slug, items, titles){
+    var title = titles[slug] || slug;
+    var cards = items.map(card).join('');
+    return '<div class="res-head"><h2 class="sec">' + esc(title) +
+      ' (' + items.length + ')</h2></div>' +
+      '<div class="gcard-grid">' + cards + '</div>';
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<nav>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+</nav>
+</div></header>
+<section class="content-sec"><div class="wrap-narrow">
+<div id="garage-indicator" class="garage-indicator hidden" role="status"></div>
+<h1>My Garage 🚗</h1>
+<p class="sec-sub">Pick your ride once — we'll pull everything in the catalog
+that fits it. Your garage is saved on this device, no account needed.</p>
+<div class="garage-picker">
+<label>Year
+<select id="garage-year"><option value="">Select year…</option></select></label>
+<label>Make
+<select id="garage-make" disabled><option value="">Select make…</option></select></label>
+<label>Model
+<select id="garage-model" disabled><option value="">Select model…</option></select></label>
+<label>Chassis
+<select id="garage-chassis" disabled><option value="">Select chassis…</option></select></label>
+<button id="garage-go" class="btn deal" type="button" disabled>Show my parts →</button>
+</div>
+<p class="fine">Only vehicles with parts in the catalog are listed — every
+option is built from real catalog fitment data, never hand-typed.</p>
+<div id="garage-results" class="garage-results" aria-live="polite"></div>
+</div></section>
+<section class="content-sec" style="max-width:none">
+<div class="sec-head"><h2 class="sec">Browse every vehicle</h2></div>
+<h2 class="sec">Audi</h2><div class="veh-grid"><a class="veh-card" href="/factoryplug-catalog/garage/c8/"><b>C8 A6 S6 RS6 A7</b><span>2019–2020 · 82 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/c7/"><b>C7 A6 S6 RS6 A7</b><span>2012–2014 · 31 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/b9/"><b>B9 A4 A5 S4 S5 RS4 RS5</b><span>2017–2019 · 28 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/b8/"><b>B8 A4 A5 S4 S5</b><span>2009–2012 · 22 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/8v/"><b>8V A3 S3 RS3 TT</b><span>2013–2015 · 10 parts</span></a></div><h2 class="sec">BMW</h2><div class="veh-grid"><a class="veh-card" href="/factoryplug-catalog/garage/g80/"><b>G80 M3 (G80)</b><span>2021+ · 133 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g82/"><b>G82 M4 Coupe (G82)</b><span>2021+ · 116 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/e92/"><b>E92 3 Series Coupe (E92)</b><span>2007–2013 · 96 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f30/"><b>F30 3 Series (F30)</b><span>2012–2019 · 90 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g20/"><b>G20 3 Series (G20)</b><span>2019+ · 87 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/e90/"><b>E90 3 Series Sedan (E90)</b><span>2006–2011 · 86 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/e46/"><b>E46 3 Series (E46)</b><span>1999–2006 · 74 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f80/"><b>F80 M3 (F80)</b><span>2015–2018 · 61 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g30/"><b>G30 5 Series (G30)</b><span>2017–2023 · 59 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f82/"><b>F82 M4 Coupe (F82)</b><span>2015–2020 · 55 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g83/"><b>G83 M4 Convertible (G83)</b><span>2021+ · 53 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/e93/"><b>E93 3 Series Convertible (E93)</b><span>2007–2013 · 52 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f32/"><b>F32 4 Series Coupe (F32)</b><span>2014–2020 · 46 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f10/"><b>F10 5 Series (F10)</b><span>2011–2016 · 45 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f20/"><b>F20 1 Series Hatch (F20)</b><span>2012–2019 · 38 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g87/"><b>G87 M2 (G87)</b><span>2023+ · 37 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f90/"><b>F90 M5 (F90)</b><span>2018–2023 · 37 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f87/"><b>F87 M2 (F87)</b><span>2016–2021 · 36 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f22/"><b>F22 2 Series Coupe (F22)</b><span>2014–2021 · 33 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f36/"><b>F36 4 Series Gran Coupe (F36)</b><span>2015–2020 · 27 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g22/"><b>G22 4 Series Coupe (G22)</b><span>2021+ · 26 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/e82/"><b>E82 1 Series Coupe (E82)</b><span>2008–2013 · 25 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f83/"><b>F83 M4 Convertible (F83)</b><span>2015–2020 · 24 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g28/"><b>G28 3 Series Li (G28)</b><span>2019+ · 21 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g42/"><b>G42 2 Series Coupe (G42)</b><span>2022+ · 20 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/e91/"><b>E91 3 Series Touring (E91)</b><span>2006–2012 · 20 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f33/"><b>F33 4 Series Convertible (F33)</b><span>2014–2020 · 20 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/e60/"><b>E60 5 Series (E60)</b><span>2004–2010 · 19 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g38/"><b>G38 5 Series Li (G38)</b><span>2017–2023 · 18 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f35/"><b>F35 3 Series Li (F35)</b><span>2013–2019 · 17 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/e36/"><b>E36 3 Series (E36)</b><span>1992–1999 · 17 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g81/"><b>G81 M3 Touring (G81)</b><span>2023+ · 16 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f31/"><b>F31 3 Series Touring (F31)</b><span>2013–2019 · 16 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g01/"><b>G01 X3 (G01)</b><span>2018–2024 · 15 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f12/"><b>F12 6 Series Convertible (F12)</b><span>2012–2019 · 13 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g90/"><b>G90 M5 (G90)</b><span>2024+ · 13 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f34/"><b>F34 3 Series Gran Turismo (F34)</b><span>2014–2020 · 13 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g05/"><b>G05 X5</b><span>2019 · 13 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g26/"><b>G26 4 Series Gran Coupe (G26)</b><span>2022+ · 12 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f18/"><b>F18 5 Series Li (F18)</b><span>2011–2017 · 12 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f21/"><b>F21 1 Series Hatch 3dr (F21)</b><span>2012–2019 · 12 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f11/"><b>F11 5 Series Touring (F11)</b><span>2011–2017 · 12 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g29/"><b>G29 Z4 (G29)</b><span>2019+ · 12 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/e70/"><b>E70 X5 (E70)</b><span>2007–2013 · 12 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g11/"><b>G11 7 Series (G11)</b><span>2016–2022 · 11 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/e88/"><b>E88 1 Series Convertible (E88)</b><span>2008–2013 · 11 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g32/"><b>G32 6 Series Gran Turismo (G32)</b><span>2018–2023 · 10 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g21/"><b>G21 3 Series Touring (G21)</b><span>2020+ · 10 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/e63/"><b>E63 6 Series Coupe (E63)</b><span>2004–2010 · 9 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/e71/"><b>E71 X6 (E71)</b><span>2008–2014 · 9 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g12/"><b>G12 7 Series Li (G12)</b><span>2016–2022 · 8 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g15/"><b>G15 8 Series Coupe (G15)</b><span>2019+ · 8 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g02/"><b>G02 X4 (G02)</b><span>2019–2025 · 8 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g60/"><b>G60 5 Series (G60)</b><span>2024+ · 8 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/e39/"><b>E39 5 Series (E39)</b><span>1996–2003 · 8 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g23/"><b>G23 4 Series Convertible (G23)</b><span>2021+ · 8 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/e87/"><b>E87 1 Series Hatch (E87)</b><span>2005–2011 · 8 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f85/"><b>F85 X5 M (F85)</b><span>2015–2018 · 8 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/e30/"><b>E30 3 Series (E30)</b><span>1984–1991 · 8 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f23/"><b>F23 2 Series Convertible (F23)</b><span>2015–2021 · 8 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g06/"><b>G06 X6</b><span>2020 · 7 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g16/"><b>G16 8 Series Gran Coupe (G16)</b><span>2020+ · 6 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f97/"><b>F97 X3 M (F97)</b><span>2020+ · 6 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f06/"><b>F06 6 Series Gran Coupe (F06)</b><span>2013–2019 · 6 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/g07/"><b>G07 X7 (G07)</b><span>2019+ · 6 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f15/"><b>F15 X5</b><span>2014 · 6 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/f07/"><b>F07 5 Series Gran Turismo (F07)</b><span>2010–2017 · 5 parts</span></a></div><h2 class="sec">Chevrolet</h2><div class="veh-grid"><a class="veh-card" href="/factoryplug-catalog/garage/z06/"><b>Z06 Corvette Z06 (C8)</b><span>2023+ · 20 parts</span></a></div><h2 class="sec">Ford</h2><div class="veh-grid"><a class="veh-card" href="/factoryplug-catalog/garage/s650/"><b>S650 Mustang (S650)</b><span>2024+ · 14 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/s550/"><b>S550 Mustang (S550)</b><span>2015–2023 · 9 parts</span></a></div><h2 class="sec">Honda</h2><div class="veh-grid"><a class="veh-card" href="/factoryplug-catalog/garage/eg/"><b>EG Civic (EG)</b><span>1992–1995 · 13 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/ek/"><b>EK Civic (EK)</b><span>1996–2000 · 12 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/fl5/"><b>FL5 Civic Type R</b><span>2023–2025 · 10 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/fk8/"><b>FK8 Civic Type R</b><span>2017–2021 · 8 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/dc2/"><b>DC2 Integra (DC2)</b><span>1994–2001 · 7 parts</span></a></div><h2 class="sec">Infiniti</h2><div class="veh-grid"><a class="veh-card" href="/factoryplug-catalog/garage/q50/"><b>Q50</b><span>2014+ · 48 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/q60/"><b>Q60</b><span>2017–2022 · 28 parts</span></a></div><h2 class="sec">Mercedes-Benz</h2><div class="veh-grid"><a class="veh-card" href="/factoryplug-catalog/garage/w205/"><b>W205 C-Class (W205)</b><span>2015–2021 · 28 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/w204/"><b>W204 C Class</b><span>2008–2014 · 16 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/w213/"><b>W213 E Class</b><span>2016–2017 · 13 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/w222/"><b>W222 S Class</b><span>2014 · 11 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/w176/"><b>W176 A Class</b><span>2013–2015 · 5 parts</span></a></div><h2 class="sec">Nissan</h2><div class="veh-grid"><a class="veh-card" href="/factoryplug-catalog/garage/370z/"><b>370Z (Z34)</b><span>2009–2020 · 23 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/350z/"><b>350Z (Z33)</b><span>2003–2008 · 18 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/s14/"><b>S14 240SX Silvia</b><span>1995–1998 · 12 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/r35/"><b>R35 GT-R</b><span>2008–2017 · 12 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/s13/"><b>S13 240SX Silvia</b><span>1989–1994 · 12 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/z33/"><b>Z33 350Z</b><span>2003–2004 · 11 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/z34/"><b>Z34 370Z</b><span>2009–2010 · 11 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/s15/"><b>S15 Silvia</b><span>1999–2002 · 9 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/r34/"><b>R34 Skyline GT-R</b><span>1999–2002 · 7 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/r33/"><b>R33 Skyline GT-R</b><span>1995–1998 · 6 parts</span></a></div><h2 class="sec">Porsche</h2><div class="veh-grid"><a class="veh-card" href="/factoryplug-catalog/garage/991/"><b>991 911 (991)</b><span>2012–2019 · 52 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/992/"><b>992 911 (992)</b><span>2020+ · 40 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/718/"><b>718</b><span>2016 · 29 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/997/"><b>997 911 (997)</b><span>2005–2012 · 18 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/958/"><b>958 Cayenne</b><span>2011–2012 · 17 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/981/"><b>981 Boxster/Cayman (981)</b><span>2013–2016 · 13 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/987/"><b>987 Boxster Cayman</b><span>2005–2006 · 8 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/996/"><b>996 911</b><span>1999–2003 · 6 parts</span></a></div><h2 class="sec">Subaru</h2><div class="veh-grid"><a class="veh-card" href="/factoryplug-catalog/garage/wrx/"><b>WRX / WRX STI</b><span>2015+ · 50 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/brz/"><b>BRZ</b><span>2013+ · 37 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/vb/"><b>VB WRX</b><span>2022–2024 · 16 parts</span></a></div><h2 class="sec">Toyota</h2><div class="veh-grid"><a class="veh-card" href="/factoryplug-catalog/garage/a90/"><b>A90 GR Supra (A90)</b><span>2020+ · 28 parts</span></a></div><h2 class="sec">Volkswagen</h2><div class="veh-grid"><a class="veh-card" href="/factoryplug-catalog/garage/mk7/"><b>MK7 Golf GTI (Mk7)</b><span>2015–2021 · 38 parts</span></a><a class="veh-card" href="/factoryplug-catalog/garage/mk8/"><b>MK8 Golf GTI/R (Mk8)</b><span>2022+ · 9 parts</span></a></div>
+</section>
+<footer class="site"><div class="wrap"><div class="cols">
+<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:var(--text)">Catalog</b><br>
+<a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
+<div><b style="color:var(--text)">More</b><br>
+<a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
+<div><b style="color:var(--text)">Trust</b><br>
+<a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
+<div><b style="color:var(--text)">Follow Conroy</b><br>
+<a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
+<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+</div>
+<small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+&copy; 2026 FactoryPlug. All rights reserved.</small>
+</div></footer>
+</body>
+</html>

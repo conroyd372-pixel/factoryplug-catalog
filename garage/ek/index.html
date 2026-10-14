@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Honda Civic (EK) Parts (1996–2000) — 12 Parts | FactoryPlug</title>
+<meta name="description" content="Every Honda Civic (EK) (1996–2000) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+
+<link rel="canonical" href="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/ek/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FactoryPlug">
+<meta property="og:title" content="Honda Civic (EK) Parts (1996–2000) — 12 Parts | FactoryPlug">
+<meta property="og:description" content="Every Honda Civic (EK) (1996–2000) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/ek/">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Honda Civic (EK) Parts (1996–2000) — 12 Parts | FactoryPlug">
+<meta name="twitter:description" content="Every Honda Civic (EK) (1996–2000) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
+<script src="/factoryplug-catalog/assets/fx.js" defer></script>
+<script src="/factoryplug-catalog/assets/search.js" defer></script>
+<script>
+/* My Garage: Year -> Make -> Model -> Chassis picker + "Everything for your
+   X" client-side results, persisted in localStorage (key fp_garage_v1).
+   All picker options derive from /garage/vehicles.json, which is built from
+   the catalog's own chassis detections — never hand-typed. Used on /garage/
+   (picker + results + indicator) and vehicle pages (indicator only). */
+(function(){
+  var KEY = 'fp_garage_v1';
+  var CATALOG_URL = '/garage/catalog.json';
+  var VEHICLES_URL = '/garage/vehicles.json';
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY)); } catch(e){ return null; } }
+  function save(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+  function clear(){ try { localStorage.removeItem(KEY); } catch(e){} }
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  /* ---- saved-garage indicator: "Shopping for: F80 M3" + change/clear ---- */
+  var ind = document.getElementById('garage-indicator');
+  var g = load();
+  if (g && g.code && ind) {
+    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.classList.remove('hidden');
+    var c = document.getElementById('garage-clear');
+    if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+  }
+
+  /* ---- picker (hub page only) ---- */
+  var yearSel = document.getElementById('garage-year');
+  var makeSel = document.getElementById('garage-make');
+  var modelSel = document.getElementById('garage-model');
+  var chassisSel = document.getElementById('garage-chassis');
+  var goBtn = document.getElementById('garage-go');
+  var results = document.getElementById('garage-results');
+  if (!yearSel || !makeSel || !modelSel || !chassisSel) {
+    return; /* vehicle landing pages: indicator only */
+  }
+  function resetSel(sel, label){
+    sel.innerHTML = '<option value="">' + label + '</option>';
+    sel.disabled = true;
+  }
+  function covers(v, y){ return v.y0 != null && v.y1 != null && y >= v.y0 && y <= v.y1; }
+
+  fetch(VEHICLES_URL).then(function(r){ return r.json(); }).then(function(data){
+    var codes = Object.keys(data).filter(function(code){
+      var v = data[code]; return v.y0 != null && v.y1 != null;
+    });
+    if (!codes.length) return;
+    var minY = Math.min.apply(null, codes.map(function(c){ return data[c].y0; }));
+    var maxY = Math.max.apply(null, codes.map(function(c){ return data[c].y1; }));
+    for (var y = maxY; y >= minY; y--) {
+      var o = document.createElement('option');
+      o.value = y; o.textContent = y;
+      yearSel.appendChild(o);
+    }
+    function makesFor(year){
+      var seen = {};
+      codes.forEach(function(code){
+        if (covers(data[code], year)) seen[data[code].make] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function modelsFor(year, make){
+      var seen = {};
+      codes.forEach(function(code){
+        var v = data[code];
+        if (v.make === make && covers(v, year)) seen[v.model] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function chassisFor(year, make, model){
+      return codes.filter(function(code){
+        var v = data[code];
+        return v.make === make && v.model === model && covers(v, year);
+      }).sort(function(a, b){ return data[b].count - data[a].count; });
+    }
+    yearSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(makeSel, 'Select make…'); resetSel(modelSel, 'Select model…');
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!year) return;
+      makesFor(year).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        makeSel.appendChild(o);
+      });
+      makeSel.disabled = false;
+    });
+    makeSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(modelSel, 'Select model…'); resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!makeSel.value) return;
+      modelsFor(year, makeSel.value).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        modelSel.appendChild(o);
+      });
+      modelSel.disabled = false;
+    });
+    modelSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!modelSel.value) return;
+      chassisFor(year, makeSel.value, modelSel.value).forEach(function(code){
+        var v = data[code];
+        var o = document.createElement('option');
+        o.value = code;
+        o.textContent = code + ' — ' + v.years + ' (' + v.count + ' parts)';
+        chassisSel.appendChild(o);
+      });
+      chassisSel.disabled = false;
+    });
+    chassisSel.addEventListener('change', function(){
+      if (goBtn) goBtn.disabled = !chassisSel.value;
+    });
+    if (goBtn) goBtn.addEventListener('click', function(){
+      var code = chassisSel.value;
+      if (!code || !data[code]) return;
+      var v = data[code];
+      var _mt = (v.model || '').trim();
+      var _first = _mt.split(' ')[0].split('/')[0].toLowerCase();
+      // Never "Q50 Q50": when the model already starts with the chassis code,
+      // the model alone is the label (2026-10-07 fix).
+      var label = (_first === String(code).toLowerCase()) ? _mt : code + ' ' + _mt;
+      save({ code: code, make: v.make, label: label });
+      g = load();
+      if (ind) {
+        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.classList.remove('hidden');
+        var cc = document.getElementById('garage-clear');
+        if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+      }
+      renderResults(code, data);
+      if (results && results.scrollIntoView) results.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    /* Saved garage? show its parts right away. */
+    if (g && g.code && data[g.code] && results) renderResults(g.code, data);
+  }).catch(function(){ /* picker degrades silently; browse grid still works */ });
+
+  /* ---- "Everything for your X", grouped by category, from catalog.json ---- */
+  var catalogCache = null;
+  function getCatalog(cb){
+    if (catalogCache) { cb(catalogCache); return; }
+    fetch(CATALOG_URL).then(function(r){ return r.json(); }).then(function(j){
+      catalogCache = j; cb(j);
+    }).catch(function(){ cb(null); });
+  }
+  function card(p){
+    return '<a class="gcard" href="' + esc(p.url) + '">' +
+      '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy">' +
+      '<span class="gcard-body"><span class="gcard-title">' + esc(p.title) + '</span>' +
+      '<span class="gcard-link">View part →</span></span></a>';
+  }
+  function renderResults(code, vdata){
+    if (!results) return;
+    var v = vdata[code];
+    results.innerHTML = '<p class="garage-loading">Pulling every part for your ' +
+      esc(code) + '…</p>';
+    getCatalog(function(cat){
+      if (!cat || !v) {
+        results.innerHTML = '<p class="garage-loading">Could not load the parts index — ' +
+          '<a href="' + esc(v ? v.url : '/garage/') + '">open the ' + esc(code) +
+          ' garage page →</a></p>';
+        return;
+      }
+      var items = cat.filter(function(p){
+        return p.chassis && p.chassis.indexOf(code) !== -1;
+      });
+      var order = (typeof FP_CAT_ORDER !== 'undefined') ? FP_CAT_ORDER : [];
+      var titles = (typeof FP_CAT_TITLES !== 'undefined') ? FP_CAT_TITLES : {};
+      var groups = {};
+      items.forEach(function(p){
+        (groups[p.category] = groups[p.category] || []).push(p);
+      });
+      var html = '<div class="res-head"><h2 class="sec">Everything for your ' +
+        esc(code) + '</h2><a class="btn ghost" href="' + esc(v.url) +
+        '">Full ' + esc(code) + ' page →</a></div>' +
+        '<p class="res-sub">' + items.length + ' parts that fit the ' +
+        esc(v.make + ' ' + v.model) + ' (' + esc(v.years) +
+        ') — grouped by category. Only catalog parts with detected ' +
+        esc(code) + ' fitment are shown.</p>';
+      var seenCats = {};
+      order.forEach(function(slug){
+        if (groups[slug]) { seenCats[slug] = true; html += groupHtml(slug, groups[slug], titles); }
+      });
+      Object.keys(groups).sort().forEach(function(slug){
+        if (!seenCats[slug]) html += groupHtml(slug, groups[slug], titles);
+      });
+      if (!items.length) {
+        html += '<p class="garage-loading">No parts tagged for ' + esc(code) +
+          ' yet — try the browse grid below.</p>';
+      }
+      html += '<p class="fine">Fitment is never guaranteed — always confirm year, ' +
+        'model, trim and VIN directly with the supplier contact before buying.</p>';
+      results.innerHTML = html;
+    });
+  }
+  function groupHtml(slug, items, titles){
+    var title = titles[slug] || slug;
+    var cards = items.map(card).join('');
+    return '<div class="res-head"><h2 class="sec">' + esc(title) +
+      ' (' + items.length + ')</h2></div>' +
+      '<div class="gcard-grid">' + cards + '</div>';
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Honda Civic (EK) Parts (1996\u20132000)", "description": "Every Honda Civic (EK) compatible part in the FactoryPlug catalog."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<nav>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+</nav>
+</div></header>
+<section class="content-sec"><div class="wrap-narrow">
+<div id="garage-indicator" class="garage-indicator hidden" role="status"></div>
+<nav aria-label="Breadcrumb"><ol class="crumbs">
+<li><a href="/factoryplug-catalog/">Home</a></li><li><a href="/factoryplug-catalog/garage/">My Garage</a></li>
+<li aria-current="page">EK</li></ol></nav>
+<h1>Honda Civic (EK) Parts <span class="yr">(1996–2000)</span></h1>
+<p class="sec-sub">Everything in the catalog for your EK — grouped by
+category. 12 parts and counting.</p>
+<p class="fine">Fitment is never guaranteed — always confirm year, model, trim
+and VIN directly with the supplier contact before buying.</p>
+</div></section>
+<section class="content-sec" style="max-width:none">
+<div class="sec-head"><h2 class="sec">Exhaust Systems (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="auso stainless exhaust manifold header for 88-00 honda civic d-series ej/eg/eh/ek d15 auso stainless exhaust manifold header for 88-00 honda civic d-series ej/eg/eh/ek d15   eg ek" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="EG EK" data-material="">
+<a class="pimg" href="/factoryplug-catalog/exhaust/auso-stainless-exhaust-manifold-header-for-88-00-honda-civic.html"><img src="/factoryplug-catalog/assets/img/products/auso-stainless-exhaust-manifold-header-for-88-00-honda-civic/hero.webp" alt="Auso Stainless Exhaust Manifold Header For 88-00 Honda Civic D-series Ej/eg/eh/ek D15" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/auso-stainless-exhaust-manifold-header-for-88-00-honda-civic.html">Auso Stainless Exhaust Manifold Header For 88-00 Honda Civic D-series Ej/eg/eh/ek D15</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/auso-stainless-exhaust-manifold-header-for-88-00-honda-civic.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="k swap k20 k24 megaphone 3&quot; exit 4-1 header integra eg ek dc2 honda acura civic v band exhaust header k swap k20 k24 megaphone 3&quot; exit 4-1 header integra eg ek dc2 honda acura civic v band exhaust header   eg ek dc2" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="EG EK DC2" data-material="">
+<a class="pimg" href="/factoryplug-catalog/exhaust/k-swap-k20-k24-megaphone-3-exit-4-1-header-integra-eg-ek-dc2.html"><img src="/factoryplug-catalog/assets/img/products/k-swap-k20-k24-megaphone-3-exit-4-1-header-integra-eg-ek-dc2/hero.webp" alt="K Swap K20 K24 Megaphone 3&quot; Exit 4-1 Header Integra Eg Ek Dc2 Honda Acura Civic V Band Exhaust Header" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/k-swap-k20-k24-megaphone-3-exit-4-1-header-integra-eg-ek-dc2.html">K Swap K20 K24 Megaphone 3&quot; Exit 4-1 Header Integra Eg Ek Dc2 Honda Acura Civic V Band Exhaust Header</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/k-swap-k20-k24-megaphone-3-exit-4-1-header-integra-eg-ek-dc2.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Suspension (3)</h2></div><div class="prod-grid"><article class="prod-card" data-name="auso-racing aluminum silver billet rear lower control arm subframe brace tie bar for for ek auso-racing aluminum silver billet rear lower control arm subframe brace tie bar for for ek   ek" data-price-min="" data-rating="" data-reviews="0" data-cat="suspension" data-band="" data-chassis="EK" data-material="">
+<a class="pimg" href="/factoryplug-catalog/suspension/auso-racing-aluminum-silver-billet-rear-lower-control-arm-su.html"><img src="/factoryplug-catalog/assets/img/products/auso-racing-aluminum-silver-billet-rear-lower-control-arm-su/hero.webp" alt="Auso-racing Aluminum Silver Billet Rear Lower Control Arm Subframe Brace Tie Bar For For Ek" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/suspension/auso-racing-aluminum-silver-billet-rear-lower-control-arm-su.html">Auso-racing Aluminum Silver Billet Rear Lower Control Arm Subframe Brace Tie Bar For For Ek</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/auso-racing-aluminum-silver-billet-rear-lower-control-arm-su.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="kyostar ek lower control arm and subframe brace for 88-95 for honda for civic 94-01 acura integra 96-00 for honda for civic kyostar ek lower control arm and subframe brace for 88-95 for honda for civic 94-01 acura integra 96-00 for honda for civic   ek" data-price-min="" data-rating="" data-reviews="0" data-cat="suspension" data-band="" data-chassis="EK" data-material="">
+<a class="pimg" href="/factoryplug-catalog/suspension/kyostar-ek-lower-control-arm-and-subframe-brace-for-88-95-fo.html"><img src="/factoryplug-catalog/assets/img/products/kyostar-ek-lower-control-arm-and-subframe-brace-for-88-95-fo/hero.webp" alt="Kyostar Ek Lower Control Arm And Subframe Brace For 88-95 For Honda For Civic 94-01 Acura Integra 96-00 For Honda For Civic" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/suspension/kyostar-ek-lower-control-arm-and-subframe-brace-for-88-95-fo.html">Kyostar Ek Lower Control Arm And Subframe Brace For 88-95 For Honda For Civic 94-01 Acura Integra 96-00 For Honda For Civic</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/kyostar-ek-lower-control-arm-and-subframe-brace-for-88-95-fo.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="dwd coilover for racing honda civic 6th gen (rear fork) 96-00 ek/em/dc2/ej ys022 dwd coilover for racing honda civic 6th gen (rear fork) 96-00 ek/em/dc2/ej ys022 zhejiang longtai shock absorber co., ltd.  ek dc2" data-price-min="350" data-rating="4.8" data-reviews="0" data-cat="suspension" data-band="300-600" data-chassis="EK DC2" data-material="">
+<a class="pimg" href="/factoryplug-catalog/suspension/dwd-coilover-for-racing-honda-civic-6th-gen-rear-fork-96-00.html"><img src="https://s.alicdn.com/@sc04/kf/H15a8aa58b3c642709364a973738d57fb4.jpg" alt="DWD Coilover for Racing Honda Civic 6th Gen (Rear Fork) 96-00 EK/EM/DC2/EJ YS022" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/suspension/dwd-coilover-for-racing-honda-civic-6th-gen-rear-fork-96-00.html">DWD Coilover for Racing Honda Civic 6th Gen (Rear Fork) 96-00 EK/EM/DC2/EJ YS022</a></h3>
+<div class="price"><span class="conv-price" data-min="350" data-max="950" data-cur="USD" data-orig="$350–$950">$350–$950</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.8 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:96%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/zhejiang-longtai-shock-absorber-co-ltd.html">Zhejiang Longtai Shock Absorber Co., Ltd.</a> · <b>4.8</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/dwd-coilover-for-racing-honda-civic-6th-gen-rear-fork-96-00.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Engine &amp; Fuel (3)</h2></div><div class="prod-grid"><article class="prod-card" data-name="koastar red plastic air intake pipe ek eg dc2 filter oem standard size koastar red plastic air intake pipe ek eg dc2 filter oem standard size   eg ek dc2" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="EG EK DC2" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/koastar-red-plastic-air-intake-pipe-ek-eg-dc2-filter-oem-sta.html"><img src="/factoryplug-catalog/assets/img/products/koastar-red-plastic-air-intake-pipe-ek-eg-dc2-filter-oem-sta/hero.webp" alt="Koastar Red Plastic Air Intake Pipe Ek Eg Dc2 Filter Oem Standard Size" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/koastar-red-plastic-air-intake-pipe-ek-eg-dc2-filter-oem-sta.html">Koastar Red Plastic Air Intake Pipe Ek Eg Dc2 Filter Oem Standard Size</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/koastar-red-plastic-air-intake-pipe-ek-eg-dc2-filter-oem-sta.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="wholesale real carbon fiber intake tube car air filter intake pipe for 92-00 eg ek wholesale real carbon fiber intake tube car air filter intake pipe for 92-00 eg ek   eg ek" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="EG EK" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/engine/wholesale-real-carbon-fiber-intake-tube-car-air-filter-intak.html"><img src="/factoryplug-catalog/assets/img/products/wholesale-real-carbon-fiber-intake-tube-car-air-filter-intak/hero.webp" alt="Wholesale Real Carbon Fiber Intake Tube Car Air Filter Intake Pipe For 92-00 Eg Ek" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/wholesale-real-carbon-fiber-intake-tube-car-air-filter-intak.html">Wholesale Real Carbon Fiber Intake Tube Car Air Filter Intake Pipe For 92-00 Eg Ek</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/wholesale-real-carbon-fiber-intake-tube-car-air-filter-intak.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="water cooling aluminum radiator for honda civic ek w,k swap 1996-2000 water cooling aluminum radiator for honda civic ek w,k swap 1996-2000   ek" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="EK" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/water-cooling-aluminum-radiator-for-honda-civic-ek-w-k-swap.html"><img src="/factoryplug-catalog/assets/img/products/water-cooling-aluminum-radiator-for-honda-civic-ek-w-k-swap/hero.webp" alt="Water Cooling Aluminum Radiator For Honda Civic Ek W,K Swap 1996-2000" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/water-cooling-aluminum-radiator-for-honda-civic-ek-w-k-swap.html">Water Cooling Aluminum Radiator For Honda Civic Ek W,K Swap 1996-2000</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/water-cooling-aluminum-radiator-for-honda-civic-ek-w-k-swap.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">K-Swap (4)</h2></div><div class="prod-grid"><article class="prod-card" data-name="iatf16949 k20 k20a2 k24 k series swap tucked wire harness civic ek eg ef acura wire harness iatf16949 k20 k20a2 k24 k series swap tucked wire harness civic ek eg ef acura wire harness   ef eg ek" data-price-min="" data-rating="" data-reviews="0" data-cat="k-swap" data-band="" data-chassis="EF EG EK" data-material="">
+<a class="pimg" href="/factoryplug-catalog/k-swap/iatf16949-k20-k20a2-k24-k-series-swap-tucked-wire-harness-ci.html"><img src="/factoryplug-catalog/assets/img/products/iatf16949-k20-k20a2-k24-k-series-swap-tucked-wire-harness-ci/hero.webp" alt="Iatf16949 K20 K20a2 K24 K Series Swap Tucked Wire Harness Civic Ek Eg Ef Acura Wire Harness" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/k-swap/iatf16949-k20-k20a2-k24-k-series-swap-tucked-wire-harness-ci.html">Iatf16949 K20 K20a2 K24 K Series Swap Tucked Wire Harness Civic Ek Eg Ef Acura Wire Harness</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/k-swap/iatf16949-k20-k20a2-k24-k-series-swap-tucked-wire-harness-ci.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="k-swap engine mount bracket for honda civic 96-00 eg ek k20 k24 k-series mount kit engine swap k-swap engine mount bracket for honda civic 96-00 eg ek k20 k24 k-series mount kit engine swap   eg ek" data-price-min="" data-rating="" data-reviews="0" data-cat="k-swap" data-band="" data-chassis="EG EK" data-material="">
+<a class="pimg" href="/factoryplug-catalog/k-swap/k-swap-engine-mount-bracket-for-honda-civic-96-00-eg-ek-k20.html"><img src="/factoryplug-catalog/assets/img/products/k-swap-engine-mount-bracket-for-honda-civic-96-00-eg-ek-k20/hero.webp" alt="K-swap Engine Mount Bracket For Honda Civic 96-00 Eg Ek K20 K24 K-series Mount Kit Engine Swap" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/k-swap/k-swap-engine-mount-bracket-for-honda-civic-96-00-eg-ek-k20.html">K-swap Engine Mount Bracket For Honda Civic 96-00 Eg Ek K20 K24 K-series Mount Kit Engine Swap</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/k-swap/k-swap-engine-mount-bracket-for-honda-civic-96-00-eg-ek-k20.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="rsx shifter cables &amp; trans bracket shift linkage for honda k20 k24 k swap series eg ek k-series dc2 race rsx shifter cables &amp; trans bracket shift linkage for honda k20 k24 k swap series eg ek k-series dc2 race   eg ek dc2" data-price-min="" data-rating="" data-reviews="0" data-cat="k-swap" data-band="" data-chassis="EG EK DC2" data-material="">
+<a class="pimg" href="/factoryplug-catalog/k-swap/rsx-shifter-cables-trans-bracket-shift-linkage-for-honda-k20.html"><img src="/factoryplug-catalog/assets/img/products/rsx-shifter-cables-trans-bracket-shift-linkage-for-honda-k20/hero.webp" alt="Rsx Shifter Cables &amp; Trans Bracket Shift Linkage For Honda K20 K24 K Swap Series Eg Ek K-series Dc2 Race" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/k-swap/rsx-shifter-cables-trans-bracket-shift-linkage-for-honda-k20.html">Rsx Shifter Cables &amp; Trans Bracket Shift Linkage For Honda K20 K24 K Swap Series Eg Ek K-series Dc2 Race</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/k-swap/rsx-shifter-cables-trans-bracket-shift-linkage-for-honda-k20.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="rsx shifter cables &amp; trans bracket for k20 k20a k24 k swap series eg ek dc2 race rsx shifter cables &amp; trans bracket for k20 k20a k24 k swap series eg ek dc2 race   eg ek dc2" data-price-min="" data-rating="" data-reviews="0" data-cat="k-swap" data-band="" data-chassis="EG EK DC2" data-material="">
+<a class="pimg" href="/factoryplug-catalog/k-swap/rsx-shifter-cables-trans-bracket-for-k20-k20a-k24-k-swap-ser.html"><img src="/factoryplug-catalog/assets/img/products/rsx-shifter-cables-trans-bracket-for-k20-k20a-k24-k-swap-ser/hero.webp" alt="Rsx Shifter Cables &amp; Trans Bracket For K20 K20a K24 K Swap Series Eg Ek Dc2 Race" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/k-swap/rsx-shifter-cables-trans-bracket-for-k20-k20a-k24-k-swap-ser.html">Rsx Shifter Cables &amp; Trans Bracket For K20 K20a K24 K Swap Series Eg Ek Dc2 Race</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/k-swap/rsx-shifter-cables-trans-bracket-for-k20-k20a-k24-k-swap-ser.html">View details &rarr;</a></div>
+</div>
+</article>
+</div>
+<div style="margin-top:30px"><div class="btn-row">
+<a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
+</section>
+<footer class="site"><div class="wrap"><div class="cols">
+<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:var(--text)">Catalog</b><br>
+<a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
+<div><b style="color:var(--text)">More</b><br>
+<a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
+<div><b style="color:var(--text)">Trust</b><br>
+<a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
+<div><b style="color:var(--text)">Follow Conroy</b><br>
+<a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
+<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+</div>
+<small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+&copy; 2026 FactoryPlug. All rights reserved.</small>
+</div></footer>
+</body>
+</html>

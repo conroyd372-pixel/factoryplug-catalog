@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audi A4 A5 S4 S5 Parts (2009–2012) — 22 Parts | FactoryPlug</title>
+<meta name="description" content="Every Audi A4 A5 S4 S5 (2009–2012) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+
+<link rel="canonical" href="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/b8/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FactoryPlug">
+<meta property="og:title" content="Audi A4 A5 S4 S5 Parts (2009–2012) — 22 Parts | FactoryPlug">
+<meta property="og:description" content="Every Audi A4 A5 S4 S5 (2009–2012) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/b8/">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Audi A4 A5 S4 S5 Parts (2009–2012) — 22 Parts | FactoryPlug">
+<meta name="twitter:description" content="Every Audi A4 A5 S4 S5 (2009–2012) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
+<script src="/factoryplug-catalog/assets/fx.js" defer></script>
+<script src="/factoryplug-catalog/assets/search.js" defer></script>
+<script>
+/* My Garage: Year -> Make -> Model -> Chassis picker + "Everything for your
+   X" client-side results, persisted in localStorage (key fp_garage_v1).
+   All picker options derive from /garage/vehicles.json, which is built from
+   the catalog's own chassis detections — never hand-typed. Used on /garage/
+   (picker + results + indicator) and vehicle pages (indicator only). */
+(function(){
+  var KEY = 'fp_garage_v1';
+  var CATALOG_URL = '/garage/catalog.json';
+  var VEHICLES_URL = '/garage/vehicles.json';
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY)); } catch(e){ return null; } }
+  function save(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+  function clear(){ try { localStorage.removeItem(KEY); } catch(e){} }
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  /* ---- saved-garage indicator: "Shopping for: F80 M3" + change/clear ---- */
+  var ind = document.getElementById('garage-indicator');
+  var g = load();
+  if (g && g.code && ind) {
+    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.classList.remove('hidden');
+    var c = document.getElementById('garage-clear');
+    if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+  }
+
+  /* ---- picker (hub page only) ---- */
+  var yearSel = document.getElementById('garage-year');
+  var makeSel = document.getElementById('garage-make');
+  var modelSel = document.getElementById('garage-model');
+  var chassisSel = document.getElementById('garage-chassis');
+  var goBtn = document.getElementById('garage-go');
+  var results = document.getElementById('garage-results');
+  if (!yearSel || !makeSel || !modelSel || !chassisSel) {
+    return; /* vehicle landing pages: indicator only */
+  }
+  function resetSel(sel, label){
+    sel.innerHTML = '<option value="">' + label + '</option>';
+    sel.disabled = true;
+  }
+  function covers(v, y){ return v.y0 != null && v.y1 != null && y >= v.y0 && y <= v.y1; }
+
+  fetch(VEHICLES_URL).then(function(r){ return r.json(); }).then(function(data){
+    var codes = Object.keys(data).filter(function(code){
+      var v = data[code]; return v.y0 != null && v.y1 != null;
+    });
+    if (!codes.length) return;
+    var minY = Math.min.apply(null, codes.map(function(c){ return data[c].y0; }));
+    var maxY = Math.max.apply(null, codes.map(function(c){ return data[c].y1; }));
+    for (var y = maxY; y >= minY; y--) {
+      var o = document.createElement('option');
+      o.value = y; o.textContent = y;
+      yearSel.appendChild(o);
+    }
+    function makesFor(year){
+      var seen = {};
+      codes.forEach(function(code){
+        if (covers(data[code], year)) seen[data[code].make] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function modelsFor(year, make){
+      var seen = {};
+      codes.forEach(function(code){
+        var v = data[code];
+        if (v.make === make && covers(v, year)) seen[v.model] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function chassisFor(year, make, model){
+      return codes.filter(function(code){
+        var v = data[code];
+        return v.make === make && v.model === model && covers(v, year);
+      }).sort(function(a, b){ return data[b].count - data[a].count; });
+    }
+    yearSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(makeSel, 'Select make…'); resetSel(modelSel, 'Select model…');
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!year) return;
+      makesFor(year).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        makeSel.appendChild(o);
+      });
+      makeSel.disabled = false;
+    });
+    makeSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(modelSel, 'Select model…'); resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!makeSel.value) return;
+      modelsFor(year, makeSel.value).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        modelSel.appendChild(o);
+      });
+      modelSel.disabled = false;
+    });
+    modelSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!modelSel.value) return;
+      chassisFor(year, makeSel.value, modelSel.value).forEach(function(code){
+        var v = data[code];
+        var o = document.createElement('option');
+        o.value = code;
+        o.textContent = code + ' — ' + v.years + ' (' + v.count + ' parts)';
+        chassisSel.appendChild(o);
+      });
+      chassisSel.disabled = false;
+    });
+    chassisSel.addEventListener('change', function(){
+      if (goBtn) goBtn.disabled = !chassisSel.value;
+    });
+    if (goBtn) goBtn.addEventListener('click', function(){
+      var code = chassisSel.value;
+      if (!code || !data[code]) return;
+      var v = data[code];
+      var _mt = (v.model || '').trim();
+      var _first = _mt.split(' ')[0].split('/')[0].toLowerCase();
+      // Never "Q50 Q50": when the model already starts with the chassis code,
+      // the model alone is the label (2026-10-07 fix).
+      var label = (_first === String(code).toLowerCase()) ? _mt : code + ' ' + _mt;
+      save({ code: code, make: v.make, label: label });
+      g = load();
+      if (ind) {
+        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.classList.remove('hidden');
+        var cc = document.getElementById('garage-clear');
+        if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+      }
+      renderResults(code, data);
+      if (results && results.scrollIntoView) results.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    /* Saved garage? show its parts right away. */
+    if (g && g.code && data[g.code] && results) renderResults(g.code, data);
+  }).catch(function(){ /* picker degrades silently; browse grid still works */ });
+
+  /* ---- "Everything for your X", grouped by category, from catalog.json ---- */
+  var catalogCache = null;
+  function getCatalog(cb){
+    if (catalogCache) { cb(catalogCache); return; }
+    fetch(CATALOG_URL).then(function(r){ return r.json(); }).then(function(j){
+      catalogCache = j; cb(j);
+    }).catch(function(){ cb(null); });
+  }
+  function card(p){
+    return '<a class="gcard" href="' + esc(p.url) + '">' +
+      '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy">' +
+      '<span class="gcard-body"><span class="gcard-title">' + esc(p.title) + '</span>' +
+      '<span class="gcard-link">View part →</span></span></a>';
+  }
+  function renderResults(code, vdata){
+    if (!results) return;
+    var v = vdata[code];
+    results.innerHTML = '<p class="garage-loading">Pulling every part for your ' +
+      esc(code) + '…</p>';
+    getCatalog(function(cat){
+      if (!cat || !v) {
+        results.innerHTML = '<p class="garage-loading">Could not load the parts index — ' +
+          '<a href="' + esc(v ? v.url : '/garage/') + '">open the ' + esc(code) +
+          ' garage page →</a></p>';
+        return;
+      }
+      var items = cat.filter(function(p){
+        return p.chassis && p.chassis.indexOf(code) !== -1;
+      });
+      var order = (typeof FP_CAT_ORDER !== 'undefined') ? FP_CAT_ORDER : [];
+      var titles = (typeof FP_CAT_TITLES !== 'undefined') ? FP_CAT_TITLES : {};
+      var groups = {};
+      items.forEach(function(p){
+        (groups[p.category] = groups[p.category] || []).push(p);
+      });
+      var html = '<div class="res-head"><h2 class="sec">Everything for your ' +
+        esc(code) + '</h2><a class="btn ghost" href="' + esc(v.url) +
+        '">Full ' + esc(code) + ' page →</a></div>' +
+        '<p class="res-sub">' + items.length + ' parts that fit the ' +
+        esc(v.make + ' ' + v.model) + ' (' + esc(v.years) +
+        ') — grouped by category. Only catalog parts with detected ' +
+        esc(code) + ' fitment are shown.</p>';
+      var seenCats = {};
+      order.forEach(function(slug){
+        if (groups[slug]) { seenCats[slug] = true; html += groupHtml(slug, groups[slug], titles); }
+      });
+      Object.keys(groups).sort().forEach(function(slug){
+        if (!seenCats[slug]) html += groupHtml(slug, groups[slug], titles);
+      });
+      if (!items.length) {
+        html += '<p class="garage-loading">No parts tagged for ' + esc(code) +
+          ' yet — try the browse grid below.</p>';
+      }
+      html += '<p class="fine">Fitment is never guaranteed — always confirm year, ' +
+        'model, trim and VIN directly with the supplier contact before buying.</p>';
+      results.innerHTML = html;
+    });
+  }
+  function groupHtml(slug, items, titles){
+    var title = titles[slug] || slug;
+    var cards = items.map(card).join('');
+    return '<div class="res-head"><h2 class="sec">' + esc(title) +
+      ' (' + items.length + ')</h2></div>' +
+      '<div class="gcard-grid">' + cards + '</div>';
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Audi A4 A5 S4 S5 Parts (2009\u20132012)", "description": "Every Audi A4 A5 S4 S5 compatible part in the FactoryPlug catalog."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<nav>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+</nav>
+</div></header>
+<section class="content-sec"><div class="wrap-narrow">
+<div id="garage-indicator" class="garage-indicator hidden" role="status"></div>
+<nav aria-label="Breadcrumb"><ol class="crumbs">
+<li><a href="/factoryplug-catalog/">Home</a></li><li><a href="/factoryplug-catalog/garage/">My Garage</a></li>
+<li aria-current="page">B8</li></ol></nav>
+<h1>Audi A4 A5 S4 S5 Parts <span class="yr">(2009–2012)</span></h1>
+<p class="sec-sub">Everything in the catalog for your B8 — grouped by
+category. 22 parts and counting.</p>
+<p class="fine">Fitment is never guaranteed — always confirm year, model, trim
+and VIN directly with the supplier contact before buying.</p>
+</div></section>
+<section class="content-sec" style="max-width:none">
+<div class="sec-head"><h2 class="sec">Exhaust Systems (4)</h2></div><div class="prod-grid"><article class="prod-card" data-name="custom stainless steel tuning catback exhaust for audi s4/s5 b8.5 3.0t 2013-2019 304ss valved custom stainless steel tuning catback exhaust for audi s4/s5 b8.5 3.0t 2013-2019 304ss valved   b8" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="B8" data-material="Stainless steel">
+<a class="pimg" href="/factoryplug-catalog/exhaust/custom-stainless-steel-tuning-catback-exhaust-for-audi-s4-s5.html"><img src="/factoryplug-catalog/assets/img/products/custom-stainless-steel-tuning-catback-exhaust-for-audi-s4-s5/hero.webp" alt="Custom Stainless Steel Tuning Catback Exhaust For Audi S4/s5 B8.5 3.0t 2013-2019 304ss Valved" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/custom-stainless-steel-tuning-catback-exhaust-for-audi-s4-s5.html">Custom Stainless Steel Tuning Catback Exhaust For Audi S4/s5 B8.5 3.0t 2013-2019 304ss Valved</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/custom-stainless-steel-tuning-catback-exhaust-for-audi-s4-s5.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="exhaust headers for audi s4 s5 s6 s7 3.0t c7 b8 2009-2016 manifolds double-layer heat wrap exhaust headers for audi s4 s5 s6 s7 3.0t c7 b8 2009-2016 manifolds double-layer heat wrap   b8 c7" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="B8 C7" data-material="">
+<a class="pimg" href="/factoryplug-catalog/exhaust/exhaust-headers-for-audi-s4-s5-s6-s7-3-0t-c7-b8-2009-2016-ma.html"><img src="/factoryplug-catalog/assets/img/products/exhaust-headers-for-audi-s4-s5-s6-s7-3-0t-c7-b8-2009-2016-ma/hero.webp" alt="Exhaust Headers For Audi S4 S5 S6 S7 3.0t C7 B8 2009-2016 Manifolds Double-layer Heat Wrap" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/exhaust-headers-for-audi-s4-s5-s6-s7-3-0t-c7-b8-2009-2016-ma.html">Exhaust Headers For Audi S4 S5 S6 S7 3.0t C7 B8 2009-2016 Manifolds Double-layer Heat Wrap</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/exhaust-headers-for-audi-s4-s5-s6-s7-3-0t-c7-b8-2009-2016-ma.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="catback exhaust for audi s4/s5 b8 b8.5 3.0t 2013-2019 stainless steel exhaust pipe muffler catback exhaust for audi s4/s5 b8 b8.5 3.0t 2013-2019 stainless steel exhaust pipe muffler   b8" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="B8" data-material="Stainless steel">
+<a class="pimg" href="/factoryplug-catalog/exhaust/catback-exhaust-for-audi-s4-s5-b8-b8-5-3-0t-2013-2019-stainl.html"><img src="/factoryplug-catalog/assets/img/products/catback-exhaust-for-audi-s4-s5-b8-b8-5-3-0t-2013-2019-stainl/hero.webp" alt="Catback Exhaust For Audi S4/s5 B8 B8.5 3.0t 2013-2019 Stainless Steel Exhaust Pipe Muffler" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/catback-exhaust-for-audi-s4-s5-b8-b8-5-3-0t-2013-2019-stainl.html">Catback Exhaust For Audi S4/s5 B8 B8.5 3.0t 2013-2019 Stainless Steel Exhaust Pipe Muffler</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/catback-exhaust-for-audi-s4-s5-b8-b8-5-3-0t-2013-2019-stainl.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="custom turbo downpipe for bmw m850/m850i 4.4tt g14/g15/g16 alpina b8 2020-2023 200cells test pipes custom turbo downpipe for bmw m850/m850i 4.4tt g14/g15/g16 alpina b8 2020-2023 200cells test pipes   g15 g16 b8" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="G15 G16 B8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/exhaust/custom-turbo-downpipe-for-bmw-m850-m850i-4-4tt-g14-g15-g16-a.html"><img src="/factoryplug-catalog/assets/img/products/custom-turbo-downpipe-for-bmw-m850-m850i-4-4tt-g14-g15-g16-a/hero.webp" alt="Custom Turbo Downpipe For BMW M850/m850i 4.4tt G14/g15/g16 Alpina B8 2020-2023 200cells Test Pipes" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/custom-turbo-downpipe-for-bmw-m850-m850i-4-4tt-g14-g15-g16-a.html">Custom Turbo Downpipe For BMW M850/m850i 4.4tt G14/g15/g16 Alpina B8 2020-2023 200cells Test Pipes</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/custom-turbo-downpipe-for-bmw-m850-m850i-4-4tt-g14-g15-g16-a.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Aerodynamics &amp; Exterior (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="2013-2016 b8.5 audi a4 sedan carbon fiber trunk lip spoiler - psm style, highkick duckbill | ducktail &amp; deck spoiler 2013-2016 b8.5 audi a4 sedan carbon fiber trunk lip spoiler - psm style, highkick duckbill | ducktail &amp; deck spoiler guangzhou dcr tuning trade company limited  b8" data-price-min="65" data-rating="5.0" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="B8" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/2013-2016-b8-5-audi-a4-sedan-carbon-fiber-trunk-lip-spoiler.html"><img src="/factoryplug-catalog/assets/img/products/2013-2016-b8-5-audi-a4-sedan-carbon-fiber-trunk-lip-spoiler/g3.jpg" alt="2013-2016 B8.5 Audi A4 Sedan Carbon Fiber Trunk Lip Spoiler - PSM Style, Highkick Duckbill | Ducktail &amp; Deck Spoiler" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/2013-2016-b8-5-audi-a4-sedan-carbon-fiber-trunk-lip-spoiler.html">2013-2016 B8.5 Audi A4 Sedan Carbon Fiber Trunk Lip Spoiler - PSM Style, Highkick Duckbill | Ducktail &amp; Deck Spoiler</a></h3>
+<div class="price"><span class="conv-price" data-min="65" data-max="70" data-cur="USD" data-orig="$65-70">$65-70</span></div>
+<div class="meta-row"><span class="chip">MOQ: 2 pieces</span><span class="chip hot">4 sold</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="5.0 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:100%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/guangzhou-dcr-tuning-trade-company-limited.html">Guangzhou Dcr Tuning Trade Company Limited</a> · <b>5.0</b> · 4 transactions</div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/2013-2016-b8-5-audi-a4-sedan-carbon-fiber-trunk-lip-spoiler.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="a4 s4 b8 b8.5 quattro high quality two-sided all carbon fiber hood for audi a4 b8 b8.5 2009-2016 a4 s4 b8 b8.5 quattro high quality two-sided all carbon fiber hood for audi a4 b8 b8.5 2009-2016   b8" data-price-min="" data-rating="" data-reviews="0" data-cat="carbon" data-band="" data-chassis="B8" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/a4-s4-b8-b8-5-quattro-high-quality-two-sided-all-carbon-fibe.html"><img src="/factoryplug-catalog/assets/img/products/a4-s4-b8-b8-5-quattro-high-quality-two-sided-all-carbon-fibe/hero.webp" alt="A4 S4 B8 B8.5 Quattro High Quality Two-sided All Carbon Fiber Hood For Audi A4 B8 B8.5 2009-2016" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/a4-s4-b8-b8-5-quattro-high-quality-two-sided-all-carbon-fibe.html">A4 S4 B8 B8.5 Quattro High Quality Two-sided All Carbon Fiber Hood For Audi A4 B8 B8.5 2009-2016</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/a4-s4-b8-b8-5-quattro-high-quality-two-sided-all-carbon-fibe.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Engine &amp; Fuel (13)</h2><a class="more" href="/factoryplug-catalog/engine/">More Engine &amp; Fuel →</a></div><div class="prod-grid"><article class="prod-card" data-name="2.0t tfsi ea888 gen2 cdnb 2.0t engine assembly — for b8 2.0t tfsi ea888 gen2 cdnb 2.0t engine assembly — for b8   b8" data-price-min="1625" data-rating="" data-reviews="0" data-cat="engine" data-band="600-plus" data-chassis="B8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/2-0t-tfsi-ea888-gen2-cdnb-2-0t-engine-assembly-for-b8.html"><img src="/factoryplug-catalog/assets/img/products/2-0t-tfsi-ea888-gen2-cdnb-2-0t-engine-assembly-for-b8/hero.png" alt="2.0t Tfsi Ea888 Gen2 Cdnb 2.0t Engine Assembly — for B8" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/2-0t-tfsi-ea888-gen2-cdnb-2-0t-engine-assembly-for-b8.html">2.0t Tfsi Ea888 Gen2 Cdnb 2.0t Engine Assembly — for B8</a></h3>
+<div class="price"><span class="conv-price" data-min="1625" data-max="1719" data-cur="USD" data-orig="$1,719-$1,625">$1,625–$1,719</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/2-0t-tfsi-ea888-gen2-cdnb-2-0t-engine-assembly-for-b8.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="kyostar cold air intake system pipe kit fit for audi b8 b8.5 s4 s5 q5 sq5 3.0t 3.2l v6 engine 2010+ kyostar cold air intake system pipe kit fit for audi b8 b8.5 s4 s5 q5 sq5 3.0t 3.2l v6 engine 2010+   b8" data-price-min="1" data-rating="" data-reviews="0" data-cat="engine" data-band="under-100" data-chassis="B8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/kyostar-cold-air-intake-system-pipe-kit-fit-for-audi-b8-b8-5.html"><img src="/factoryplug-catalog/assets/img/products/kyostar-cold-air-intake-system-pipe-kit-fit-for-audi-b8-b8-5/hero.webp" alt="KYOSTAR Cold Air Intake System Pipe Kit Fit for Audi B8 B8.5 S4 S5 Q5 SQ5 3.0T 3.2L V6 Engine 2010+" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/kyostar-cold-air-intake-system-pipe-kit-fit-for-audi-b8-b8-5.html">KYOSTAR Cold Air Intake System Pipe Kit Fit for Audi B8 B8.5 S4 S5 Q5 SQ5 3.0T 3.2L V6 Engine 2010+</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="140" data-cur="USD" data-orig="$140 (1) / $130 (2-4) / $120 (5-19) / $110 (20+)">$140 (1) / $130 (2-4) / $120 (5-19) / $110 (20+)</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/kyostar-cold-air-intake-system-pipe-kit-fit-for-audi-b8-b8-5.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="kyostar cold air intake system pipe kit fit for audi b8 b8.5 s4 s5 sq5 q5 3.0t 3.2l v6 engine 2010+ kyostar cold air intake system pipe kit fit for audi b8 b8.5 s4 s5 sq5 q5 3.0t 3.2l v6 engine 2010+   b8" data-price-min="1" data-rating="" data-reviews="0" data-cat="engine" data-band="under-100" data-chassis="B8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/kyostar-cold-air-intake-system-pipe-kit-fit-for-audi-b8-b8-5-2.html"><img src="/factoryplug-catalog/assets/img/products/kyostar-cold-air-intake-system-pipe-kit-fit-for-audi-b8-b8-5-2/hero.webp" alt="KYOSTAR Cold Air Intake System Pipe Kit Fit for Audi B8 B8.5 S4 S5 SQ5 Q5 3.0T 3.2L V6 Engine 2010+" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/kyostar-cold-air-intake-system-pipe-kit-fit-for-audi-b8-b8-5-2.html">KYOSTAR Cold Air Intake System Pipe Kit Fit for Audi B8 B8.5 S4 S5 SQ5 Q5 3.0T 3.2L V6 Engine 2010+</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="140" data-cur="USD" data-orig="$140 (1) / $130 (2-4) / $120 (5-19) / $110 (20+)">$140 (1) / $130 (2-4) / $120 (5-19) / $110 (20+)</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/kyostar-cold-air-intake-system-pipe-kit-fit-for-audi-b8-b8-5-2.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="professional performance cold air intake system for audi a4 a5 b8 b8.5 quattro allroad 2009-2016 professional performance cold air intake system for audi a4 a5 b8 b8.5 quattro allroad 2009-2016   b8" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="B8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/professional-performance-cold-air-intake-system-for-audi-a4.html"><img src="/factoryplug-catalog/assets/img/products/professional-performance-cold-air-intake-system-for-audi-a4/hero.webp" alt="Professional Performance Cold Air Intake System For Audi A4 A5 B8 B8.5 Quattro Allroad 2009-2016" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/professional-performance-cold-air-intake-system-for-audi-a4.html">Professional Performance Cold Air Intake System For Audi A4 A5 B8 B8.5 Quattro Allroad 2009-2016</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/professional-performance-cold-air-intake-system-for-audi-a4.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="kyostar cold air intake system pipe kit for audi b8 b8.5 a4 a5 allroad fwd quattro gen2 ea888 2.0tfsi engines 2009-2016 kyostar cold air intake system pipe kit for audi b8 b8.5 a4 a5 allroad fwd quattro gen2 ea888 2.0tfsi engines 2009-2016   b8" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="B8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/kyostar-cold-air-intake-system-pipe-kit-for-audi-b8-b8-5-a4.html"><img src="/factoryplug-catalog/assets/img/products/kyostar-cold-air-intake-system-pipe-kit-for-audi-b8-b8-5-a4/hero.webp" alt="Kyostar Cold Air Intake System Pipe Kit For Audi B8 B8.5 A4 A5 Allroad Fwd Quattro Gen2 Ea888 2.0tfsi Engines 2009-2016" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/kyostar-cold-air-intake-system-pipe-kit-for-audi-b8-b8-5-a4.html">Kyostar Cold Air Intake System Pipe Kit For Audi B8 B8.5 A4 A5 Allroad Fwd Quattro Gen2 Ea888 2.0tfsi Engines 2009-2016</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/kyostar-cold-air-intake-system-pipe-kit-for-audi-b8-b8-5-a4.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="for 2009-2016 audi a4 a5 allroad fwd quattro 2.0t 1.8t ea888 performances b8 b8.5 air intake system cold air intake system for 2009-2016 audi a4 a5 allroad fwd quattro 2.0t 1.8t ea888 performances b8 b8.5 air intake system cold air intake system   b8" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="B8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/for-2009-2016-audi-a4-a5-allroad-fwd-quattro-2-0t-1-8t-ea888.html"><img src="/factoryplug-catalog/assets/img/products/for-2009-2016-audi-a4-a5-allroad-fwd-quattro-2-0t-1-8t-ea888/hero.webp" alt="For 2009-2016 Audi A4 A5 Allroad Fwd Quattro 2.0t 1.8t Ea888 Performances B8 B8.5 Air Intake System Cold Air Intake System" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/for-2009-2016-audi-a4-a5-allroad-fwd-quattro-2-0t-1-8t-ea888.html">For 2009-2016 Audi A4 A5 Allroad Fwd Quattro 2.0t 1.8t Ea888 Performances B8 B8.5 Air Intake System Cold Air Intake System</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/for-2009-2016-audi-a4-a5-allroad-fwd-quattro-2-0t-1-8t-ea888.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="performances for 2009-2016 b8 b8.5 audi a4 a5 allroad fwd quattro 2.0t 1.8t ea888 air intake system cold air intake system performances for 2009-2016 b8 b8.5 audi a4 a5 allroad fwd quattro 2.0t 1.8t ea888 air intake system cold air intake system   b8" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="B8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/performances-for-2009-2016-b8-b8-5-audi-a4-a5-allroad-fwd-qu.html"><img src="/factoryplug-catalog/assets/img/products/performances-for-2009-2016-b8-b8-5-audi-a4-a5-allroad-fwd-qu/hero.webp" alt="Performances For 2009-2016 B8 B8.5 Audi A4 A5 Allroad Fwd Quattro 2.0t 1.8t Ea888 Air Intake System Cold Air Intake System" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/performances-for-2009-2016-b8-b8-5-audi-a4-a5-allroad-fwd-qu.html">Performances For 2009-2016 B8 B8.5 Audi A4 A5 Allroad Fwd Quattro 2.0t 1.8t Ea888 Air Intake System Cold Air Intake System</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/performances-for-2009-2016-b8-b8-5-audi-a4-a5-allroad-fwd-qu.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="customized low moq intake for audi b8 b8.5 s4 s5 q5 sq5 v6t 2009-2018 cold air intake system 3.5-inch high-flow aluminum series customized low moq intake for audi b8 b8.5 s4 s5 q5 sq5 v6t 2009-2018 cold air intake system 3.5-inch high-flow aluminum series   b8" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="B8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/customized-low-moq-intake-for-audi-b8-b8-5-s4-s5-q5-sq5-v6t.html"><img src="/factoryplug-catalog/assets/img/products/customized-low-moq-intake-for-audi-b8-b8-5-s4-s5-q5-sq5-v6t/hero.webp" alt="Customized Low Moq Intake For Audi B8 B8.5 S4 S5 Q5 Sq5 V6t 2009-2018 Cold Air Intake System 3.5-inch High-flow Aluminum Series" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/customized-low-moq-intake-for-audi-b8-b8-5-s4-s5-q5-sq5-v6t.html">Customized Low Moq Intake For Audi B8 B8.5 S4 S5 Q5 Sq5 V6t 2009-2018 Cold Air Intake System 3.5-inch High-flow Aluminum Series</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/customized-low-moq-intake-for-audi-b8-b8-5-s4-s5-q5-sq5-v6t.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="hot sale high performance aluminum intercooler for audi a4 b8.5 saloon sedan allroad avant hot sale high performance aluminum intercooler for audi a4 b8.5 saloon sedan allroad avant   b8" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="B8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/hot-sale-high-performance-aluminum-intercooler-for-audi-a4-b.html"><img src="/factoryplug-catalog/assets/img/products/hot-sale-high-performance-aluminum-intercooler-for-audi-a4-b/hero.webp" alt="Hot Sale High Performance Aluminum Intercooler For Audi A4 B8.5 Saloon Sedan Allroad Avant" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/hot-sale-high-performance-aluminum-intercooler-for-audi-a4-b.html">Hot Sale High Performance Aluminum Intercooler For Audi A4 B8.5 Saloon Sedan Allroad Avant</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/hot-sale-high-performance-aluminum-intercooler-for-audi-a4-b.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="hot sell performance top mount intercooler for audi a4/5 b8 tfsi/tdi 2008-2013 hot sell performance top mount intercooler for audi a4/5 b8 tfsi/tdi 2008-2013   b8" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="B8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/hot-sell-performance-top-mount-intercooler-for-audi-a4-5-b8.html"><img src="/factoryplug-catalog/assets/img/products/hot-sell-performance-top-mount-intercooler-for-audi-a4-5-b8/hero.webp" alt="Hot Sell Performance Top Mount Intercooler For Audi A4/5 B8 Tfsi/tdi 2008-2013" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/hot-sell-performance-top-mount-intercooler-for-audi-a4-5-b8.html">Hot Sell Performance Top Mount Intercooler For Audi A4/5 B8 Tfsi/tdi 2008-2013</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/hot-sell-performance-top-mount-intercooler-for-audi-a4-5-b8.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="oil cooler kit for vw cc gti audi a4l a6l b8 q3 q5 1.8t 2.0t gen2 ea888 engine oil cooler kit for vw cc gti audi a4l a6l b8 q3 q5 1.8t 2.0t gen2 ea888 engine   b8" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="B8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/oil-cooler-kit-for-vw-cc-gti-audi-a4l-a6l-b8-q3-q5-1-8t-2-0t.html"><img src="/factoryplug-catalog/assets/img/products/oil-cooler-kit-for-vw-cc-gti-audi-a4l-a6l-b8-q3-q5-1-8t-2-0t/hero.webp" alt="Oil Cooler Kit For Vw Cc Gti Audi A4l A6l B8 Q3 Q5 1.8t 2.0t Gen2 Ea888 Engine" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/oil-cooler-kit-for-vw-cc-gti-audi-a4l-a6l-b8-q3-q5-1-8t-2-0t.html">Oil Cooler Kit For Vw Cc Gti Audi A4l A6l B8 Q3 Q5 1.8t 2.0t Gen2 Ea888 Engine</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/oil-cooler-kit-for-vw-cc-gti-audi-a4l-a6l-b8-q3-q5-1-8t-2-0t.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="audi a4l a5 a6 s3 s4 q7 b8 c7 v6 3.0t ea837 engine oil cooler kit 15 rows oil radiator cooler kit audi a4l a5 a6 s3 s4 q7 b8 c7 v6 3.0t ea837 engine oil cooler kit 15 rows oil radiator cooler kit   b8 c7" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="B8 C7" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/audi-a4l-a5-a6-s3-s4-q7-b8-c7-v6-3-0t-ea837-engine-oil-coole.html"><img src="/factoryplug-catalog/assets/img/products/audi-a4l-a5-a6-s3-s4-q7-b8-c7-v6-3-0t-ea837-engine-oil-coole/hero.webp" alt="Audi A4l A5 A6 S3 S4 Q7 B8 C7 V6 3.0t Ea837 Engine Oil Cooler Kit 15 Rows Oil Radiator Cooler Kit" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/audi-a4l-a5-a6-s3-s4-q7-b8-c7-v6-3-0t-ea837-engine-oil-coole.html">Audi A4l A5 A6 S3 S4 Q7 B8 C7 V6 3.0t Ea837 Engine Oil Cooler Kit 15 Rows Oil Radiator Cooler Kit</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/audi-a4l-a5-a6-s3-s4-q7-b8-c7-v6-3-0t-ea837-engine-oil-coole.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Interior Accessories (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="custom car carbon fiber led steering wheel for audi rs3 rs4 rs8 s3 s4 s5 a3 a4 a5 8y 8p rsq8 a1 8x b8 sq8 custom car carbon fiber led steering wheel for audi rs3 rs4 rs8 s3 s4 s5 a3 a4 a5 8y 8p rsq8 a1 8x b8 sq8   b8 8y" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="B8 8Y" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/interior/custom-car-carbon-fiber-led-steering-wheel-for-audi-rs3-rs4.html"><img src="/factoryplug-catalog/assets/img/products/custom-car-carbon-fiber-led-steering-wheel-for-audi-rs3-rs4/hero.webp" alt="Custom Car Carbon Fiber Led Steering Wheel For Audi Rs3 Rs4 Rs8 S3 S4 S5 A3 A4 A5 8y 8p Rsq8 A1 8x B8 Sq8" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/custom-car-carbon-fiber-led-steering-wheel-for-audi-rs3-rs4.html">Custom Car Carbon Fiber Led Steering Wheel For Audi Rs3 Rs4 Rs8 S3 S4 S5 A3 A4 A5 8y 8p Rsq8 A1 8x B8 Sq8</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/custom-car-carbon-fiber-led-steering-wheel-for-audi-rs3-rs4.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="car steering wheel for audi rs3 8y s3 8p rsq8 a1 8x rs4 b8 sq8 b8.5 q5 a7 a4 b9 rs6 rs7 s4 carbon fiber car steering wheel for audi rs3 8y s3 8p rsq8 a1 8x rs4 b8 sq8 b8.5 q5 a7 a4 b9 rs6 rs7 s4 carbon fiber   b9 b8 8y" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="B9 B8 8Y" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/interior/car-steering-wheel-for-audi-rs3-8y-s3-8p-rsq8-a1-8x-rs4-b8-s.html"><img src="/factoryplug-catalog/assets/img/products/car-steering-wheel-for-audi-rs3-8y-s3-8p-rsq8-a1-8x-rs4-b8-s/hero.webp" alt="Car Steering Wheel For Audi Rs3 8y S3 8p Rsq8 A1 8x Rs4 B8 Sq8 B8.5 Q5 A7 A4 B9 Rs6 Rs7 S4 Carbon Fiber" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/car-steering-wheel-for-audi-rs3-8y-s3-8p-rsq8-a1-8x-rs4-b8-s.html">Car Steering Wheel For Audi Rs3 8y S3 8p Rsq8 A1 8x Rs4 B8 Sq8 B8.5 Q5 A7 A4 B9 Rs6 Rs7 S4 Carbon Fiber</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/car-steering-wheel-for-audi-rs3-8y-s3-8p-rsq8-a1-8x-rs4-b8-s.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Body Conversion Kits (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="full set car front bumper grill bodykit for audi a4 b8 to rs4 accessories body kit full set car front bumper grill bodykit for audi a4 b8 to rs4 accessories body kit   b8" data-price-min="" data-rating="" data-reviews="0" data-cat="conversion-kits" data-band="" data-chassis="B8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/conversion-kits/full-set-car-front-bumper-grill-bodykit-for-audi-a4-b8-to-rs.html"><img src="/factoryplug-catalog/assets/img/products/full-set-car-front-bumper-grill-bodykit-for-audi-a4-b8-to-rs/hero.webp" alt="Full Set Car Front Bumper Grill Bodykit For Audi A4 B8 To Rs4 Accessories Body Kit" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/conversion-kits/full-set-car-front-bumper-grill-bodykit-for-audi-a4-b8-to-rs.html">Full Set Car Front Bumper Grill Bodykit For Audi A4 B8 To Rs4 Accessories Body Kit</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/conversion-kits/full-set-car-front-bumper-grill-bodykit-for-audi-a4-b8-to-rs.html">View details &rarr;</a></div>
+</div>
+</article>
+</div>
+<div style="margin-top:30px"><div class="btn-row">
+<a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
+</section>
+<footer class="site"><div class="wrap"><div class="cols">
+<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:var(--text)">Catalog</b><br>
+<a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
+<div><b style="color:var(--text)">More</b><br>
+<a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
+<div><b style="color:var(--text)">Trust</b><br>
+<a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
+<div><b style="color:var(--text)">Follow Conroy</b><br>
+<a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
+<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+</div>
+<small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+&copy; 2026 FactoryPlug. All rights reserved.</small>
+</div></footer>
+</body>
+</html>

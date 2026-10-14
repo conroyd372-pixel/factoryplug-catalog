@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BMW 6 Series Gran Turismo (G32) Parts (2018–2023) — 10 Parts | FactoryPlug</title>
+<meta name="description" content="Every BMW 6 Series Gran Turismo (G32) (2018–2023) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+
+<link rel="canonical" href="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/g32/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FactoryPlug">
+<meta property="og:title" content="BMW 6 Series Gran Turismo (G32) Parts (2018–2023) — 10 Parts | FactoryPlug">
+<meta property="og:description" content="Every BMW 6 Series Gran Turismo (G32) (2018–2023) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/g32/">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BMW 6 Series Gran Turismo (G32) Parts (2018–2023) — 10 Parts | FactoryPlug">
+<meta name="twitter:description" content="Every BMW 6 Series Gran Turismo (G32) (2018–2023) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
+<script src="/factoryplug-catalog/assets/fx.js" defer></script>
+<script src="/factoryplug-catalog/assets/search.js" defer></script>
+<script>
+/* My Garage: Year -> Make -> Model -> Chassis picker + "Everything for your
+   X" client-side results, persisted in localStorage (key fp_garage_v1).
+   All picker options derive from /garage/vehicles.json, which is built from
+   the catalog's own chassis detections — never hand-typed. Used on /garage/
+   (picker + results + indicator) and vehicle pages (indicator only). */
+(function(){
+  var KEY = 'fp_garage_v1';
+  var CATALOG_URL = '/garage/catalog.json';
+  var VEHICLES_URL = '/garage/vehicles.json';
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY)); } catch(e){ return null; } }
+  function save(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+  function clear(){ try { localStorage.removeItem(KEY); } catch(e){} }
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  /* ---- saved-garage indicator: "Shopping for: F80 M3" + change/clear ---- */
+  var ind = document.getElementById('garage-indicator');
+  var g = load();
+  if (g && g.code && ind) {
+    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.classList.remove('hidden');
+    var c = document.getElementById('garage-clear');
+    if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+  }
+
+  /* ---- picker (hub page only) ---- */
+  var yearSel = document.getElementById('garage-year');
+  var makeSel = document.getElementById('garage-make');
+  var modelSel = document.getElementById('garage-model');
+  var chassisSel = document.getElementById('garage-chassis');
+  var goBtn = document.getElementById('garage-go');
+  var results = document.getElementById('garage-results');
+  if (!yearSel || !makeSel || !modelSel || !chassisSel) {
+    return; /* vehicle landing pages: indicator only */
+  }
+  function resetSel(sel, label){
+    sel.innerHTML = '<option value="">' + label + '</option>';
+    sel.disabled = true;
+  }
+  function covers(v, y){ return v.y0 != null && v.y1 != null && y >= v.y0 && y <= v.y1; }
+
+  fetch(VEHICLES_URL).then(function(r){ return r.json(); }).then(function(data){
+    var codes = Object.keys(data).filter(function(code){
+      var v = data[code]; return v.y0 != null && v.y1 != null;
+    });
+    if (!codes.length) return;
+    var minY = Math.min.apply(null, codes.map(function(c){ return data[c].y0; }));
+    var maxY = Math.max.apply(null, codes.map(function(c){ return data[c].y1; }));
+    for (var y = maxY; y >= minY; y--) {
+      var o = document.createElement('option');
+      o.value = y; o.textContent = y;
+      yearSel.appendChild(o);
+    }
+    function makesFor(year){
+      var seen = {};
+      codes.forEach(function(code){
+        if (covers(data[code], year)) seen[data[code].make] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function modelsFor(year, make){
+      var seen = {};
+      codes.forEach(function(code){
+        var v = data[code];
+        if (v.make === make && covers(v, year)) seen[v.model] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function chassisFor(year, make, model){
+      return codes.filter(function(code){
+        var v = data[code];
+        return v.make === make && v.model === model && covers(v, year);
+      }).sort(function(a, b){ return data[b].count - data[a].count; });
+    }
+    yearSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(makeSel, 'Select make…'); resetSel(modelSel, 'Select model…');
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!year) return;
+      makesFor(year).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        makeSel.appendChild(o);
+      });
+      makeSel.disabled = false;
+    });
+    makeSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(modelSel, 'Select model…'); resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!makeSel.value) return;
+      modelsFor(year, makeSel.value).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        modelSel.appendChild(o);
+      });
+      modelSel.disabled = false;
+    });
+    modelSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!modelSel.value) return;
+      chassisFor(year, makeSel.value, modelSel.value).forEach(function(code){
+        var v = data[code];
+        var o = document.createElement('option');
+        o.value = code;
+        o.textContent = code + ' — ' + v.years + ' (' + v.count + ' parts)';
+        chassisSel.appendChild(o);
+      });
+      chassisSel.disabled = false;
+    });
+    chassisSel.addEventListener('change', function(){
+      if (goBtn) goBtn.disabled = !chassisSel.value;
+    });
+    if (goBtn) goBtn.addEventListener('click', function(){
+      var code = chassisSel.value;
+      if (!code || !data[code]) return;
+      var v = data[code];
+      var _mt = (v.model || '').trim();
+      var _first = _mt.split(' ')[0].split('/')[0].toLowerCase();
+      // Never "Q50 Q50": when the model already starts with the chassis code,
+      // the model alone is the label (2026-10-07 fix).
+      var label = (_first === String(code).toLowerCase()) ? _mt : code + ' ' + _mt;
+      save({ code: code, make: v.make, label: label });
+      g = load();
+      if (ind) {
+        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.classList.remove('hidden');
+        var cc = document.getElementById('garage-clear');
+        if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+      }
+      renderResults(code, data);
+      if (results && results.scrollIntoView) results.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    /* Saved garage? show its parts right away. */
+    if (g && g.code && data[g.code] && results) renderResults(g.code, data);
+  }).catch(function(){ /* picker degrades silently; browse grid still works */ });
+
+  /* ---- "Everything for your X", grouped by category, from catalog.json ---- */
+  var catalogCache = null;
+  function getCatalog(cb){
+    if (catalogCache) { cb(catalogCache); return; }
+    fetch(CATALOG_URL).then(function(r){ return r.json(); }).then(function(j){
+      catalogCache = j; cb(j);
+    }).catch(function(){ cb(null); });
+  }
+  function card(p){
+    return '<a class="gcard" href="' + esc(p.url) + '">' +
+      '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy">' +
+      '<span class="gcard-body"><span class="gcard-title">' + esc(p.title) + '</span>' +
+      '<span class="gcard-link">View part →</span></span></a>';
+  }
+  function renderResults(code, vdata){
+    if (!results) return;
+    var v = vdata[code];
+    results.innerHTML = '<p class="garage-loading">Pulling every part for your ' +
+      esc(code) + '…</p>';
+    getCatalog(function(cat){
+      if (!cat || !v) {
+        results.innerHTML = '<p class="garage-loading">Could not load the parts index — ' +
+          '<a href="' + esc(v ? v.url : '/garage/') + '">open the ' + esc(code) +
+          ' garage page →</a></p>';
+        return;
+      }
+      var items = cat.filter(function(p){
+        return p.chassis && p.chassis.indexOf(code) !== -1;
+      });
+      var order = (typeof FP_CAT_ORDER !== 'undefined') ? FP_CAT_ORDER : [];
+      var titles = (typeof FP_CAT_TITLES !== 'undefined') ? FP_CAT_TITLES : {};
+      var groups = {};
+      items.forEach(function(p){
+        (groups[p.category] = groups[p.category] || []).push(p);
+      });
+      var html = '<div class="res-head"><h2 class="sec">Everything for your ' +
+        esc(code) + '</h2><a class="btn ghost" href="' + esc(v.url) +
+        '">Full ' + esc(code) + ' page →</a></div>' +
+        '<p class="res-sub">' + items.length + ' parts that fit the ' +
+        esc(v.make + ' ' + v.model) + ' (' + esc(v.years) +
+        ') — grouped by category. Only catalog parts with detected ' +
+        esc(code) + ' fitment are shown.</p>';
+      var seenCats = {};
+      order.forEach(function(slug){
+        if (groups[slug]) { seenCats[slug] = true; html += groupHtml(slug, groups[slug], titles); }
+      });
+      Object.keys(groups).sort().forEach(function(slug){
+        if (!seenCats[slug]) html += groupHtml(slug, groups[slug], titles);
+      });
+      if (!items.length) {
+        html += '<p class="garage-loading">No parts tagged for ' + esc(code) +
+          ' yet — try the browse grid below.</p>';
+      }
+      html += '<p class="fine">Fitment is never guaranteed — always confirm year, ' +
+        'model, trim and VIN directly with the supplier contact before buying.</p>';
+      results.innerHTML = html;
+    });
+  }
+  function groupHtml(slug, items, titles){
+    var title = titles[slug] || slug;
+    var cards = items.map(card).join('');
+    return '<div class="res-head"><h2 class="sec">' + esc(title) +
+      ' (' + items.length + ')</h2></div>' +
+      '<div class="gcard-grid">' + cards + '</div>';
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "BMW 6 Series Gran Turismo (G32) Parts (2018\u20132023)", "description": "Every BMW 6 Series Gran Turismo (G32) compatible part in the FactoryPlug catalog."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<nav>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+</nav>
+</div></header>
+<section class="content-sec"><div class="wrap-narrow">
+<div id="garage-indicator" class="garage-indicator hidden" role="status"></div>
+<nav aria-label="Breadcrumb"><ol class="crumbs">
+<li><a href="/factoryplug-catalog/">Home</a></li><li><a href="/factoryplug-catalog/garage/">My Garage</a></li>
+<li aria-current="page">G32</li></ol></nav>
+<h1>BMW 6 Series Gran Turismo (G32) Parts <span class="yr">(2018–2023)</span></h1>
+<p class="sec-sub">Everything in the catalog for your G32 — grouped by
+category. 10 parts and counting.</p>
+<p class="fine">Fitment is never guaranteed — always confirm year, model, trim
+and VIN directly with the supplier contact before buying.</p>
+</div></section>
+<section class="content-sec" style="max-width:none">
+<div class="sec-head"><h2 class="sec">Aerodynamics &amp; Exterior (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="g20/g30/g32/g11/g12/g38/g28/g22/g15/g16 bmw carbon fiber mirror covers - g8x style, lhd | mirror caps &amp; mirror shells g20/g30/g32/g11/g12/g38/g28/g22/g15/g16 bmw carbon fiber mirror covers - g8x style, lhd | mirror caps &amp; mirror shells foshan zhenshenghui international trade co., ltd.  g20 g30 g32 g11 g12 g38 g28 g22 g15 g16" data-price-min="34" data-rating="5.0" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="G20 G30 G32 G11 G12 G38 G28 G22 G15 G16" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/g20-g30-g32-g11-g12-g38-g28-g22-g15-g16-bmw-carbon-fiber-mir.html"><span class="win-badge">Winning</span><img src="/factoryplug-catalog/assets/img/products/g20-g30-g32-g11-g12-g38-g28-g22-g15-g16-bmw-carbon-fiber-mir/g3.png" alt="G20/G30/G32/G11/G12/G38/G28/G22/G15/G16 BMW Carbon Fiber Mirror Covers - G8X Style, LHD | Mirror Caps &amp; Mirror Shells" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/g20-g30-g32-g11-g12-g38-g28-g22-g15-g16-bmw-carbon-fiber-mir.html">G20/G30/G32/G11/G12/G38/G28/G22/G15/G16 BMW Carbon Fiber Mirror Covers - G8X Style, LHD | Mirror Caps &amp; Mirror Shells</a></h3>
+<div class="price"><span class="conv-price" data-min="34" data-max="73" data-cur="USD" data-orig="$34-73">$34-73</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 pair</span><span class="chip hot">31 sold</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="5.0 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:100%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/foshan-zhenshenghui-international-trade-co-ltd.html">Foshan Zhenshenghui International Trade Co., Ltd.</a> · <b>5.0</b> · 31 transactions</div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/g20-g30-g32-g11-g12-g38-g28-g22-g15-g16-bmw-carbon-fiber-mir.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="for bmw g20 g80 m3 g30 f90 m5 g32 g11 g16 f93 m8 x3 g01 f97 x4 x5 g05 f95 x6 x7 2020-2026 dry carbon door handle covers overlays for bmw g20 g80 m3 g30 f90 m5 g32 g11 g16 f93 m8 x3 g01 f97 x4 x5 g05 f95 x6 x7 2020-2026 dry carbon door handle covers overlays   g20 g80 g30 f90 g32 g11 g16 g01 f97 g05" data-price-min="" data-rating="" data-reviews="0" data-cat="carbon" data-band="" data-chassis="G20 G80 G30 F90 G32 G11 G16 G01 F97 G05" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/for-bmw-g20-g80-m3-g30-f90-m5-g32-g11-g16-f93-m8-x3-g01-f97.html"><img src="/factoryplug-catalog/assets/img/products/for-bmw-g20-g80-m3-g30-f90-m5-g32-g11-g16-f93-m8-x3-g01-f97/hero.webp" alt="For BMW G20 G80 M3 G30 F90 M5 G32 G11 G16 F93 M8 X3 G01 F97 X4 X5 G05 F95 X6 X7 2020-2026 Dry Carbon Door Handle Covers Overlays" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/for-bmw-g20-g80-m3-g30-f90-m5-g32-g11-g16-f93-m8-x3-g01-f97.html">For BMW G20 G80 M3 G30 F90 M5 G32 G11 G16 F93 M8 X3 G01 F97 X4 X5 G05 F95 X6 X7 2020-2026 Dry Carbon Door Handle Covers Overlays</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/for-bmw-g20-g80-m3-g30-f90-m5-g32-g11-g16-f93-m8-x3-g01-f97.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Lighting (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="led mirror sequential turn signal lights for bmw f90 g12 g20 g30 g32 g14 g15 new 5 6 7 8 series rhd side dynamic indicator lamps led mirror sequential turn signal lights for bmw f90 g12 g20 g30 g32 g14 g15 new 5 6 7 8 series rhd side dynamic indicator lamps   f90 g12 g20 g30 g32 g15" data-price-min="" data-rating="" data-reviews="0" data-cat="lighting" data-band="" data-chassis="F90 G12 G20 G30 G32 G15" data-material="">
+<a class="pimg" href="/factoryplug-catalog/lighting/led-mirror-sequential-turn-signal-lights-for-bmw-f90-g12-g20.html"><img src="/factoryplug-catalog/assets/img/products/led-mirror-sequential-turn-signal-lights-for-bmw-f90-g12-g20/hero.webp" alt="Led Mirror Sequential Turn Signal Lights For BMW F90 G12 G20 G30 G32 G14 G15 New 5 6 7 8 Series Rhd Side Dynamic Indicator Lamps" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/lighting/led-mirror-sequential-turn-signal-lights-for-bmw-f90-g12-g20.html">Led Mirror Sequential Turn Signal Lights For BMW F90 G12 G20 G30 G32 G14 G15 New 5 6 7 8 Series Rhd Side Dynamic Indicator Lamps</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/led-mirror-sequential-turn-signal-lights-for-bmw-f90-g12-g20.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Engine &amp; Fuel (4)</h2></div><div class="prod-grid"><article class="prod-card" data-name="for bmw b58 3.0t f20 f22 f30 f32 g01 g11 g30 g32 intercooler charge pipe kit for bmw b58 3.0t f20 f22 f30 f32 g01 g11 g30 g32 intercooler charge pipe kit   f20 f22 f30 f32 g01 g11 g30 g32" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="F20 F22 F30 F32 G01 G11 G30 G32" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/for-bmw-b58-3-0t-f20-f22-f30-f32-g01-g11-g30-g32-intercooler.html"><img src="/factoryplug-catalog/assets/img/products/for-bmw-b58-3-0t-f20-f22-f30-f32-g01-g11-g30-g32-intercooler/hero.webp" alt="For BMW B58 3.0t F20 F22 F30 F32 G01 G11 G30 G32 Intercooler Charge Pipe Kit" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/for-bmw-b58-3-0t-f20-f22-f30-f32-g01-g11-g30-g32-intercooler.html">For BMW B58 3.0t F20 F22 F30 F32 G01 G11 G30 G32 Intercooler Charge Pipe Kit</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/for-bmw-b58-3-0t-f20-f22-f30-f32-g01-g11-g30-g32-intercooler.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="for bmw b58 3.0t f20 f22 f30 f32 g01 g11 g30 g32 intercooler charge pipe for bmw b58 3.0t f20 f22 f30 f32 g01 g11 g30 g32 intercooler charge pipe   f20 f22 f30 f32 g01 g11 g30 g32" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="F20 F22 F30 F32 G01 G11 G30 G32" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/for-bmw-b58-3-0t-f20-f22-f30-f32-g01-g11-g30-g32-intercooler-2.html"><img src="/factoryplug-catalog/assets/img/products/for-bmw-b58-3-0t-f20-f22-f30-f32-g01-g11-g30-g32-intercooler-2/hero.webp" alt="For BMW B58 3.0t F20 F22 F30 F32 G01 G11 G30 G32 Intercooler Charge Pipe" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/for-bmw-b58-3-0t-f20-f22-f30-f32-g01-g11-g30-g32-intercooler-2.html">For BMW B58 3.0t F20 F22 F30 F32 G01 G11 G30 G32 Intercooler Charge Pipe</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/for-bmw-b58-3-0t-f20-f22-f30-f32-g01-g11-g30-g32-intercooler-2.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="sk custom engine oil cooler kit for bmw b46 b48 g20 g28 g38 g32 g42 g26 g23 x3 g08 x4 g02 x5 g05 x6 sk custom engine oil cooler kit for bmw b46 b48 g20 g28 g38 g32 g42 g26 g23 x3 g08 x4 g02 x5 g05 x6   g20 g28 g38 g32 g42 g26 g23 g02 g05" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="G20 G28 G38 G32 G42 G26 G23 G02 G05" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/sk-custom-engine-oil-cooler-kit-for-bmw-b46-b48-g20-g28-g38.html"><img src="/factoryplug-catalog/assets/img/products/sk-custom-engine-oil-cooler-kit-for-bmw-b46-b48-g20-g28-g38/hero.webp" alt="Sk Custom Engine Oil Cooler Kit For BMW B46 B48 G20 G28 G38 G32 G42 G26 G23 X3 G08 X4 G02 X5 G05 X6" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/sk-custom-engine-oil-cooler-kit-for-bmw-b46-b48-g20-g28-g38.html">Sk Custom Engine Oil Cooler Kit For BMW B46 B48 G20 G28 G38 G32 G42 G26 G23 X3 G08 X4 G02 X5 G05 X6</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/sk-custom-engine-oil-cooler-kit-for-bmw-b46-b48-g20-g28-g38.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="engine oil coolant kit for bmw 5 series 6 series g30 g32 b38 b48 tu an10 sandwich plates hose kit engine oil coolant kit for bmw 5 series 6 series g30 g32 b38 b48 tu an10 sandwich plates hose kit   g30 g32" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="G30 G32" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/engine-oil-coolant-kit-for-bmw-5-series-6-series-g30-g32-b38.html"><img src="/factoryplug-catalog/assets/img/products/engine-oil-coolant-kit-for-bmw-5-series-6-series-g30-g32-b38/hero.webp" alt="Engine Oil Coolant Kit For BMW 5 Series 6 Series G30 G32 B38 B48 Tu An10 Sandwich Plates Hose Kit" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/engine-oil-coolant-kit-for-bmw-5-series-6-series-g30-g32-b38.html">Engine Oil Coolant Kit For BMW 5 Series 6 Series G30 G32 B38 B48 Tu An10 Sandwich Plates Hose Kit</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/engine-oil-coolant-kit-for-bmw-5-series-6-series-g30-g32-b38.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Interior Accessories (3)</h2></div><div class="prod-grid"><article class="prod-card" data-name="leather + carbon fiber d-shape sport steering wheel for bmw g20 g22 g28 g29 f87 g80 f82 f83 g30 g31 g32 g38 g11 g12 g01 g02 g05 g06 f90 | steering wheels leather + carbon fiber d-shape sport steering wheel for bmw g20 g22 g28 g29 f87 g80 f82 f83 g30 g31 g32 g38 g11 g12 g01 g02 g05 g06 f90 | steering wheels jiangmen chichuang automotive parts co., ltd.  g20 g22 g28 g29 f87 g80 f82 f83 g30 g32 g38 g11 g12 g01 g02 g05 g06 f90" data-price-min="1" data-rating="4.6" data-reviews="0" data-cat="interior" data-band="under-100" data-chassis="G20 G22 G28 G29 F87 G80 F82 F83 G30 G32 G38 G11 G12 G01 G02 G05 G06 F90" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/interior/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2.html"><img src="/factoryplug-catalog/assets/img/products/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2/hero.jpg" alt="Leather + Carbon Fiber D-Shape Sport Steering Wheel for BMW G20 G22 G28 G29 F87 G80 F82 F83 G30 G31 G32 G38 G11 G12 G01 G02 G05 G06 F90 | Steering Wheels" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2.html">Leather + Carbon Fiber D-Shape Sport Steering Wheel for BMW G20 G22 G28 G29 F87 G80 F82 F83 G30 G31 G32 G38 G11 G12 G01 G02 G05 G06 F90 | Steering Wheels</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="270" data-cur="USD" data-orig="$270 (1–14 pcs)">$270 (1–14 pcs)</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.6 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:92%">★★★★★</span></span> · Made by Jiangmen Chichuang Automotive Parts Co., Ltd. · <b>4.6</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="shasha carbon real dry carbon car interior kits for bmw g30 g31 g38 g32 gt 5 series shasha carbon real dry carbon car interior kits for bmw g30 g31 g38 g32 gt 5 series   g30 g38 g32" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="G30 G38 G32" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/interior/shasha-carbon-real-dry-carbon-car-interior-kits-for-bmw-g30.html"><img src="/factoryplug-catalog/assets/img/products/shasha-carbon-real-dry-carbon-car-interior-kits-for-bmw-g30/hero.webp" alt="Shasha Carbon Real Dry Carbon Car Interior Kits For BMW G30 G31 G38 G32 GT 5 Series" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/shasha-carbon-real-dry-carbon-car-interior-kits-for-bmw-g30.html">Shasha Carbon Real Dry Carbon Car Interior Kits For BMW G30 G31 G38 G32 GT 5 Series</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/shasha-carbon-real-dry-carbon-car-interior-kits-for-bmw-g30.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="for bmw g20 g22 g23 g26 g29 g42 m240i m340i g30 g32 g01 g02 g05 g06 g07 g14 g15 g11 g60 u11 matte carbon fiber steering wheel for bmw g20 g22 g23 g26 g29 g42 m240i m340i g30 g32 g01 g02 g05 g06 g07 g14 g15 g11 g60 u11 matte carbon fiber steering wheel   g20 g22 g23 g26 g29 g42 g30 g32 g01 g02 g05 g06 g07 g15 g11 g60" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="G20 G22 G23 G26 G29 G42 G30 G32 G01 G02 G05 G06 G07 G15 G11 G60" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/interior/for-bmw-g20-g22-g23-g26-g29-g42-m240i-m340i-g30-g32-g01-g02.html"><img src="/factoryplug-catalog/assets/img/products/for-bmw-g20-g22-g23-g26-g29-g42-m240i-m340i-g30-g32-g01-g02/hero.webp" alt="For BMW G20 G22 G23 G26 G29 G42 M240i M340i G30 G32 G01 G02 G05 G06 G07 G14 G15 G11 G60 U11 Matte Carbon Fiber Steering Wheel" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/for-bmw-g20-g22-g23-g26-g29-g42-m240i-m340i-g30-g32-g01-g02.html">For BMW G20 G22 G23 G26 G29 G42 M240i M340i G30 G32 G01 G02 G05 G06 G07 G14 G15 G11 G60 U11 Matte Carbon Fiber Steering Wheel</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/for-bmw-g20-g22-g23-g26-g29-g42-m240i-m340i-g30-g32-g01-g02.html">View details &rarr;</a></div>
+</div>
+</article>
+</div>
+<div style="margin-top:30px"><div class="btn-row">
+<a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
+</section>
+<footer class="site"><div class="wrap"><div class="cols">
+<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:var(--text)">Catalog</b><br>
+<a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
+<div><b style="color:var(--text)">More</b><br>
+<a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
+<div><b style="color:var(--text)">Trust</b><br>
+<a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
+<div><b style="color:var(--text)">Follow Conroy</b><br>
+<a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
+<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+</div>
+<small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+&copy; 2026 FactoryPlug. All rights reserved.</small>
+</div></footer>
+</body>
+</html>

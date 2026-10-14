@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BMW 3 Series Convertible (E93) Parts (2007–2013) — 52 Parts | FactoryPlug</title>
+<meta name="description" content="Every BMW 3 Series Convertible (E93) (2007–2013) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+
+<link rel="canonical" href="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/e93/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FactoryPlug">
+<meta property="og:title" content="BMW 3 Series Convertible (E93) Parts (2007–2013) — 52 Parts | FactoryPlug">
+<meta property="og:description" content="Every BMW 3 Series Convertible (E93) (2007–2013) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/e93/">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BMW 3 Series Convertible (E93) Parts (2007–2013) — 52 Parts | FactoryPlug">
+<meta name="twitter:description" content="Every BMW 3 Series Convertible (E93) (2007–2013) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
+<script src="/factoryplug-catalog/assets/fx.js" defer></script>
+<script src="/factoryplug-catalog/assets/search.js" defer></script>
+<script>
+/* My Garage: Year -> Make -> Model -> Chassis picker + "Everything for your
+   X" client-side results, persisted in localStorage (key fp_garage_v1).
+   All picker options derive from /garage/vehicles.json, which is built from
+   the catalog's own chassis detections — never hand-typed. Used on /garage/
+   (picker + results + indicator) and vehicle pages (indicator only). */
+(function(){
+  var KEY = 'fp_garage_v1';
+  var CATALOG_URL = '/garage/catalog.json';
+  var VEHICLES_URL = '/garage/vehicles.json';
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY)); } catch(e){ return null; } }
+  function save(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+  function clear(){ try { localStorage.removeItem(KEY); } catch(e){} }
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  /* ---- saved-garage indicator: "Shopping for: F80 M3" + change/clear ---- */
+  var ind = document.getElementById('garage-indicator');
+  var g = load();
+  if (g && g.code && ind) {
+    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.classList.remove('hidden');
+    var c = document.getElementById('garage-clear');
+    if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+  }
+
+  /* ---- picker (hub page only) ---- */
+  var yearSel = document.getElementById('garage-year');
+  var makeSel = document.getElementById('garage-make');
+  var modelSel = document.getElementById('garage-model');
+  var chassisSel = document.getElementById('garage-chassis');
+  var goBtn = document.getElementById('garage-go');
+  var results = document.getElementById('garage-results');
+  if (!yearSel || !makeSel || !modelSel || !chassisSel) {
+    return; /* vehicle landing pages: indicator only */
+  }
+  function resetSel(sel, label){
+    sel.innerHTML = '<option value="">' + label + '</option>';
+    sel.disabled = true;
+  }
+  function covers(v, y){ return v.y0 != null && v.y1 != null && y >= v.y0 && y <= v.y1; }
+
+  fetch(VEHICLES_URL).then(function(r){ return r.json(); }).then(function(data){
+    var codes = Object.keys(data).filter(function(code){
+      var v = data[code]; return v.y0 != null && v.y1 != null;
+    });
+    if (!codes.length) return;
+    var minY = Math.min.apply(null, codes.map(function(c){ return data[c].y0; }));
+    var maxY = Math.max.apply(null, codes.map(function(c){ return data[c].y1; }));
+    for (var y = maxY; y >= minY; y--) {
+      var o = document.createElement('option');
+      o.value = y; o.textContent = y;
+      yearSel.appendChild(o);
+    }
+    function makesFor(year){
+      var seen = {};
+      codes.forEach(function(code){
+        if (covers(data[code], year)) seen[data[code].make] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function modelsFor(year, make){
+      var seen = {};
+      codes.forEach(function(code){
+        var v = data[code];
+        if (v.make === make && covers(v, year)) seen[v.model] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function chassisFor(year, make, model){
+      return codes.filter(function(code){
+        var v = data[code];
+        return v.make === make && v.model === model && covers(v, year);
+      }).sort(function(a, b){ return data[b].count - data[a].count; });
+    }
+    yearSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(makeSel, 'Select make…'); resetSel(modelSel, 'Select model…');
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!year) return;
+      makesFor(year).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        makeSel.appendChild(o);
+      });
+      makeSel.disabled = false;
+    });
+    makeSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(modelSel, 'Select model…'); resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!makeSel.value) return;
+      modelsFor(year, makeSel.value).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        modelSel.appendChild(o);
+      });
+      modelSel.disabled = false;
+    });
+    modelSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!modelSel.value) return;
+      chassisFor(year, makeSel.value, modelSel.value).forEach(function(code){
+        var v = data[code];
+        var o = document.createElement('option');
+        o.value = code;
+        o.textContent = code + ' — ' + v.years + ' (' + v.count + ' parts)';
+        chassisSel.appendChild(o);
+      });
+      chassisSel.disabled = false;
+    });
+    chassisSel.addEventListener('change', function(){
+      if (goBtn) goBtn.disabled = !chassisSel.value;
+    });
+    if (goBtn) goBtn.addEventListener('click', function(){
+      var code = chassisSel.value;
+      if (!code || !data[code]) return;
+      var v = data[code];
+      var _mt = (v.model || '').trim();
+      var _first = _mt.split(' ')[0].split('/')[0].toLowerCase();
+      // Never "Q50 Q50": when the model already starts with the chassis code,
+      // the model alone is the label (2026-10-07 fix).
+      var label = (_first === String(code).toLowerCase()) ? _mt : code + ' ' + _mt;
+      save({ code: code, make: v.make, label: label });
+      g = load();
+      if (ind) {
+        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.classList.remove('hidden');
+        var cc = document.getElementById('garage-clear');
+        if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+      }
+      renderResults(code, data);
+      if (results && results.scrollIntoView) results.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    /* Saved garage? show its parts right away. */
+    if (g && g.code && data[g.code] && results) renderResults(g.code, data);
+  }).catch(function(){ /* picker degrades silently; browse grid still works */ });
+
+  /* ---- "Everything for your X", grouped by category, from catalog.json ---- */
+  var catalogCache = null;
+  function getCatalog(cb){
+    if (catalogCache) { cb(catalogCache); return; }
+    fetch(CATALOG_URL).then(function(r){ return r.json(); }).then(function(j){
+      catalogCache = j; cb(j);
+    }).catch(function(){ cb(null); });
+  }
+  function card(p){
+    return '<a class="gcard" href="' + esc(p.url) + '">' +
+      '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy">' +
+      '<span class="gcard-body"><span class="gcard-title">' + esc(p.title) + '</span>' +
+      '<span class="gcard-link">View part →</span></span></a>';
+  }
+  function renderResults(code, vdata){
+    if (!results) return;
+    var v = vdata[code];
+    results.innerHTML = '<p class="garage-loading">Pulling every part for your ' +
+      esc(code) + '…</p>';
+    getCatalog(function(cat){
+      if (!cat || !v) {
+        results.innerHTML = '<p class="garage-loading">Could not load the parts index — ' +
+          '<a href="' + esc(v ? v.url : '/garage/') + '">open the ' + esc(code) +
+          ' garage page →</a></p>';
+        return;
+      }
+      var items = cat.filter(function(p){
+        return p.chassis && p.chassis.indexOf(code) !== -1;
+      });
+      var order = (typeof FP_CAT_ORDER !== 'undefined') ? FP_CAT_ORDER : [];
+      var titles = (typeof FP_CAT_TITLES !== 'undefined') ? FP_CAT_TITLES : {};
+      var groups = {};
+      items.forEach(function(p){
+        (groups[p.category] = groups[p.category] || []).push(p);
+      });
+      var html = '<div class="res-head"><h2 class="sec">Everything for your ' +
+        esc(code) + '</h2><a class="btn ghost" href="' + esc(v.url) +
+        '">Full ' + esc(code) + ' page →</a></div>' +
+        '<p class="res-sub">' + items.length + ' parts that fit the ' +
+        esc(v.make + ' ' + v.model) + ' (' + esc(v.years) +
+        ') — grouped by category. Only catalog parts with detected ' +
+        esc(code) + ' fitment are shown.</p>';
+      var seenCats = {};
+      order.forEach(function(slug){
+        if (groups[slug]) { seenCats[slug] = true; html += groupHtml(slug, groups[slug], titles); }
+      });
+      Object.keys(groups).sort().forEach(function(slug){
+        if (!seenCats[slug]) html += groupHtml(slug, groups[slug], titles);
+      });
+      if (!items.length) {
+        html += '<p class="garage-loading">No parts tagged for ' + esc(code) +
+          ' yet — try the browse grid below.</p>';
+      }
+      html += '<p class="fine">Fitment is never guaranteed — always confirm year, ' +
+        'model, trim and VIN directly with the supplier contact before buying.</p>';
+      results.innerHTML = html;
+    });
+  }
+  function groupHtml(slug, items, titles){
+    var title = titles[slug] || slug;
+    var cards = items.map(card).join('');
+    return '<div class="res-head"><h2 class="sec">' + esc(title) +
+      ' (' + items.length + ')</h2></div>' +
+      '<div class="gcard-grid">' + cards + '</div>';
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "BMW 3 Series Convertible (E93) Parts (2007\u20132013)", "description": "Every BMW 3 Series Convertible (E93) compatible part in the FactoryPlug catalog."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<nav>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+</nav>
+</div></header>
+<section class="content-sec"><div class="wrap-narrow">
+<div id="garage-indicator" class="garage-indicator hidden" role="status"></div>
+<nav aria-label="Breadcrumb"><ol class="crumbs">
+<li><a href="/factoryplug-catalog/">Home</a></li><li><a href="/factoryplug-catalog/garage/">My Garage</a></li>
+<li aria-current="page">E93</li></ol></nav>
+<h1>BMW 3 Series Convertible (E93) Parts <span class="yr">(2007–2013)</span></h1>
+<p class="sec-sub">Everything in the catalog for your E93 — grouped by
+category. 52 parts and counting.</p>
+<p class="fine">Fitment is never guaranteed — always confirm year, model, trim
+and VIN directly with the supplier contact before buying.</p>
+</div></section>
+<section class="content-sec" style="max-width:none">
+<div class="sec-head"><h2 class="sec">Forged Wheels (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="rscr customized arc-8 racing wheel 1-piece forged wheel brushed silver for 18 21 models 40mm 25mm offset for e92 e93 1m m3 m4 m5 rscr customized arc-8 racing wheel 1-piece forged wheel brushed silver for 18 21 models 40mm 25mm offset for e92 e93 1m m3 m4 m5   e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="wheels" data-band="" data-chassis="E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/wheels/rscr-customized-arc-8-racing-wheel-1-piece-forged-wheel-brus.html"><img src="/factoryplug-catalog/assets/img/products/rscr-customized-arc-8-racing-wheel-1-piece-forged-wheel-brus/hero.webp" alt="Rscr Customized Arc-8 Racing Wheel 1-piece Forged Wheel Brushed Silver For 18 21 Models 40mm 25mm Offset For E92 E93 1m M3 M4 M5" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/wheels/rscr-customized-arc-8-racing-wheel-1-piece-forged-wheel-brus.html">Rscr Customized Arc-8 Racing Wheel 1-piece Forged Wheel Brushed Silver For 18 21 Models 40mm 25mm Offset For E92 E93 1m M3 M4 M5</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/wheels/rscr-customized-arc-8-racing-wheel-1-piece-forged-wheel-brus.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="forged 5x112 5x120 monoblock beadlock alloy rims 18 19 20 21 inch racing car wheels for bmw m3 m4 e90 e92 e93 f80 g80 f82 g82 forged 5x112 5x120 monoblock beadlock alloy rims 18 19 20 21 inch racing car wheels for bmw m3 m4 e90 e92 e93 f80 g80 f82 g82 qingdao wheelux auto tech co., ltd.  e90 e92 e93 f80 g80 f82 g82" data-price-min="215" data-rating="4.7" data-reviews="0" data-cat="wheels" data-band="100-300" data-chassis="E90 E92 E93 F80 G80 F82 G82" data-material="">
+<a class="pimg" href="/factoryplug-catalog/wheels/forged-5x112-5x120-monoblock-beadlock-alloy-rims-18-19-20-21.html"><img src="/factoryplug-catalog/assets/img/products/forged-5x112-5x120-monoblock-beadlock-alloy-rims-18-19-20-21/hero.jpg" alt="Forged 5x112 5x120 Monoblock Beadlock Alloy Rims 18 19 20 21 Inch Racing Car Wheels for BMW M3 M4 E90 E92 E93 F80 G80 F82 G82" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/wheels/forged-5x112-5x120-monoblock-beadlock-alloy-rims-18-19-20-21.html">Forged 5x112 5x120 Monoblock Beadlock Alloy Rims 18 19 20 21 Inch Racing Car Wheels for BMW M3 M4 E90 E92 E93 F80 G80 F82 G82</a></h3>
+<div class="price"><span class="conv-price" data-min="215" data-max="295" data-cur="USD" data-orig="$215–$295 per piece">$215–$295 per piece</span></div>
+<div class="meta-row"><span class="chip">MOQ: 4 pieces (a set)</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.7 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:94%">★★★★★</span></span> · Made by Qingdao Wheelux Auto Tech Co., Ltd. · <b>4.7</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/wheels/forged-5x112-5x120-monoblock-beadlock-alloy-rims-18-19-20-21.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Exhaust Systems (5)</h2></div><div class="prod-grid"><article class="prod-card" data-name="bk exhaust pipes for bmw 335/335i e90/e92/e93 n54 3.0t 2009-2013 stainless steel catback muffler vacuum valve bk exhaust pipes for bmw 335/335i e90/e92/e93 n54 3.0t 2009-2013 stainless steel catback muffler vacuum valve jiangxi boska trading co., ltd., 6 yrs, ganzhou cn, 4.8/5, intertek verified  e90 e92 e93" data-price-min="1" data-rating="4.8" data-reviews="0" data-cat="exhaust" data-band="under-100" data-chassis="E90 E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/exhaust/bk-exhaust-pipes-for-bmw-335-335i-e90-e92-e93-n54-3-0t-2009.html"><img src="/factoryplug-catalog/assets/img/products/bk-exhaust-pipes-for-bmw-335-335i-e90-e92-e93-n54-3-0t-2009/hero.jpg" alt="BK Exhaust Pipes for BMW 335/335i E90/E92/E93 N54 3.0T 2009-2013 Stainless Steel Catback Muffler Vacuum Valve" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/bk-exhaust-pipes-for-bmw-335-335i-e90-e92-e93-n54-3-0t-2009.html">BK Exhaust Pipes for BMW 335/335i E90/E92/E93 N54 3.0T 2009-2013 Stainless Steel Catback Muffler Vacuum Valve</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="699" data-cur="USD" data-orig="$699 (1-4 sets), $659 (5-9), $609 (10+) / set">$699 (1-4 sets), $659 (5-9), $609 (10+) / set</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.8 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:96%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/jiangxi-boska-trading-co-ltd.html">Jiangxi Boska Trading Co., Ltd., 6 yrs, Ganzhou CN, 4.8/5, Intertek verified</a> · <b>4.8</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/bk-exhaust-pipes-for-bmw-335-335i-e90-e92-e93-n54-3-0t-2009.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="auto performance parts for bmw m3 e90/e92/e93 v8 4.0l 2008-2013 2.5inch dual x mid pipe stainless steel valved catback muffler (boska) auto performance parts for bmw m3 e90/e92/e93 v8 4.0l 2008-2013 2.5inch dual x mid pipe stainless steel valved catback muffler (boska) jiangxi boska trading co., ltd., 6 yrs, 4.8/5  e90 e92 e93" data-price-min="1" data-rating="4.8" data-reviews="0" data-cat="exhaust" data-band="under-100" data-chassis="E90 E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/exhaust/auto-performance-parts-for-bmw-m3-e90-e92-e93-v8-4-0l-2008-2.html"><img src="/factoryplug-catalog/assets/img/products/auto-performance-parts-for-bmw-m3-e90-e92-e93-v8-4-0l-2008-2/hero.jpg" alt="Auto Performance Parts for BMW M3 E90/E92/E93 V8 4.0L 2008-2013 2.5inch Dual X Mid Pipe Stainless Steel Valved Catback Muffler (Boska)" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/auto-performance-parts-for-bmw-m3-e90-e92-e93-v8-4-0l-2008-2.html">Auto Performance Parts for BMW M3 E90/E92/E93 V8 4.0L 2008-2013 2.5inch Dual X Mid Pipe Stainless Steel Valved Catback Muffler (Boska)</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="699" data-cur="USD" data-orig="$699 (1-4), $659 (5-14), $599 (15+)">$699 (1-4), $659 (5-14), $599 (15+)</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.8 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:96%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/jiangxi-boska-trading-co-ltd.html">Jiangxi Boska Trading Co., Ltd., 6 yrs, 4.8/5</a> · <b>4.8</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/auto-performance-parts-for-bmw-m3-e90-e92-e93-v8-4-0l-2008-2.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="boska z-pipe valvetronic catback exhaust for bmw m3 e90 e92 e93 s65 4.0l v8 2008-2013 performance sport valved muffler boska z-pipe valvetronic catback exhaust for bmw m3 e90 e92 e93 s65 4.0l v8 2008-2013 sus304 performance sport valved muffler meizhou sumalike technology co., ltd., 1 yr, 4.9/5  e90 e92 e93" data-price-min="1" data-rating="4.9" data-reviews="0" data-cat="exhaust" data-band="under-100" data-chassis="E90 E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/exhaust/boska-z-pipe-valvetronic-catback-exhaust-for-bmw-m3-e90-e92.html"><img src="/factoryplug-catalog/assets/img/products/boska-z-pipe-valvetronic-catback-exhaust-for-bmw-m3-e90-e92/hero.png" alt="Boska Z-Pipe Valvetronic Catback Exhaust for BMW M3 E90 E92 E93 S65 4.0L V8 2008-2013 Performance Sport Valved Muffler" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/boska-z-pipe-valvetronic-catback-exhaust-for-bmw-m3-e90-e92.html">Boska Z-Pipe Valvetronic Catback Exhaust for BMW M3 E90 E92 E93 S65 4.0L V8 2008-2013 Performance Sport Valved Muffler</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="849" data-cur="USD" data-orig="$849 (1-4), $809 (5-9), $759 (10+)">$849 (1-4), $809 (5-9), $759 (10+)</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.9 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:98%">★★★★★</span></span> · Made by Meizhou Sumalike Technology Co., Ltd., 1 yr, 4.9/5 · <b>4.9</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/boska-z-pipe-valvetronic-catback-exhaust-for-bmw-m3-e90-e92.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="valve catback exhaust for bmw m3 e90 e92 e93 4.0l 2008-2013 escape titanium exhaust system mid tube valve catback exhaust for bmw m3 e90 e92 e93 4.0l 2008-2013 escape titanium exhaust system mid tube   e90 e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="E90 E92 E93" data-material="Titanium">
+<a class="pimg" href="/factoryplug-catalog/exhaust/valve-catback-exhaust-for-bmw-m3-e90-e92-e93-4-0l-2008-2013.html"><img src="/factoryplug-catalog/assets/img/products/valve-catback-exhaust-for-bmw-m3-e90-e92-e93-4-0l-2008-2013/hero.webp" alt="Valve Catback Exhaust For BMW M3 E90 E92 E93 4.0l 2008-2013 Escape Titanium Exhaust System Mid Tube" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/valve-catback-exhaust-for-bmw-m3-e90-e92-e93-4-0l-2008-2013.html">Valve Catback Exhaust For BMW M3 E90 E92 E93 4.0l 2008-2013 Escape Titanium Exhaust System Mid Tube</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/valve-catback-exhaust-for-bmw-m3-e90-e92-e93-4-0l-2008-2013.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="oem z-pipe valvetronic exhaust catback system for bmw m3 e90 e92 e93 s65 4.0l v8 2008-2013 ss304 oem z-pipe valvetronic exhaust catback system for bmw m3 e90 e92 e93 s65 4.0l v8 2008-2013 ss304   e90 e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="E90 E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/exhaust/oem-z-pipe-valvetronic-exhaust-catback-system-for-bmw-m3-e90.html"><img src="/factoryplug-catalog/assets/img/products/oem-z-pipe-valvetronic-exhaust-catback-system-for-bmw-m3-e90/hero.webp" alt="Oem Z-pipe Valvetronic Exhaust Catback System For BMW M3 E90 E92 E93 S65 4.0l V8 2008-2013 Ss304" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/oem-z-pipe-valvetronic-exhaust-catback-system-for-bmw-m3-e90.html">Oem Z-pipe Valvetronic Exhaust Catback System For BMW M3 E90 E92 E93 S65 4.0l V8 2008-2013 Ss304</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/oem-z-pipe-valvetronic-exhaust-catback-system-for-bmw-m3-e90.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Aerodynamics &amp; Exterior (23)</h2><a class="more" href="/factoryplug-catalog/carbon/">More Aerodynamics &amp; Exterior →</a></div><div class="prod-grid"><article class="prod-card" data-name="custom carbon fiber rear diffuser for bmw m3 e90 e92 e93 car auto parts custom carbon fiber rear diffuser for bmw m3 e90 e92 e93 car auto parts anhui jagrow auto parts co., ltd., hefei, 10 yrs, multispecialty, 4.9/5  e90 e92 e93" data-price-min="1" data-rating="4.9" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="E90 E92 E93" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/custom-carbon-fiber-rear-diffuser-for-bmw-m3-e90-e92-e93-car.html"><img src="/factoryplug-catalog/assets/img/products/custom-carbon-fiber-rear-diffuser-for-bmw-m3-e90-e92-e93-car/hero.jpg" alt="Custom Carbon Fiber Rear Diffuser for BMW M3 E90 E92 E93 Car Auto Parts" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/custom-carbon-fiber-rear-diffuser-for-bmw-m3-e90-e92-e93-car.html">Custom Carbon Fiber Rear Diffuser for BMW M3 E90 E92 E93 Car Auto Parts</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="629" data-cur="USD" data-orig="$629 (1-9 pieces), $599 (10+ pieces)">$629 (1-9 pieces), $599 (10+ pieces)</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.9 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:98%">★★★★★</span></span> · Made by Anhui Jagrow Auto Parts Co., Ltd., Hefei, 10 yrs, multispecialty, 4.9/5 · <b>4.9</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/custom-carbon-fiber-rear-diffuser-for-bmw-m3-e90-e92-e93-car.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="e92 m3 gt4 style carbon fiber front bumper spoiler lip splitter for bmw e92 e93 m3 08-13 (r&amp;cf rcf-bmwe9xfl-gt4) e92 m3 gt4 style carbon fiber front bumper spoiler lip splitter for bmw e92 e93 m3 08-13 (r&amp;cf rcf-bmwe9xfl-gt4) dongguan saibang carbon fiber products technology co., ltd., 8 yrs, 4.6/5  e92 e93" data-price-min="1" data-rating="4.6" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="E92 E93" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/e92-m3-gt4-style-carbon-fiber-front-bumper-spoiler-lip-split.html"><img src="/factoryplug-catalog/assets/img/products/e92-m3-gt4-style-carbon-fiber-front-bumper-spoiler-lip-split/hero.png" alt="E92 M3 GT4 Style Carbon Fiber Front Bumper Spoiler Lip Splitter for BMW E92 E93 M3 08-13 (R&amp;CF RCF-BMWE9XFL-GT4)" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/e92-m3-gt4-style-carbon-fiber-front-bumper-spoiler-lip-split.html">E92 M3 GT4 Style Carbon Fiber Front Bumper Spoiler Lip Splitter for BMW E92 E93 M3 08-13 (R&amp;CF RCF-BMWE9XFL-GT4)</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="220" data-cur="USD" data-orig="$220/piece (1-9), $205 (10-19), $185 (20-49), $150 (50+)">$220/piece (1-9), $205 (10-19), $185 (20-49), $150 (50+)</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.6 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:92%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/dongguan-saibang-carbon-fiber-products-technology-co-ltd.html">Dongguan Saibang Carbon Fiber Products Technology Co., Ltd., 8 yrs, 4.6/5</a> · <b>4.6</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/e92-m3-gt4-style-carbon-fiber-front-bumper-spoiler-lip-split.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="v style automotive parts carbon fiber front bumper splitter lip for 2005-2011 bmw e90 e92 e93 m3 upgrade e92 m3 gts (iooch) v style automotive parts carbon fiber front bumper splitter lip for 2005-2011 bmw e90 e92 e93 m3 upgrade e92 m3 gts (iooch) guangzhou denglong industrial co., ltd., 7 yrs, 4.5/5  e90 e92 e93" data-price-min="1" data-rating="4.5" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="E90 E92 E93" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/v-style-automotive-parts-carbon-fiber-front-bumper-splitter.html"><img src="/factoryplug-catalog/assets/img/products/v-style-automotive-parts-carbon-fiber-front-bumper-splitter/hero.jpg" alt="V Style Automotive Parts Carbon Fiber Front Bumper Splitter Lip for 2005-2011 BMW E90 E92 E93 M3 Upgrade E92 M3 GTS (IOOCH)" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/v-style-automotive-parts-carbon-fiber-front-bumper-splitter.html">V Style Automotive Parts Carbon Fiber Front Bumper Splitter Lip for 2005-2011 BMW E90 E92 E93 M3 Upgrade E92 M3 GTS (IOOCH)</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="250" data-cur="USD" data-orig="$250/piece (1-4), $240 (5-99)">$250/piece (1-4), $240 (5-99)</span></div>
+<div class="meta-row"><span class="chip">MOQ: 2 pcs</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.5 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:90%">★★★★★</span></span> · Made by Guangzhou Denglong Industrial Co., Ltd., 7 yrs, 4.5/5 · <b>4.5</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/v-style-automotive-parts-carbon-fiber-front-bumper-splitter.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="carbon fiber e93 m3 rear bumper diffuser bottom plate for bmw e93 e92 m3 2008 - 2013 (jcsportline jc-hd323) carbon fiber e93 m3 rear bumper diffuser bottom plate for bmw e93 e92 m3 2008 - 2013 (jcsportline jc-hd323) shenzhen chejiashi technology co., ltd., 15 yrs, 4.6/5  e93 e92" data-price-min="1" data-rating="4.6" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="E93 E92" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/carbon-fiber-e93-m3-rear-bumper-diffuser-bottom-plate-for-bm.html"><img src="/factoryplug-catalog/assets/img/products/carbon-fiber-e93-m3-rear-bumper-diffuser-bottom-plate-for-bm/hero.jpg" alt="Carbon Fiber E93 M3 Rear Bumper Diffuser Bottom Plate for BMW E93 E92 M3 2008 - 2013 (Jcsportline JC-HD323)" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/carbon-fiber-e93-m3-rear-bumper-diffuser-bottom-plate-for-bm.html">Carbon Fiber E93 M3 Rear Bumper Diffuser Bottom Plate for BMW E93 E92 M3 2008 - 2013 (Jcsportline JC-HD323)</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="460" data-cur="USD" data-orig="$460 (1-4), $430 (5-9), $390 (10+)">$460 (1-4), $430 (5-9), $390 (10+)</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.6 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:92%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/shenzhen-chejiashi-technology-co-ltd.html">Shenzhen Chejiashi Technology Co., Ltd., 15 yrs, 4.6/5</a> · <b>4.6</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/carbon-fiber-e93-m3-rear-bumper-diffuser-bottom-plate-for-bm.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="high quality pp+carbon fiber tail throat 2005-2012 car bumpers e90 e92 e93 refitted m3 m4 body kit for bmw 3 series high quality pp+carbon fiber tail throat 2005-2012 car bumpers e90 e92 e93 refitted m3 m4 body kit for bmw 3 series chengdu haoruijie trading co., ltd., chengdu, 5 yrs, multispecialty, 4.4/5  e90 e92 e93" data-price-min="1" data-rating="4.4" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="E90 E92 E93" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/high-quality-pp-carbon-fiber-tail-throat-2005-2012-car-bumpe.html"><img src="/factoryplug-catalog/assets/img/products/high-quality-pp-carbon-fiber-tail-throat-2005-2012-car-bumpe/hero.jpg" alt="High Quality PP+carbon Fiber Tail Throat 2005-2012 Car Bumpers E90 E92 E93 Refitted M3 M4 Body Kit for BMW 3 Series" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/high-quality-pp-carbon-fiber-tail-throat-2005-2012-car-bumpe.html">High Quality PP+carbon Fiber Tail Throat 2005-2012 Car Bumpers E90 E92 E93 Refitted M3 M4 Body Kit for BMW 3 Series</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="740" data-cur="USD" data-orig="$740 (1-9 sets), $670 (10+); 4.0 (10 reviews); 13 sold">$740 (1-9 sets), $670 (10+); 4.0 (10 reviews); 13 sold</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.4 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:88%">★★★★★</span></span> · Made by Chengdu Haoruijie Trading Co., Ltd., Chengdu, 5 yrs, multispecialty, 4.4/5 · <b>4.4</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/high-quality-pp-carbon-fiber-tail-throat-2005-2012-car-bumpe.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="e style carbon fiber side skirts bumper lip for 3 series e90 e92 e93 m3 2008-2013 side lip e style carbon fiber side skirts bumper lip for 3 series e90 e92 e93 m3 2008-2013 side lip boluo shiwan ms glass fibre products factory, boluo, 8 yrs, manufacturer + trading, 4.2/5  e90 e92 e93" data-price-min="1" data-rating="4.2" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="E90 E92 E93" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/e-style-carbon-fiber-side-skirts-bumper-lip-for-3-series-e90.html"><img src="/factoryplug-catalog/assets/img/products/e-style-carbon-fiber-side-skirts-bumper-lip-for-3-series-e90/hero.jpg" alt="E Style Carbon Fiber Side Skirts Bumper Lip for 3 Series E90 E92 E93 M3 2008-2013 SIDE LIP" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/e-style-carbon-fiber-side-skirts-bumper-lip-for-3-series-e90.html">E Style Carbon Fiber Side Skirts Bumper Lip for 3 Series E90 E92 E93 M3 2008-2013 SIDE LIP</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="155" data-cur="USD" data-orig="$155 (1 set), $135.98 (2-19), $128.98 (20+); 3 sold">$155 (1 set), $135.98 (2-19), $128.98 (20+); 3 sold</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.2 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:84%">★★★★★</span></span> · Made by Boluo Shiwan Ms Glass Fibre Products Factory, Boluo, 8 yrs, manufacturer + trading, 4.2/5 · <b>4.2</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/e-style-carbon-fiber-side-skirts-bumper-lip-for-3-series-e90.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="g-t-4 type carbon fiber front lip for bmw e90 e92 e93 m3 front bumper lip splitter spoiler car accessories g-t-4 type carbon fiber front lip for bmw e90 e92 e93 m3 front bumper lip splitter spoiler car accessories guangzhou wangcheda auto parts co., ltd., guangzhou, 5 yrs, custom manufacturer, 4.1/5  e90 e92 e93" data-price-min="1" data-rating="4.1" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="E90 E92 E93" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/g-t-4-type-carbon-fiber-front-lip-for-bmw-e90-e92-e93-m3-fro.html"><img src="/factoryplug-catalog/assets/img/products/g-t-4-type-carbon-fiber-front-lip-for-bmw-e90-e92-e93-m3-fro/hero.jpg" alt="G-T-4 Type Carbon Fiber Front Lip for BMW E90 E92 E93 M3 Front Bumper Lip Splitter Spoiler Car Accessories" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/g-t-4-type-carbon-fiber-front-lip-for-bmw-e90-e92-e93-m3-fro.html">G-T-4 Type Carbon Fiber Front Lip for BMW E90 E92 E93 M3 Front Bumper Lip Splitter Spoiler Car Accessories</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="200" data-cur="USD" data-orig="$200 (1-2 pairs), $190 (3+ pairs)">$200 (1-2 pairs), $190 (3+ pairs)</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 pair</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.1 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:82%">★★★★★</span></span> · Made by Guangzhou Wangcheda Auto Parts Co., Ltd., Guangzhou, 5 yrs, custom manufacturer, 4.1/5 · <b>4.1</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/g-t-4-type-carbon-fiber-front-lip-for-bmw-e90-e92-e93-m3-fro.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="gt4s style e92 m3 carbon front lip for bmw e92 e93 m3 2009-2013 gt4s style e92 m3 carbon front lip for bmw e92 e93 m3 2009-2013 guangzhou ming chedao automotive supplies co., ltd., guangzhou, 4 yrs, multispecialty, 4.4/5  e92 e93" data-price-min="1" data-rating="4.4" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/carbon/gt4s-style-e92-m3-carbon-front-lip-for-bmw-e92-e93-m3-2009-2.html"><img src="/factoryplug-catalog/assets/img/products/gt4s-style-e92-m3-carbon-front-lip-for-bmw-e92-e93-m3-2009-2/hero.jpg" alt="GT4S Style E92 M3 Carbon Front Lip for BMW E92 E93 M3 2009-2013" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/gt4s-style-e92-m3-carbon-front-lip-for-bmw-e92-e93-m3-2009-2.html">GT4S Style E92 M3 Carbon Front Lip for BMW E92 E93 M3 2009-2013</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="190" data-cur="USD" data-orig="$190 (1-4 pieces); &gt;=5-piece tier exists">$190 (1-4 pieces); &gt;=5-piece tier exists</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 piece/set</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.4 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:88%">★★★★★</span></span> · Made by Guangzhou Ming Chedao Automotive Supplies Co., Ltd., Guangzhou, 4 yrs, multispecialty, 4.4/5 · <b>4.4</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/gt4s-style-e92-m3-carbon-front-lip-for-bmw-e92-e93-m3-2009-2.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="2006-2013 for e92/e93 m3 carbon fiber rear bumper lip-high quality retrofit/upgrade part 2006-2013 for e92/e93 m3 carbon fiber rear bumper lip-high quality retrofit/upgrade part guangzhou ming chedao automotive supplies co., ltd., guangzhou, 4 yrs, multispecialty, 4.4/5  e92 e93" data-price-min="1" data-rating="4.4" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="E92 E93" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/2006-2013-for-e92-e93-m3-carbon-fiber-rear-bumper-lip-high-q.html"><img src="/factoryplug-catalog/assets/img/products/2006-2013-for-e92-e93-m3-carbon-fiber-rear-bumper-lip-high-q/hero.jpg" alt="2006-2013 for E92/E93 M3 Carbon Fiber Rear Bumper Lip-High Quality Retrofit/Upgrade Part" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/2006-2013-for-e92-e93-m3-carbon-fiber-rear-bumper-lip-high-q.html">2006-2013 for E92/E93 M3 Carbon Fiber Rear Bumper Lip-High Quality Retrofit/Upgrade Part</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="580" data-cur="USD" data-orig="$580 (1-4 pcs), $560 (5+ pcs)">$580 (1-4 pcs), $560 (5+ pcs)</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 piece/set</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.4 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:88%">★★★★★</span></span> · Made by Guangzhou Ming Chedao Automotive Supplies Co., Ltd., Guangzhou, 4 yrs, multispecialty, 4.4/5 · <b>4.4</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/2006-2013-for-e92-e93-m3-carbon-fiber-rear-bumper-lip-high-q.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="mrd carbon fiber fenders for bmw e92 m3 e93 m3 real carbon fiber forge fender (e01bmw165xsj) mrd carbon fiber fenders for bmw e92 m3 e93 m3 real carbon fiber forge fender (e01bmw165xsj) suzhou m.r.d. imp and exp co., ltd., 4 yrs, 4.6/5  e92 e93" data-price-min="1" data-rating="4.6" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="E92 E93" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/mrd-carbon-fiber-fenders-for-bmw-e92-m3-e93-m3-real-carbon-f.html"><img src="/factoryplug-catalog/assets/img/products/mrd-carbon-fiber-fenders-for-bmw-e92-m3-e93-m3-real-carbon-f/hero.jpg" alt="MRD Carbon Fiber Fenders for BMW E92 M3 E93 M3 Real Carbon Fiber Forge Fender (E01BMW165XSJ)" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/mrd-carbon-fiber-fenders-for-bmw-e92-m3-e93-m3-real-carbon-f.html">MRD Carbon Fiber Fenders for BMW E92 M3 E93 M3 Real Carbon Fiber Forge Fender (E01BMW165XSJ)</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="550" data-cur="USD" data-orig="$550 (1-4), $500 (5-9), $480 (10-49), $450 (50+)">$550 (1-4), $500 (5-9), $480 (10-49), $450 (50+)</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.6 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:92%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/suzhou-m-r-d-imp-and-exp-co-ltd.html">Suzhou M.r.d. Imp And Exp Co., Ltd., 4 yrs, 4.6/5</a> · <b>4.6</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/mrd-carbon-fiber-fenders-for-bmw-e92-m3-e93-m3-real-carbon-f.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="e90 gts style carbon fiber fibre front engine bonnet hood for bmw 3 series e90 e92 e93 e90 gts style carbon fiber fibre front engine bonnet hood for bmw 3 series e90 e92 e93 guangzhou denglong industrial co., ltd., guangzhou, 7 yrs, custom manufacturer, 4.5/5  e90 e92 e93" data-price-min="1" data-rating="4.5" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="E90 E92 E93" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/e90-gts-style-carbon-fiber-fibre-front-engine-bonnet-hood-fo.html"><img src="/factoryplug-catalog/assets/img/products/e90-gts-style-carbon-fiber-fibre-front-engine-bonnet-hood-fo/hero.jpg" alt="E90 GTS STYLE Carbon Fiber Fibre Front Engine Bonnet Hood for BMW 3 Series E90 E92 E93" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/e90-gts-style-carbon-fiber-fibre-front-engine-bonnet-hood-fo.html">E90 GTS STYLE Carbon Fiber Fibre Front Engine Bonnet Hood for BMW 3 Series E90 E92 E93</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="500" data-cur="USD" data-orig="$500 (1 pc), $480 (2-49), $400 (50+); 5.0 (3 reviews); 3 sold">$500 (1 pc), $480 (2-49), $400 (50+); 5.0 (3 reviews); 3 sold</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.5 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:90%">★★★★★</span></span> · Made by Guangzhou Denglong Industrial Co., Ltd., Guangzhou, 7 yrs, custom manufacturer, 4.5/5 · <b>4.5</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/e90-gts-style-carbon-fiber-fibre-front-engine-bonnet-hood-fo.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="mrd carbon fiber body kit for bmw e9x e92 e93 m3 front lip rear diffuser trunk side skirts hood mrd carbon fiber body kit for bmw e9x e92 e93 m3 front lip rear diffuser trunk side skirts hood suzhou m.r.d. imp and exp co., ltd., 4 yrs, suzhou cn, 4.6/5  e92 e93" data-price-min="128" data-rating="4.6" data-reviews="0" data-cat="carbon" data-band="100-300" data-chassis="E92 E93" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/mrd-carbon-fiber-body-kit-for-bmw-e9x-e92-e93-m3-front-lip-r.html"><img src="/factoryplug-catalog/assets/img/products/mrd-carbon-fiber-body-kit-for-bmw-e9x-e92-e93-m3-front-lip-r/hero.jpg" alt="MRD Carbon Fiber Body Kit for BMW E9X E92 E93 M3 Front Lip Rear Diffuser Trunk Side Skirts Hood" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/mrd-carbon-fiber-body-kit-for-bmw-e9x-e92-e93-m3-front-lip-r.html">MRD Carbon Fiber Body Kit for BMW E9X E92 E93 M3 Front Lip Rear Diffuser Trunk Side Skirts Hood</a></h3>
+<div class="price"><span class="conv-price" data-min="128" data-max="650" data-cur="USD" data-orig="$128-$650 / piece">$128-$650 / piece</span></div>
+<div class="meta-row"><span class="chip">MOQ: Min. order: 1 piece</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.6 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:92%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/suzhou-m-r-d-imp-and-exp-co-ltd.html">Suzhou M.r.d. Imp And Exp Co., Ltd., 4 yrs, Suzhou CN, 4.6/5</a> · <b>4.6</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/mrd-carbon-fiber-body-kit-for-bmw-e9x-e92-e93-m3-front-lip-r.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Lighting (6)</h2></div><div class="prod-grid"><article class="prod-card" data-name="2006-2009 e92/e93 bmw 3 series led headlights - yellow/white drl, plug and play | angel eyes &amp; headlight assemblies 2006-2009 e92/e93 bmw 3 series led headlights - yellow/white drl, plug and play | angel eyes &amp; headlight assemblies sjc auto lighting systems — brand is sjc; verified 2026-09-27 as one of two 5.0/5 sjc-family lighting suppliers  e92 e93" data-price-min="480" data-rating="5.0" data-reviews="0" data-cat="lighting" data-band="300-600" data-chassis="E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/lighting/2006-2009-e92-e93-bmw-3-series-led-headlights-yellow-white-d.html"><img src="/factoryplug-catalog/assets/img/products/2006-2009-e92-e93-bmw-3-series-led-headlights-yellow-white-d/g1.webp" alt="2006-2009 E92/E93 BMW 3 Series LED Headlights - Yellow/White DRL, Plug and Play | Angel Eyes &amp; Headlight Assemblies" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/lighting/2006-2009-e92-e93-bmw-3-series-led-headlights-yellow-white-d.html">2006-2009 E92/E93 BMW 3 Series LED Headlights - Yellow/White DRL, Plug and Play | Angel Eyes &amp; Headlight Assemblies</a></h3>
+<div class="price"><span class="conv-price" data-min="480" data-max="480" data-cur="USD" data-orig="$480">$480</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="5.0 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:100%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/guangzhou-lima-electronic-technology-co-ltd.html">SJC Auto Lighting Systems — brand is SJC; verified 2026-09-27 as one of two 5.0/5 SJC-family lighting suppliers</a> · <b>5.0</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/2006-2009-e92-e93-bmw-3-series-led-headlights-yellow-white-d.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="sjc auto for bmw 3 series e92 e93 335 330 m3 2006-2010 e92 led tail lamps rear light modified sequential turn signal lights sjc auto for bmw 3 series e92 e93 335 330 m3 2006-2010 e92 led tail lamps rear light modified sequential turn signal lights guangzhou meishi electronic technology co., ltd., 3 yrs, 4.1/5  e92 e93" data-price-min="250" data-rating="4.1" data-reviews="0" data-cat="lighting" data-band="100-300" data-chassis="E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/lighting/sjc-auto-for-bmw-3-series-e92-e93-335-330-m3-2006-2010-e92-l.html"><img src="/factoryplug-catalog/assets/img/products/sjc-auto-for-bmw-3-series-e92-e93-335-330-m3-2006-2010-e92-l/hero.jpg" alt="SJC Auto for BMW 3 Series E92 E93 335 330 M3 2006-2010 E92 LED Tail Lamps Rear Light Modified Sequential Turn Signal Lights" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/lighting/sjc-auto-for-bmw-3-series-e92-e93-335-330-m3-2006-2010-e92-l.html">SJC Auto for BMW 3 Series E92 E93 335 330 M3 2006-2010 E92 LED Tail Lamps Rear Light Modified Sequential Turn Signal Lights</a></h3>
+<div class="price"><span class="conv-price" data-min="250" data-max="250" data-cur="USD" data-orig="$250">$250</span></div>
+<div class="meta-row"><span class="chip">MOQ: 4 sets</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.1 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:82%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/guangzhou-meishi-electronic-technology-co-ltd.html">Guangzhou Meishi Electronic Technology Co., Ltd., 3 yrs, 4.1/5</a> · <b>4.1</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/sjc-auto-for-bmw-3-series-e92-e93-335-330-m3-2006-2010-e92-l.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="bmw e92 led headlights sjc auto lighting systems headlight for bmw 3 series e92 e93 2006-2009 upgrade front lights yellow&amp;white headlamp plug and play guangzhou meishi electronic technology co., ltd., 3 yrs, 4.1/5 bmw e92 angel eyes headlights e92/e93 led headlight upgrade e92 led headlights e92 e93" data-price-min="430" data-rating="4.1" data-reviews="0" data-cat="lighting" data-band="300-600" data-chassis="E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/lighting/sjc-auto-lighting-systems-headlight-for-bmw-3-series-e92-e93.html"><img src="/factoryplug-catalog/assets/img/products/sjc-auto-lighting-systems-headlight-for-bmw-3-series-e92-e93/hero.jpg" alt="BMW E92 LED headlights" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/lighting/sjc-auto-lighting-systems-headlight-for-bmw-3-series-e92-e93.html">BMW E92 LED headlights</a></h3>
+<div class="price"><span class="conv-price" data-min="430" data-max="430" data-cur="USD" data-orig="$430">$430</span></div>
+<div class="meta-row"><span class="chip">MOQ: 4 sets</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.1 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:82%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/guangzhou-meishi-electronic-technology-co-ltd.html">Guangzhou Meishi Electronic Technology Co., Ltd., 3 yrs, 4.1/5</a> · <b>4.1</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/sjc-auto-lighting-systems-headlight-for-bmw-3-series-e92-e93.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="sjc auto part for bmw m3 lci e92 e93 led headlights 2010-2013 upgrade yellow+white dual color drl snake eyes style front lamps sjc auto part for bmw m3 lci e92 e93 led headlights 2010-2013 upgrade yellow+white dual color drl snake eyes style front lamps guangzhou lima electronic technology co., ltd., 6 yrs, 4.1/5  e92 e93" data-price-min="4" data-rating="4.1" data-reviews="0" data-cat="lighting" data-band="under-100" data-chassis="E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/lighting/sjc-auto-part-for-bmw-m3-lci-e92-e93-led-headlights-2010-201.html"><img src="/factoryplug-catalog/assets/img/products/sjc-auto-part-for-bmw-m3-lci-e92-e93-led-headlights-2010-201/hero.png" alt="SJC Auto Part for BMW M3 LCI E92 E93 LED Headlights 2010-2013 Upgrade Yellow+White Dual Color DRL Snake Eyes Style Front Lamps" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/lighting/sjc-auto-part-for-bmw-m3-lci-e92-e93-led-headlights-2010-201.html">SJC Auto Part for BMW M3 LCI E92 E93 LED Headlights 2010-2013 Upgrade Yellow+White Dual Color DRL Snake Eyes Style Front Lamps</a></h3>
+<div class="price"><span class="conv-price" data-min="4" data-max="490" data-cur="USD" data-orig="$490 (4-49), $470 (50-99), $400 (100+)">$490 (4-49), $470 (50-99), $400 (100+)</span></div>
+<div class="meta-row"><span class="chip">MOQ: 4 sets</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.1 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:82%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/guangzhou-lima-electronic-technology-co-ltd.html">Guangzhou Lima Electronic Technology Co., Ltd., 6 yrs, 4.1/5</a> · <b>4.1</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/sjc-auto-part-for-bmw-m3-lci-e92-e93-led-headlights-2010-201.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="sjc usa local stock laser front lamp car accessories for bmw 3 series m3 e92 e93 headlight assembly 10-13 auto new design sjc usa local stock laser front lamp car accessories for bmw 3 series m3 e92 e93 headlight assembly 10-13 auto new design guangzhou meishi electronic technology co., ltd., 3 yrs, 4.1/5  e92 e93" data-price-min="530" data-rating="4.1" data-reviews="0" data-cat="lighting" data-band="300-600" data-chassis="E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/lighting/sjc-usa-local-stock-laser-front-lamp-car-accessories-for-bmw.html"><img src="/factoryplug-catalog/assets/img/products/sjc-usa-local-stock-laser-front-lamp-car-accessories-for-bmw/hero.jpg" alt="SJC USA LOCAL STOCK Laser Front Lamp Car Accessories for BMW 3 Series M3 E92 E93 Headlight Assembly 10-13 Auto New Design" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/lighting/sjc-usa-local-stock-laser-front-lamp-car-accessories-for-bmw.html">SJC USA LOCAL STOCK Laser Front Lamp Car Accessories for BMW 3 Series M3 E92 E93 Headlight Assembly 10-13 Auto New Design</a></h3>
+<div class="price"><span class="conv-price" data-min="530" data-max="530" data-cur="USD" data-orig="$530">$530</span></div>
+<div class="meta-row"><span class="chip">MOQ: 4 pairs</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.1 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:82%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/guangzhou-meishi-electronic-technology-co-ltd.html">Guangzhou Meishi Electronic Technology Co., Ltd., 3 yrs, 4.1/5</a> · <b>4.1</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/sjc-usa-local-stock-laser-front-lamp-car-accessories-for-bmw.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="sjc auto car headlight for bmw m3 e93 2010-2013 yellow and white dual color snake eyes style led headlight (yaa-mn-0362-07) sjc auto car headlight for bmw m3 e93 2010-2013 yellow and white dual color snake eyes style led headlight (yaa-mn-0362-07) guangzhou lima electronic technology co., ltd., 6 yrs, 4.1/5  e93" data-price-min="530" data-rating="4.1" data-reviews="0" data-cat="lighting" data-band="300-600" data-chassis="E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/lighting/sjc-auto-car-headlight-for-bmw-m3-e93-2010-2013-yellow-and-w.html"><img src="/factoryplug-catalog/assets/img/products/sjc-auto-car-headlight-for-bmw-m3-e93-2010-2013-yellow-and-w/hero.jpg" alt="SJC Auto Car Headlight for BMW M3 E93 2010-2013 Yellow and White Dual Color Snake Eyes Style LED Headlight (YAA-MN-0362-07)" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/lighting/sjc-auto-car-headlight-for-bmw-m3-e93-2010-2013-yellow-and-w.html">SJC Auto Car Headlight for BMW M3 E93 2010-2013 Yellow and White Dual Color Snake Eyes Style LED Headlight (YAA-MN-0362-07)</a></h3>
+<div class="price"><span class="conv-price" data-min="530" data-max="530" data-cur="USD" data-orig="$530">$530</span></div>
+<div class="meta-row"><span class="chip">MOQ: 4 sets</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.1 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:82%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/guangzhou-lima-electronic-technology-co-ltd.html">Guangzhou Lima Electronic Technology Co., Ltd., 6 yrs, 4.1/5</a> · <b>4.1</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/sjc-auto-car-headlight-for-bmw-m3-e93-2010-2013-yellow-and-w.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Suspension (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="auto car rear front sway bar end stabilizer links for bmw e46 e91 e90 e93 e92 m4 g20 g21 g28 g30 auto car rear front sway bar end stabilizer links for bmw e46 e91 e90 e93 e92 m4 g20 g21 g28 g30   e46 e91 e90 e93 e92 g20 g21 g28 g30" data-price-min="" data-rating="" data-reviews="0" data-cat="suspension" data-band="" data-chassis="E46 E91 E90 E93 E92 G20 G21 G28 G30" data-material="">
+<a class="pimg" href="/factoryplug-catalog/suspension/auto-car-rear-front-sway-bar-end-stabilizer-links-for-bmw-e4.html"><img src="/factoryplug-catalog/assets/img/products/auto-car-rear-front-sway-bar-end-stabilizer-links-for-bmw-e4/hero.webp" alt="Auto Car Rear Front Sway Bar End Stabilizer Links For BMW E46 E91 E90 E93 E92 M4 G20 G21 G28 G30" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/suspension/auto-car-rear-front-sway-bar-end-stabilizer-links-for-bmw-e4.html">Auto Car Rear Front Sway Bar End Stabilizer Links For BMW E46 E91 E90 E93 E92 M4 G20 G21 G28 G30</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/auto-car-rear-front-sway-bar-end-stabilizer-links-for-bmw-e4.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="dwd bmw011 adjustable-damping monotube coilover, 32 steps adjustable racing coilover shock absorber car parts for bmw 3 series e90/e91/e92/e93 dwd bmw011 adjustable-damping monotube coilover, 32 steps adjustable racing coilover shock absorber car parts for bmw 3 series e90/e91/e92/e93 zhejiang longtai shock absorber co., ltd.  e90 e91 e92 e93" data-price-min="32" data-rating="4.7" data-reviews="0" data-cat="suspension" data-band="under-100" data-chassis="E90 E91 E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/suspension/dwd-bmw011-adjustable-damping-monotube-coilover-32-steps-adj.html"><img src="https://s.alicdn.com/@sc04/kf/Hd6e737b80714488b98df9c3fba2a468dm.jpg" alt="DWD BMW011 adjustable-damping monotube coilover, 32 Steps Adjustable Racing Coilover Shock Absorber Car Parts for BMW 3 Series E90/E91/E92/E93" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/suspension/dwd-bmw011-adjustable-damping-monotube-coilover-32-steps-adj.html">DWD BMW011 adjustable-damping monotube coilover, 32 Steps Adjustable Racing Coilover Shock Absorber Car Parts for BMW 3 Series E90/E91/E92/E93</a></h3>
+<div class="price"><span class="conv-price" data-min="32" data-max="920" data-cur="USD" data-orig="$480–$720 (adjustable-damping monotube variant); a &quot;32 Steps Racing&quot; variant lists at $560–$920">$480–$720 (adjustable-damping monotube variant); a &quot;32 Steps Racing&quot; variant lists at $560–$920</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.7 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:94%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/zhejiang-longtai-shock-absorber-co-ltd.html">Zhejiang Longtai Shock Absorber Co., Ltd.</a> · <b>4.7</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/dwd-bmw011-adjustable-damping-monotube-coilover-32-steps-adj.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Engine &amp; Fuel (6)</h2></div><div class="prod-grid"><article class="prod-card" data-name="2006-2010 e90-e93 bmw 335i n54b30 hybrid td04-19t mfs turbocharger - single | 19t turbo &amp; hybrid turbo 2006-2010 e90-e93 bmw 335i n54b30 hybrid td04-19t mfs turbocharger - single | 19t turbo &amp; hybrid turbo shenyang fengchi autoparts co., ltd.  e90 e93" data-price-min="709" data-rating="5.0" data-reviews="53" data-cat="engine" data-band="600-plus" data-chassis="E90 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/2006-2010-e90-e93-bmw-335i-n54b30-hybrid-td04-19t-mfs-turboc.html"><img src="/factoryplug-catalog/assets/img/products/2006-2010-e90-e93-bmw-335i-n54b30-hybrid-td04-19t-mfs-turboc/hero.jpg" alt="2006-2010 E90-E93 BMW 335i N54B30 Hybrid TD04-19T MFS Turbocharger - Single | 19T Turbo &amp; Hybrid Turbo" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/2006-2010-e90-e93-bmw-335i-n54b30-hybrid-td04-19t-mfs-turboc.html">2006-2010 E90-E93 BMW 335i N54B30 Hybrid TD04-19T MFS Turbocharger - Single | 19T Turbo &amp; Hybrid Turbo</a></h3>
+<div class="price"><span class="conv-price" data-min="709" data-max="850" data-cur="USD" data-orig="$709–$850">$709–$850</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 piece</span><span class="chip hot">1 sold</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="5.0 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:100%">★★★★★</span></span> · Made by Shenyang Fengchi Autoparts Co., Ltd. · <b>5.0</b> · 1 transactions</div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/2006-2010-e90-e93-bmw-335i-n54b30-hybrid-td04-19t-mfs-turboc.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="aluminum dct 7 speed transmission oil pan for bmw m2 m3 m4 m5 m6 e91 e93 335i e82 e88 135i n55 s55 gearbox aluminum dct 7 speed transmission oil pan for bmw m2 m3 m4 m5 m6 e91 e93 335i e82 e88 135i n55 s55 gearbox   e91 e93 e82 e88" data-price-min="150" data-rating="" data-reviews="0" data-cat="engine" data-band="100-300" data-chassis="E91 E93 E82 E88" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/aluminum-dct-7-speed-transmission-oil-pan-for-bmw-m2-m3-m4-m.html"><img src="/factoryplug-catalog/assets/img/products/aluminum-dct-7-speed-transmission-oil-pan-for-bmw-m2-m3-m4-m/hero.webp" alt="Aluminum DCT 7 Speed Transmission Oil Pan for BMW M2 M3 M4 M5 M6 E91 E93 335i E82 E88 135i N55 S55 Gearbox" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/aluminum-dct-7-speed-transmission-oil-pan-for-bmw-m2-m3-m4-m.html">Aluminum DCT 7 Speed Transmission Oil Pan for BMW M2 M3 M4 M5 M6 E91 E93 335i E82 E88 135i N55 S55 Gearbox</a></h3>
+<div class="price"><span class="conv-price" data-min="150" data-max="169.5" data-cur="USD" data-orig="$169.50-$150">$150–$169.50</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 piece</span><span class="chip hot">1 sold</span></div>
+<div class="psupplier">1 transactions</div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/aluminum-dct-7-speed-transmission-oil-pan-for-bmw-m2-m3-m4-m.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="kingtec n54 engine tuning forged n54 pistons kit for bmw e90/e91/e92/e93 335i 2006 2007 2008 2009 2010 kingtec n54 engine tuning forged n54 pistons kit for bmw e90/e91/e92/e93 335i 2006 2007 2008 2009 2010   e90 e91 e92 e93" data-price-min="629" data-rating="" data-reviews="0" data-cat="engine" data-band="600-plus" data-chassis="E90 E91 E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/kingtec-n54-engine-tuning-forged-n54-pistons-kit-for-bmw-e90.html"><img src="/factoryplug-catalog/assets/img/products/kingtec-n54-engine-tuning-forged-n54-pistons-kit-for-bmw-e90/hero.webp" alt="KingTec N54 Engine Tuning Forged N54 Pistons Kit for BMW E90/E91/E92/E93 335i 2006 2007 2008 2009 2010" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/kingtec-n54-engine-tuning-forged-n54-pistons-kit-for-bmw-e90.html">KingTec N54 Engine Tuning Forged N54 Pistons Kit for BMW E90/E91/E92/E93 335i 2006 2007 2008 2009 2010</a></h3>
+<div class="price"><span class="conv-price" data-min="629" data-max="649" data-cur="USD" data-orig="$649-$629">$629–$649</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/kingtec-n54-engine-tuning-forged-n54-pistons-kit-for-bmw-e90.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="high performance intercooler for bmw 325d 330d 335d e90 e91 e92 e93 direct fit aluminum turbo high performance intercooler for bmw 325d 330d 335d e90 e91 e92 e93 direct fit aluminum turbo   e90 e91 e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="E90 E91 E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/high-performance-intercooler-for-bmw-325d-330d-335d-e90-e91.html"><img src="/factoryplug-catalog/assets/img/products/high-performance-intercooler-for-bmw-325d-330d-335d-e90-e91/hero.webp" alt="High Performance Intercooler For BMW 325d 330d 335d E90 E91 E92 E93 Direct Fit Aluminum Turbo" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/high-performance-intercooler-for-bmw-325d-330d-335d-e90-e91.html">High Performance Intercooler For BMW 325d 330d 335d E90 E91 E92 E93 Direct Fit Aluminum Turbo</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/high-performance-intercooler-for-bmw-325d-330d-335d-e90-e91.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="hot sale high performance aluminum intercooler for bmw 1 series 3 series e90 e91 e92 e93 larger hot sale high performance aluminum intercooler for bmw 1 series 3 series e90 e91 e92 e93 larger   e90 e91 e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="E90 E91 E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/hot-sale-high-performance-aluminum-intercooler-for-bmw-1-ser.html"><img src="/factoryplug-catalog/assets/img/products/hot-sale-high-performance-aluminum-intercooler-for-bmw-1-ser/hero.webp" alt="Hot Sale High Performance Aluminum Intercooler For BMW 1 Series 3 Series E90 E91 E92 E93 Larger" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/hot-sale-high-performance-aluminum-intercooler-for-bmw-1-ser.html">Hot Sale High Performance Aluminum Intercooler For BMW 1 Series 3 Series E90 E91 E92 E93 Larger</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/hot-sale-high-performance-aluminum-intercooler-for-bmw-1-ser.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="engine oil coolant kit for bmw 1 series e81 e82 3 series 335i e90 e92 e93 n54 n55 oil cooling cooler engine oil coolant kit for bmw 1 series e81 e82 3 series 335i e90 e92 e93 n54 n55 oil cooling cooler   e82 e90 e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="E82 E90 E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/engine-oil-coolant-kit-for-bmw-1-series-e81-e82-3-series-335.html"><img src="/factoryplug-catalog/assets/img/products/engine-oil-coolant-kit-for-bmw-1-series-e81-e82-3-series-335/hero.webp" alt="Engine Oil Coolant Kit For BMW 1 Series E81 E82 3 Series 335i E90 E92 E93 N54 N55 Oil Cooling Cooler" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/engine-oil-coolant-kit-for-bmw-1-series-e81-e82-3-series-335.html">Engine Oil Coolant Kit For BMW 1 Series E81 E82 3 Series 335i E90 E92 E93 N54 N55 Oil Cooling Cooler</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/engine-oil-coolant-kit-for-bmw-1-series-e81-e82-3-series-335.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Interior Accessories (6)</h2></div><div class="prod-grid"><article class="prod-card" data-name="billet short shifter box for bmw e30 e36 e46 e90 e92 e93 m3 135i 325i 335i m5 m5 5 speed 6 speed quick shifter billet short shifter box for bmw e30 e36 e46 e90 e92 e93 m3 135i 325i 335i m5 m5 5 speed 6 speed quick shifter guangzhou kasidun trading co., ltd., guangzhou, 6 yrs, multispecialty, 4.8/5  e30 e36 e46 e90 e92 e93" data-price-min="4.8" data-rating="4.8" data-reviews="0" data-cat="interior" data-band="under-100" data-chassis="E30 E36 E46 E90 E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/interior/billet-short-shifter-box-for-bmw-e30-e36-e46-e90-e92-e93-m3.html"><img src="/factoryplug-catalog/assets/img/products/billet-short-shifter-box-for-bmw-e30-e36-e46-e90-e92-e93-m3/hero.jpg" alt="Billet Short Shifter Box for BMW E30 E36 E46 E90 E92 E93 M3 135i 325i 335i M5 M5 5 Speed 6 Speed Quick Shifter" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/billet-short-shifter-box-for-bmw-e30-e36-e46-e90-e92-e93-m3.html">Billet Short Shifter Box for BMW E30 E36 E46 E90 E92 E93 M3 135i 325i 335i M5 M5 5 Speed 6 Speed Quick Shifter</a></h3>
+<div class="price"><span class="conv-price" data-min="4.8" data-max="97.9" data-cur="USD" data-orig="$97.90; 4.8 (13 reviews); 12 sold">$97.90; 4.8 (13 reviews); 12 sold</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.8 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:96%">★★★★★</span></span> · Made by Guangzhou Kasidun Trading Co., Ltd., Guangzhou, 6 yrs, multispecialty, 4.8/5 · <b>4.8</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/billet-short-shifter-box-for-bmw-e30-e36-e46-e90-e92-e93-m3.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="upgrade lcd digital cluster speedometer instrument with carplay new auto meter for bmw 3 series e90 e91 e92 e93 2005-2011 upgrade lcd digital cluster speedometer instrument with carplay new auto meter for bmw 3 series e90 e91 e92 e93 2005-2011 shenzhen kanor electronic technology co., ltd., 8 yrs, shenzhen cn, 4.3/5, tuv rheinland  e90 e91 e92 e93" data-price-min="10" data-rating="4.3" data-reviews="0" data-cat="interior" data-band="under-100" data-chassis="E90 E91 E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/interior/upgrade-lcd-digital-cluster-speedometer-instrument-with-carp.html"><img src="/factoryplug-catalog/assets/img/products/upgrade-lcd-digital-cluster-speedometer-instrument-with-carp/hero.jpg" alt="Upgrade LCD Digital Cluster Speedometer Instrument with Carplay New Auto Meter for BMW 3 Series E90 E91 E92 E93 2005-2011" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/upgrade-lcd-digital-cluster-speedometer-instrument-with-carp.html">Upgrade LCD Digital Cluster Speedometer Instrument with Carplay New Auto Meter for BMW 3 Series E90 E91 E92 E93 2005-2011</a></h3>
+<div class="price"><span class="conv-price" data-min="10" data-max="287" data-cur="USD" data-orig="$287 / piece — 10% off ends Sept 30">$287 / piece — 10% off ends Sept 30</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.3 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:86%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/shenzhen-kanor-electronic-technology-co-ltd.html">Shenzhen Kanor Electronic Technology Co., Ltd., 8 yrs, Shenzhen CN, 4.3/5, TUV Rheinland</a> · <b>4.3</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/upgrade-lcd-digital-cluster-speedometer-instrument-with-carp.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="eddy carbon fiber racing bucket seats with houndstooth pattern for bmw m3 e30 e36 e46 e90 e92 e93 eddy carbon fiber racing bucket seats with houndstooth pattern for bmw m3 e30 e36 e46 e90 e92 e93   e30 e36 e46 e90 e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="E30 E36 E46 E90 E92 E93" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/interior/eddy-carbon-fiber-racing-bucket-seats-with-houndstooth-patte.html"><img src="/factoryplug-catalog/assets/img/products/eddy-carbon-fiber-racing-bucket-seats-with-houndstooth-patte/hero.webp" alt="Eddy Carbon Fiber Racing Bucket Seats With Houndstooth Pattern For BMW M3 E30 E36 E46 E90 E92 E93" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/eddy-carbon-fiber-racing-bucket-seats-with-houndstooth-patte.html">Eddy Carbon Fiber Racing Bucket Seats With Houndstooth Pattern For BMW M3 E30 E36 E46 E90 E92 E93</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/eddy-carbon-fiber-racing-bucket-seats-with-houndstooth-patte.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="new for bmw 3 series e90 e91 e92 e93 2005 2012 car lcd dashboard digital instrument cluster auto new for bmw 3 series e90 e91 e92 e93 2005 2012 car lcd dashboard digital instrument cluster auto   e90 e91 e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="E90 E91 E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/interior/new-for-bmw-3-series-e90-e91-e92-e93-2005-2012-car-lcd-dashb.html"><img src="/factoryplug-catalog/assets/img/products/new-for-bmw-3-series-e90-e91-e92-e93-2005-2012-car-lcd-dashb/hero.webp" alt="New For BMW 3 Series E90 E91 E92 E93 2005 2012 Car Lcd Dashboard Digital Instrument Cluster Auto" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/new-for-bmw-3-series-e90-e91-e92-e93-2005-2012-car-lcd-dashb.html">New For BMW 3 Series E90 E91 E92 E93 2005 2012 Car Lcd Dashboard Digital Instrument Cluster Auto</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/new-for-bmw-3-series-e90-e91-e92-e93-2005-2012-car-lcd-dashb.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="bmw 3 e90 e91 e92 e93 car stereo i-drive 10.25\&quot; touchscreen linux system android auto gps navi bmw 3 e90 e91 e92 e93 car stereo i-drive 10.25\&quot; touchscreen linux system android auto gps navi   e90 e91 e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="E90 E91 E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/interior/bmw-3-e90-e91-e92-e93-car-stereo-i-drive-10-25-touchscreen-l.html"><img src="/factoryplug-catalog/assets/img/products/bmw-3-e90-e91-e92-e93-car-stereo-i-drive-10-25-touchscreen-l/hero.webp" alt="BMW 3 E90 E91 E92 E93 Car Stereo I-drive 10.25\&quot; Touchscreen Linux System Android Auto Gps Navi" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/bmw-3-e90-e91-e92-e93-car-stereo-i-drive-10-25-touchscreen-l.html">BMW 3 E90 E91 E92 E93 Car Stereo I-drive 10.25\&quot; Touchscreen Linux System Android Auto Gps Navi</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/bmw-3-e90-e91-e92-e93-car-stereo-i-drive-10-25-touchscreen-l.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="for bmw e90 e91 e92 e93 e81 e82 e87 e88 m3 m4 carbon fiber led steering wheel | custom racing flat bottom display upgrade for bmw e90 e91 e92 e93 e81 e82 e87 e88 m3 m4 carbon fiber led steering wheel | custom racing flat bottom display upgrade   e90 e91 e92 e93 e82 e87 e88" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="E90 E91 E92 E93 E82 E87 E88" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/interior/for-bmw-e90-e91-e92-e93-e81-e82-e87-e88-m3-m4-carbon-fiber-l.html"><img src="/factoryplug-catalog/assets/img/products/for-bmw-e90-e91-e92-e93-e81-e82-e87-e88-m3-m4-carbon-fiber-l/hero.webp" alt="For BMW E90 E91 E92 E93 E81 E82 E87 E88 M3 M4 Carbon Fiber Led Steering Wheel | Custom Racing Flat Bottom Display Upgrade" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/for-bmw-e90-e91-e92-e93-e81-e82-e87-e88-m3-m4-carbon-fiber-l.html">For BMW E90 E91 E92 E93 E81 E82 E87 E88 M3 M4 Carbon Fiber Led Steering Wheel | Custom Racing Flat Bottom Display Upgrade</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/for-bmw-e90-e91-e92-e93-e81-e82-e87-e88-m3-m4-carbon-fiber-l.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Electronics &amp; Gauges (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="10.25 wireless carplay linux screen for bmw e90 e91 e92 e93 ccc cic android auto multimedia display 10.25 wireless carplay linux screen for bmw e90 e91 e92 e93 ccc cic android auto multimedia display   e90 e91 e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="electronics" data-band="" data-chassis="E90 E91 E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/electronics/10-25-wireless-carplay-linux-screen-for-bmw-e90-e91-e92-e93.html"><img src="/factoryplug-catalog/assets/img/products/10-25-wireless-carplay-linux-screen-for-bmw-e90-e91-e92-e93/hero.webp" alt="10.25 Wireless Carplay Linux Screen For BMW E90 E91 E92 E93 Ccc Cic Android Auto Multimedia Display" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/electronics/10-25-wireless-carplay-linux-screen-for-bmw-e90-e91-e92-e93.html">10.25 Wireless Carplay Linux Screen For BMW E90 E91 E92 E93 Ccc Cic Android Auto Multimedia Display</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/electronics/10-25-wireless-carplay-linux-screen-for-bmw-e90-e91-e92-e93.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Body Conversion Kits (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="high performance body kit front bumper for bmw 3 series e92 e93 upgrade to m3 look 2006-2009 high performance body kit front bumper for bmw 3 series e92 e93 upgrade to m3 look 2006-2009   e92 e93" data-price-min="" data-rating="" data-reviews="0" data-cat="conversion-kits" data-band="" data-chassis="E92 E93" data-material="">
+<a class="pimg" href="/factoryplug-catalog/conversion-kits/high-performance-body-kit-front-bumper-for-bmw-3-series-e92.html"><img src="/factoryplug-catalog/assets/img/products/high-performance-body-kit-front-bumper-for-bmw-3-series-e92/hero.webp" alt="High Performance Body Kit Front Bumper For BMW 3 Series E92 E93 Upgrade To M3 Look 2006-2009" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/conversion-kits/high-performance-body-kit-front-bumper-for-bmw-3-series-e92.html">High Performance Body Kit Front Bumper For BMW 3 Series E92 E93 Upgrade To M3 Look 2006-2009</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/conversion-kits/high-performance-body-kit-front-bumper-for-bmw-3-series-e92.html">View details &rarr;</a></div>
+</div>
+</article>
+</div>
+<div style="margin-top:30px"><div class="btn-row">
+<a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
+</section>
+<footer class="site"><div class="wrap"><div class="cols">
+<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:var(--text)">Catalog</b><br>
+<a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
+<div><b style="color:var(--text)">More</b><br>
+<a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
+<div><b style="color:var(--text)">Trust</b><br>
+<a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
+<div><b style="color:var(--text)">Follow Conroy</b><br>
+<a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
+<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+</div>
+<small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+&copy; 2026 FactoryPlug. All rights reserved.</small>
+</div></footer>
+</body>
+</html>

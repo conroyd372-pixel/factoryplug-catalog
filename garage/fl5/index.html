@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Honda Civic Type R Parts (2023–2025) — 10 Parts | FactoryPlug</title>
+<meta name="description" content="Every Honda Civic Type R (2023–2025) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+
+<link rel="canonical" href="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/fl5/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FactoryPlug">
+<meta property="og:title" content="Honda Civic Type R Parts (2023–2025) — 10 Parts | FactoryPlug">
+<meta property="og:description" content="Every Honda Civic Type R (2023–2025) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/fl5/">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Honda Civic Type R Parts (2023–2025) — 10 Parts | FactoryPlug">
+<meta name="twitter:description" content="Every Honda Civic Type R (2023–2025) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
+<script src="/factoryplug-catalog/assets/fx.js" defer></script>
+<script src="/factoryplug-catalog/assets/search.js" defer></script>
+<script>
+/* My Garage: Year -> Make -> Model -> Chassis picker + "Everything for your
+   X" client-side results, persisted in localStorage (key fp_garage_v1).
+   All picker options derive from /garage/vehicles.json, which is built from
+   the catalog's own chassis detections — never hand-typed. Used on /garage/
+   (picker + results + indicator) and vehicle pages (indicator only). */
+(function(){
+  var KEY = 'fp_garage_v1';
+  var CATALOG_URL = '/garage/catalog.json';
+  var VEHICLES_URL = '/garage/vehicles.json';
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY)); } catch(e){ return null; } }
+  function save(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+  function clear(){ try { localStorage.removeItem(KEY); } catch(e){} }
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  /* ---- saved-garage indicator: "Shopping for: F80 M3" + change/clear ---- */
+  var ind = document.getElementById('garage-indicator');
+  var g = load();
+  if (g && g.code && ind) {
+    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.classList.remove('hidden');
+    var c = document.getElementById('garage-clear');
+    if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+  }
+
+  /* ---- picker (hub page only) ---- */
+  var yearSel = document.getElementById('garage-year');
+  var makeSel = document.getElementById('garage-make');
+  var modelSel = document.getElementById('garage-model');
+  var chassisSel = document.getElementById('garage-chassis');
+  var goBtn = document.getElementById('garage-go');
+  var results = document.getElementById('garage-results');
+  if (!yearSel || !makeSel || !modelSel || !chassisSel) {
+    return; /* vehicle landing pages: indicator only */
+  }
+  function resetSel(sel, label){
+    sel.innerHTML = '<option value="">' + label + '</option>';
+    sel.disabled = true;
+  }
+  function covers(v, y){ return v.y0 != null && v.y1 != null && y >= v.y0 && y <= v.y1; }
+
+  fetch(VEHICLES_URL).then(function(r){ return r.json(); }).then(function(data){
+    var codes = Object.keys(data).filter(function(code){
+      var v = data[code]; return v.y0 != null && v.y1 != null;
+    });
+    if (!codes.length) return;
+    var minY = Math.min.apply(null, codes.map(function(c){ return data[c].y0; }));
+    var maxY = Math.max.apply(null, codes.map(function(c){ return data[c].y1; }));
+    for (var y = maxY; y >= minY; y--) {
+      var o = document.createElement('option');
+      o.value = y; o.textContent = y;
+      yearSel.appendChild(o);
+    }
+    function makesFor(year){
+      var seen = {};
+      codes.forEach(function(code){
+        if (covers(data[code], year)) seen[data[code].make] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function modelsFor(year, make){
+      var seen = {};
+      codes.forEach(function(code){
+        var v = data[code];
+        if (v.make === make && covers(v, year)) seen[v.model] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function chassisFor(year, make, model){
+      return codes.filter(function(code){
+        var v = data[code];
+        return v.make === make && v.model === model && covers(v, year);
+      }).sort(function(a, b){ return data[b].count - data[a].count; });
+    }
+    yearSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(makeSel, 'Select make…'); resetSel(modelSel, 'Select model…');
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!year) return;
+      makesFor(year).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        makeSel.appendChild(o);
+      });
+      makeSel.disabled = false;
+    });
+    makeSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(modelSel, 'Select model…'); resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!makeSel.value) return;
+      modelsFor(year, makeSel.value).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        modelSel.appendChild(o);
+      });
+      modelSel.disabled = false;
+    });
+    modelSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!modelSel.value) return;
+      chassisFor(year, makeSel.value, modelSel.value).forEach(function(code){
+        var v = data[code];
+        var o = document.createElement('option');
+        o.value = code;
+        o.textContent = code + ' — ' + v.years + ' (' + v.count + ' parts)';
+        chassisSel.appendChild(o);
+      });
+      chassisSel.disabled = false;
+    });
+    chassisSel.addEventListener('change', function(){
+      if (goBtn) goBtn.disabled = !chassisSel.value;
+    });
+    if (goBtn) goBtn.addEventListener('click', function(){
+      var code = chassisSel.value;
+      if (!code || !data[code]) return;
+      var v = data[code];
+      var _mt = (v.model || '').trim();
+      var _first = _mt.split(' ')[0].split('/')[0].toLowerCase();
+      // Never "Q50 Q50": when the model already starts with the chassis code,
+      // the model alone is the label (2026-10-07 fix).
+      var label = (_first === String(code).toLowerCase()) ? _mt : code + ' ' + _mt;
+      save({ code: code, make: v.make, label: label });
+      g = load();
+      if (ind) {
+        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.classList.remove('hidden');
+        var cc = document.getElementById('garage-clear');
+        if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+      }
+      renderResults(code, data);
+      if (results && results.scrollIntoView) results.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    /* Saved garage? show its parts right away. */
+    if (g && g.code && data[g.code] && results) renderResults(g.code, data);
+  }).catch(function(){ /* picker degrades silently; browse grid still works */ });
+
+  /* ---- "Everything for your X", grouped by category, from catalog.json ---- */
+  var catalogCache = null;
+  function getCatalog(cb){
+    if (catalogCache) { cb(catalogCache); return; }
+    fetch(CATALOG_URL).then(function(r){ return r.json(); }).then(function(j){
+      catalogCache = j; cb(j);
+    }).catch(function(){ cb(null); });
+  }
+  function card(p){
+    return '<a class="gcard" href="' + esc(p.url) + '">' +
+      '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy">' +
+      '<span class="gcard-body"><span class="gcard-title">' + esc(p.title) + '</span>' +
+      '<span class="gcard-link">View part →</span></span></a>';
+  }
+  function renderResults(code, vdata){
+    if (!results) return;
+    var v = vdata[code];
+    results.innerHTML = '<p class="garage-loading">Pulling every part for your ' +
+      esc(code) + '…</p>';
+    getCatalog(function(cat){
+      if (!cat || !v) {
+        results.innerHTML = '<p class="garage-loading">Could not load the parts index — ' +
+          '<a href="' + esc(v ? v.url : '/garage/') + '">open the ' + esc(code) +
+          ' garage page →</a></p>';
+        return;
+      }
+      var items = cat.filter(function(p){
+        return p.chassis && p.chassis.indexOf(code) !== -1;
+      });
+      var order = (typeof FP_CAT_ORDER !== 'undefined') ? FP_CAT_ORDER : [];
+      var titles = (typeof FP_CAT_TITLES !== 'undefined') ? FP_CAT_TITLES : {};
+      var groups = {};
+      items.forEach(function(p){
+        (groups[p.category] = groups[p.category] || []).push(p);
+      });
+      var html = '<div class="res-head"><h2 class="sec">Everything for your ' +
+        esc(code) + '</h2><a class="btn ghost" href="' + esc(v.url) +
+        '">Full ' + esc(code) + ' page →</a></div>' +
+        '<p class="res-sub">' + items.length + ' parts that fit the ' +
+        esc(v.make + ' ' + v.model) + ' (' + esc(v.years) +
+        ') — grouped by category. Only catalog parts with detected ' +
+        esc(code) + ' fitment are shown.</p>';
+      var seenCats = {};
+      order.forEach(function(slug){
+        if (groups[slug]) { seenCats[slug] = true; html += groupHtml(slug, groups[slug], titles); }
+      });
+      Object.keys(groups).sort().forEach(function(slug){
+        if (!seenCats[slug]) html += groupHtml(slug, groups[slug], titles);
+      });
+      if (!items.length) {
+        html += '<p class="garage-loading">No parts tagged for ' + esc(code) +
+          ' yet — try the browse grid below.</p>';
+      }
+      html += '<p class="fine">Fitment is never guaranteed — always confirm year, ' +
+        'model, trim and VIN directly with the supplier contact before buying.</p>';
+      results.innerHTML = html;
+    });
+  }
+  function groupHtml(slug, items, titles){
+    var title = titles[slug] || slug;
+    var cards = items.map(card).join('');
+    return '<div class="res-head"><h2 class="sec">' + esc(title) +
+      ' (' + items.length + ')</h2></div>' +
+      '<div class="gcard-grid">' + cards + '</div>';
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Honda Civic Type R Parts (2023\u20132025)", "description": "Every Honda Civic Type R compatible part in the FactoryPlug catalog."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<nav>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+</nav>
+</div></header>
+<section class="content-sec"><div class="wrap-narrow">
+<div id="garage-indicator" class="garage-indicator hidden" role="status"></div>
+<nav aria-label="Breadcrumb"><ol class="crumbs">
+<li><a href="/factoryplug-catalog/">Home</a></li><li><a href="/factoryplug-catalog/garage/">My Garage</a></li>
+<li aria-current="page">FL5</li></ol></nav>
+<h1>Honda Civic Type R Parts <span class="yr">(2023–2025)</span></h1>
+<p class="sec-sub">Everything in the catalog for your FL5 — grouped by
+category. 10 parts and counting.</p>
+<p class="fine">Fitment is never guaranteed — always confirm year, model, trim
+and VIN directly with the supplier contact before buying.</p>
+</div></section>
+<section class="content-sec" style="max-width:none">
+<div class="sec-head"><h2 class="sec">Exhaust Systems (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="high performance 304 stainless steel valvetronic exhaust catback for honda civic type r fl5 high performance 304 stainless steel valvetronic exhaust catback for honda civic type r fl5   fl5" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="FL5" data-material="Stainless steel">
+<a class="pimg" href="/factoryplug-catalog/exhaust/high-performance-304-stainless-steel-valvetronic-exhaust-cat.html"><img src="/factoryplug-catalog/assets/img/products/high-performance-304-stainless-steel-valvetronic-exhaust-cat/hero.webp" alt="High Performance 304 Stainless Steel Valvetronic Exhaust Catback For Honda Civic Type R Fl5" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/high-performance-304-stainless-steel-valvetronic-exhaust-cat.html">High Performance 304 Stainless Steel Valvetronic Exhaust Catback For Honda Civic Type R Fl5</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/high-performance-304-stainless-steel-valvetronic-exhaust-cat.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="1 straight downpipe for honda civic type r/type-r fk8 fl5 2.0t 2015-2023 straight test pipes header 1 straight downpipe for honda civic type r/type-r fk8 fl5 2.0t 2015-2023 straight test pipes header   fl5 fk8" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="FL5 FK8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/exhaust/1-straight-downpipe-for-honda-civic-type-r-type-r-fk8-fl5-2.html"><img src="/factoryplug-catalog/assets/img/products/1-straight-downpipe-for-honda-civic-type-r-type-r-fk8-fl5-2/hero.webp" alt="1 Straight Downpipe For Honda Civic Type R/type-r Fk8 Fl5 2.0t 2015-2023 Straight Test Pipes Header" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/1-straight-downpipe-for-honda-civic-type-r-type-r-fk8-fl5-2.html">1 Straight Downpipe For Honda Civic Type R/type-r Fk8 Fl5 2.0t 2015-2023 Straight Test Pipes Header</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/1-straight-downpipe-for-honda-civic-type-r-type-r-fk8-fl5-2.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Aerodynamics &amp; Exterior (6)</h2></div><div class="prod-grid"><article class="prod-card" data-name="fl5 rear spoiler voltx style carbon fiber wing spoiler for honda civic type r fl5 2023+ fl5 rear spoiler voltx style carbon fiber wing spoiler for honda civic type r fl5 2023+   fl5" data-price-min="" data-rating="" data-reviews="0" data-cat="carbon" data-band="" data-chassis="FL5" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/fl5-rear-spoiler-voltx-style-carbon-fiber-wing-spoiler-for-h.html"><img src="/factoryplug-catalog/assets/img/products/fl5-rear-spoiler-voltx-style-carbon-fiber-wing-spoiler-for-h/hero.webp" alt="Fl5 Rear Spoiler Voltx Style Carbon Fiber Wing Spoiler For Honda Civic Type R Fl5 2023+" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/fl5-rear-spoiler-voltx-style-carbon-fiber-wing-spoiler-for-h.html">Fl5 Rear Spoiler Voltx Style Carbon Fiber Wing Spoiler For Honda Civic Type R Fl5 2023+</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/fl5-rear-spoiler-voltx-style-carbon-fiber-wing-spoiler-for-h.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="dry carbon fiber vulcan alpha style rear wing for civic type r fl5 fk8 high downforce dry carbon fiber vulcan alpha style rear wing for civic type r fl5 fk8 high downforce   fl5 fk8" data-price-min="" data-rating="" data-reviews="0" data-cat="carbon" data-band="" data-chassis="FL5 FK8" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/dry-carbon-fiber-vulcan-alpha-style-rear-wing-for-civic-type.html"><img src="/factoryplug-catalog/assets/img/products/dry-carbon-fiber-vulcan-alpha-style-rear-wing-for-civic-type/hero.webp" alt="Dry Carbon Fiber Vulcan Alpha Style Rear Wing For Civic Type R Fl5 Fk8 High Downforce" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/dry-carbon-fiber-vulcan-alpha-style-rear-wing-for-civic-type.html">Dry Carbon Fiber Vulcan Alpha Style Rear Wing For Civic Type R Fl5 Fk8 High Downforce</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/dry-carbon-fiber-vulcan-alpha-style-rear-wing-for-civic-type.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="2022+ type r fl5 front lip carbon fiber front bumper lip spoiler vs style for honda civic type r 2022+ type r fl5 front lip carbon fiber front bumper lip spoiler vs style for honda civic type r   fl5" data-price-min="" data-rating="" data-reviews="0" data-cat="carbon" data-band="" data-chassis="FL5" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/2022-type-r-fl5-front-lip-carbon-fiber-front-bumper-lip-spoi.html"><img src="/factoryplug-catalog/assets/img/products/2022-type-r-fl5-front-lip-carbon-fiber-front-bumper-lip-spoi/hero.webp" alt="2022+ Type R Fl5 Front Lip Carbon Fiber Front Bumper Lip Spoiler Vs Style For Honda Civic Type R" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/2022-type-r-fl5-front-lip-carbon-fiber-front-bumper-lip-spoi.html">2022+ Type R Fl5 Front Lip Carbon Fiber Front Bumper Lip Spoiler Vs Style For Honda Civic Type R</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/2022-type-r-fl5-front-lip-carbon-fiber-front-bumper-lip-spoi.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="one door dry carbon fiber door for civic type r fl5 high quality one door dry carbon fiber door for civic type r fl5 high quality   fl5" data-price-min="" data-rating="" data-reviews="0" data-cat="carbon" data-band="" data-chassis="FL5" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/one-door-dry-carbon-fiber-door-for-civic-type-r-fl5-high-qua.html"><img src="/factoryplug-catalog/assets/img/products/one-door-dry-carbon-fiber-door-for-civic-type-r-fl5-high-qua/hero.webp" alt="One Door Dry Carbon Fiber Door For Civic Type R Fl5 High Quality" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/one-door-dry-carbon-fiber-door-for-civic-type-r-fl5-high-qua.html">One Door Dry Carbon Fiber Door For Civic Type R Fl5 High Quality</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/one-door-dry-carbon-fiber-door-for-civic-type-r-fl5-high-qua.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="dry carbon fiber body kit front bumper front lip side fenders side skirts for honda civic type r fl5 2022-2023 dry carbon fiber body kit front bumper front lip side fenders side skirts for honda civic type r fl5 2022-2023   fl5" data-price-min="" data-rating="" data-reviews="0" data-cat="carbon" data-band="" data-chassis="FL5" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/dry-carbon-fiber-body-kit-front-bumper-front-lip-side-fender.html"><img src="/factoryplug-catalog/assets/img/products/dry-carbon-fiber-body-kit-front-bumper-front-lip-side-fender/hero.webp" alt="Dry Carbon Fiber Body Kit Front Bumper Front Lip Side Fenders Side Skirts For Honda Civic Type R Fl5 2022-2023" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/dry-carbon-fiber-body-kit-front-bumper-front-lip-side-fender.html">Dry Carbon Fiber Body Kit Front Bumper Front Lip Side Fenders Side Skirts For Honda Civic Type R Fl5 2022-2023</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/dry-carbon-fiber-body-kit-front-bumper-front-lip-side-fender.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="carbon fiber front lip,side skirts,rear diffuser,for civic type r fl5 carbon fiber front lip,side skirts,rear diffuser,for civic type r fl5   fl5" data-price-min="" data-rating="" data-reviews="0" data-cat="carbon" data-band="" data-chassis="FL5" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/carbon-fiber-front-lip-side-skirts-rear-diffuser-for-civic-t.html"><img src="/factoryplug-catalog/assets/img/products/carbon-fiber-front-lip-side-skirts-rear-diffuser-for-civic-t/hero.webp" alt="Carbon Fiber Front Lip,Side Skirts,Rear Diffuser,For Civic Type R Fl5" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/carbon-fiber-front-lip-side-skirts-rear-diffuser-for-civic-t.html">Carbon Fiber Front Lip,Side Skirts,Rear Diffuser,For Civic Type R Fl5</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/carbon-fiber-front-lip-side-skirts-rear-diffuser-for-civic-t.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Engine &amp; Fuel (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="16 row thermostat fl5 engine oil coolant kit for honda civic type r car cooling radiator kit 16 row thermostat fl5 engine oil coolant kit for honda civic type r car cooling radiator kit   fl5" data-price-min="200" data-rating="" data-reviews="0" data-cat="engine" data-band="100-300" data-chassis="FL5" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/16-row-thermostat-fl5-engine-oil-coolant-kit-for-honda-civic.html"><img src="/factoryplug-catalog/assets/img/products/16-row-thermostat-fl5-engine-oil-coolant-kit-for-honda-civic/hero.webp" alt="16 Row Thermostat FL5 Engine Oil Coolant Kit for Honda Civic Type R Car Cooling Radiator Kit" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/16-row-thermostat-fl5-engine-oil-coolant-kit-for-honda-civic.html">16 Row Thermostat FL5 Engine Oil Coolant Kit for Honda Civic Type R Car Cooling Radiator Kit</a></h3>
+<div class="price"><span class="conv-price" data-min="200" data-max="276" data-cur="USD" data-orig="$276-$200">$200–$276</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 set</span><span class="chip hot">1 sold</span></div>
+<div class="psupplier">1 transactions</div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/16-row-thermostat-fl5-engine-oil-coolant-kit-for-honda-civic.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="sk custom aluminum 16 row thermostat fl5 engine oil cooler kit for honda civic type r car cooling sk custom aluminum 16 row thermostat fl5 engine oil cooler kit for honda civic type r car cooling   fl5" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="FL5" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/sk-custom-aluminum-16-row-thermostat-fl5-engine-oil-cooler-k.html"><img src="/factoryplug-catalog/assets/img/products/sk-custom-aluminum-16-row-thermostat-fl5-engine-oil-cooler-k/hero.webp" alt="Sk Custom Aluminum 16 Row Thermostat Fl5 Engine Oil Cooler Kit For Honda Civic Type R Car Cooling" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/sk-custom-aluminum-16-row-thermostat-fl5-engine-oil-cooler-k.html">Sk Custom Aluminum 16 Row Thermostat Fl5 Engine Oil Cooler Kit For Honda Civic Type R Car Cooling</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/sk-custom-aluminum-16-row-thermostat-fl5-engine-oil-cooler-k.html">View details &rarr;</a></div>
+</div>
+</article>
+</div>
+<div style="margin-top:30px"><div class="btn-row">
+<a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
+</section>
+<footer class="site"><div class="wrap"><div class="cols">
+<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:var(--text)">Catalog</b><br>
+<a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
+<div><b style="color:var(--text)">More</b><br>
+<a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
+<div><b style="color:var(--text)">Trust</b><br>
+<a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
+<div><b style="color:var(--text)">Follow Conroy</b><br>
+<a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
+<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+</div>
+<small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+&copy; 2026 FactoryPlug. All rights reserved.</small>
+</div></footer>
+</body>
+</html>

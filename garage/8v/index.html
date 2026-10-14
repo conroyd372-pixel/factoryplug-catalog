@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audi A3 S3 RS3 TT Parts (2013–2015) — 10 Parts | FactoryPlug</title>
+<meta name="description" content="Every Audi A3 S3 RS3 TT (2013–2015) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+
+<link rel="canonical" href="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/8v/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FactoryPlug">
+<meta property="og:title" content="Audi A3 S3 RS3 TT Parts (2013–2015) — 10 Parts | FactoryPlug">
+<meta property="og:description" content="Every Audi A3 S3 RS3 TT (2013–2015) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/8v/">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Audi A3 S3 RS3 TT Parts (2013–2015) — 10 Parts | FactoryPlug">
+<meta name="twitter:description" content="Every Audi A3 S3 RS3 TT (2013–2015) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
+<script src="/factoryplug-catalog/assets/fx.js" defer></script>
+<script src="/factoryplug-catalog/assets/search.js" defer></script>
+<script>
+/* My Garage: Year -> Make -> Model -> Chassis picker + "Everything for your
+   X" client-side results, persisted in localStorage (key fp_garage_v1).
+   All picker options derive from /garage/vehicles.json, which is built from
+   the catalog's own chassis detections — never hand-typed. Used on /garage/
+   (picker + results + indicator) and vehicle pages (indicator only). */
+(function(){
+  var KEY = 'fp_garage_v1';
+  var CATALOG_URL = '/garage/catalog.json';
+  var VEHICLES_URL = '/garage/vehicles.json';
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY)); } catch(e){ return null; } }
+  function save(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+  function clear(){ try { localStorage.removeItem(KEY); } catch(e){} }
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  /* ---- saved-garage indicator: "Shopping for: F80 M3" + change/clear ---- */
+  var ind = document.getElementById('garage-indicator');
+  var g = load();
+  if (g && g.code && ind) {
+    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.classList.remove('hidden');
+    var c = document.getElementById('garage-clear');
+    if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+  }
+
+  /* ---- picker (hub page only) ---- */
+  var yearSel = document.getElementById('garage-year');
+  var makeSel = document.getElementById('garage-make');
+  var modelSel = document.getElementById('garage-model');
+  var chassisSel = document.getElementById('garage-chassis');
+  var goBtn = document.getElementById('garage-go');
+  var results = document.getElementById('garage-results');
+  if (!yearSel || !makeSel || !modelSel || !chassisSel) {
+    return; /* vehicle landing pages: indicator only */
+  }
+  function resetSel(sel, label){
+    sel.innerHTML = '<option value="">' + label + '</option>';
+    sel.disabled = true;
+  }
+  function covers(v, y){ return v.y0 != null && v.y1 != null && y >= v.y0 && y <= v.y1; }
+
+  fetch(VEHICLES_URL).then(function(r){ return r.json(); }).then(function(data){
+    var codes = Object.keys(data).filter(function(code){
+      var v = data[code]; return v.y0 != null && v.y1 != null;
+    });
+    if (!codes.length) return;
+    var minY = Math.min.apply(null, codes.map(function(c){ return data[c].y0; }));
+    var maxY = Math.max.apply(null, codes.map(function(c){ return data[c].y1; }));
+    for (var y = maxY; y >= minY; y--) {
+      var o = document.createElement('option');
+      o.value = y; o.textContent = y;
+      yearSel.appendChild(o);
+    }
+    function makesFor(year){
+      var seen = {};
+      codes.forEach(function(code){
+        if (covers(data[code], year)) seen[data[code].make] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function modelsFor(year, make){
+      var seen = {};
+      codes.forEach(function(code){
+        var v = data[code];
+        if (v.make === make && covers(v, year)) seen[v.model] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function chassisFor(year, make, model){
+      return codes.filter(function(code){
+        var v = data[code];
+        return v.make === make && v.model === model && covers(v, year);
+      }).sort(function(a, b){ return data[b].count - data[a].count; });
+    }
+    yearSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(makeSel, 'Select make…'); resetSel(modelSel, 'Select model…');
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!year) return;
+      makesFor(year).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        makeSel.appendChild(o);
+      });
+      makeSel.disabled = false;
+    });
+    makeSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(modelSel, 'Select model…'); resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!makeSel.value) return;
+      modelsFor(year, makeSel.value).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        modelSel.appendChild(o);
+      });
+      modelSel.disabled = false;
+    });
+    modelSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!modelSel.value) return;
+      chassisFor(year, makeSel.value, modelSel.value).forEach(function(code){
+        var v = data[code];
+        var o = document.createElement('option');
+        o.value = code;
+        o.textContent = code + ' — ' + v.years + ' (' + v.count + ' parts)';
+        chassisSel.appendChild(o);
+      });
+      chassisSel.disabled = false;
+    });
+    chassisSel.addEventListener('change', function(){
+      if (goBtn) goBtn.disabled = !chassisSel.value;
+    });
+    if (goBtn) goBtn.addEventListener('click', function(){
+      var code = chassisSel.value;
+      if (!code || !data[code]) return;
+      var v = data[code];
+      var _mt = (v.model || '').trim();
+      var _first = _mt.split(' ')[0].split('/')[0].toLowerCase();
+      // Never "Q50 Q50": when the model already starts with the chassis code,
+      // the model alone is the label (2026-10-07 fix).
+      var label = (_first === String(code).toLowerCase()) ? _mt : code + ' ' + _mt;
+      save({ code: code, make: v.make, label: label });
+      g = load();
+      if (ind) {
+        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.classList.remove('hidden');
+        var cc = document.getElementById('garage-clear');
+        if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+      }
+      renderResults(code, data);
+      if (results && results.scrollIntoView) results.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    /* Saved garage? show its parts right away. */
+    if (g && g.code && data[g.code] && results) renderResults(g.code, data);
+  }).catch(function(){ /* picker degrades silently; browse grid still works */ });
+
+  /* ---- "Everything for your X", grouped by category, from catalog.json ---- */
+  var catalogCache = null;
+  function getCatalog(cb){
+    if (catalogCache) { cb(catalogCache); return; }
+    fetch(CATALOG_URL).then(function(r){ return r.json(); }).then(function(j){
+      catalogCache = j; cb(j);
+    }).catch(function(){ cb(null); });
+  }
+  function card(p){
+    return '<a class="gcard" href="' + esc(p.url) + '">' +
+      '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy">' +
+      '<span class="gcard-body"><span class="gcard-title">' + esc(p.title) + '</span>' +
+      '<span class="gcard-link">View part →</span></span></a>';
+  }
+  function renderResults(code, vdata){
+    if (!results) return;
+    var v = vdata[code];
+    results.innerHTML = '<p class="garage-loading">Pulling every part for your ' +
+      esc(code) + '…</p>';
+    getCatalog(function(cat){
+      if (!cat || !v) {
+        results.innerHTML = '<p class="garage-loading">Could not load the parts index — ' +
+          '<a href="' + esc(v ? v.url : '/garage/') + '">open the ' + esc(code) +
+          ' garage page →</a></p>';
+        return;
+      }
+      var items = cat.filter(function(p){
+        return p.chassis && p.chassis.indexOf(code) !== -1;
+      });
+      var order = (typeof FP_CAT_ORDER !== 'undefined') ? FP_CAT_ORDER : [];
+      var titles = (typeof FP_CAT_TITLES !== 'undefined') ? FP_CAT_TITLES : {};
+      var groups = {};
+      items.forEach(function(p){
+        (groups[p.category] = groups[p.category] || []).push(p);
+      });
+      var html = '<div class="res-head"><h2 class="sec">Everything for your ' +
+        esc(code) + '</h2><a class="btn ghost" href="' + esc(v.url) +
+        '">Full ' + esc(code) + ' page →</a></div>' +
+        '<p class="res-sub">' + items.length + ' parts that fit the ' +
+        esc(v.make + ' ' + v.model) + ' (' + esc(v.years) +
+        ') — grouped by category. Only catalog parts with detected ' +
+        esc(code) + ' fitment are shown.</p>';
+      var seenCats = {};
+      order.forEach(function(slug){
+        if (groups[slug]) { seenCats[slug] = true; html += groupHtml(slug, groups[slug], titles); }
+      });
+      Object.keys(groups).sort().forEach(function(slug){
+        if (!seenCats[slug]) html += groupHtml(slug, groups[slug], titles);
+      });
+      if (!items.length) {
+        html += '<p class="garage-loading">No parts tagged for ' + esc(code) +
+          ' yet — try the browse grid below.</p>';
+      }
+      html += '<p class="fine">Fitment is never guaranteed — always confirm year, ' +
+        'model, trim and VIN directly with the supplier contact before buying.</p>';
+      results.innerHTML = html;
+    });
+  }
+  function groupHtml(slug, items, titles){
+    var title = titles[slug] || slug;
+    var cards = items.map(card).join('');
+    return '<div class="res-head"><h2 class="sec">' + esc(title) +
+      ' (' + items.length + ')</h2></div>' +
+      '<div class="gcard-grid">' + cards + '</div>';
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Audi A3 S3 RS3 TT Parts (2013\u20132015)", "description": "Every Audi A3 S3 RS3 TT compatible part in the FactoryPlug catalog."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<nav>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+</nav>
+</div></header>
+<section class="content-sec"><div class="wrap-narrow">
+<div id="garage-indicator" class="garage-indicator hidden" role="status"></div>
+<nav aria-label="Breadcrumb"><ol class="crumbs">
+<li><a href="/factoryplug-catalog/">Home</a></li><li><a href="/factoryplug-catalog/garage/">My Garage</a></li>
+<li aria-current="page">8V</li></ol></nav>
+<h1>Audi A3 S3 RS3 TT Parts <span class="yr">(2013–2015)</span></h1>
+<p class="sec-sub">Everything in the catalog for your 8V — grouped by
+category. 10 parts and counting.</p>
+<p class="fine">Fitment is never guaranteed — always confirm year, model, trim
+and VIN directly with the supplier contact before buying.</p>
+</div></section>
+<section class="content-sec" style="max-width:none">
+<div class="sec-head"><h2 class="sec">Aerodynamics &amp; Exterior (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="2017-2020 8v audi s3/a3 dry carbon fiber front bumper lip - kb style | splitter &amp; chin spoiler 2017-2020 8v audi s3/a3 dry carbon fiber front bumper lip - kb style | splitter &amp; chin spoiler karbel automotive technology  8v" data-price-min="612" data-rating="" data-reviews="0" data-cat="carbon" data-band="600-plus" data-chassis="8V" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/2017-2020-8v-audi-s3-a3-dry-carbon-fiber-front-bumper-lip-kb.html"><img src="/factoryplug-catalog/assets/img/products/2017-2020-8v-audi-s3-a3-dry-carbon-fiber-front-bumper-lip-kb/hero.jpg" alt="2017-2020 8V Audi S3/A3 Dry Carbon Fiber Front Bumper Lip - KB Style | Splitter &amp; Chin Spoiler" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/2017-2020-8v-audi-s3-a3-dry-carbon-fiber-front-bumper-lip-kb.html">2017-2020 8V Audi S3/A3 Dry Carbon Fiber Front Bumper Lip - KB Style | Splitter &amp; Chin Spoiler</a></h3>
+<div class="price"><span class="conv-price" data-min="612" data-max="720" data-cur="USD" data-orig="$612–$720">$612–$720</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
+<div class="psupplier">Made by <a href="/factoryplug-catalog/manufacturers/karbel-automotive-technology.html">Karbel Automotive Technology</a></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/2017-2020-8v-audi-s3-a3-dry-carbon-fiber-front-bumper-lip-kb.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Lighting (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="mirror waterproof dynamic turn signal lights led for audi a3 8v s3/rs3 rearview indicator blinker flowing white/blue yellow lamp mirror waterproof dynamic turn signal lights led for audi a3 8v s3/rs3 rearview indicator blinker flowing white/blue yellow lamp   8v" data-price-min="" data-rating="" data-reviews="0" data-cat="lighting" data-band="" data-chassis="8V" data-material="">
+<a class="pimg" href="/factoryplug-catalog/lighting/mirror-waterproof-dynamic-turn-signal-lights-led-for-audi-a3.html"><img src="/factoryplug-catalog/assets/img/products/mirror-waterproof-dynamic-turn-signal-lights-led-for-audi-a3/hero.webp" alt="Mirror Waterproof Dynamic Turn Signal Lights Led For Audi A3 8v S3/rs3 Rearview Indicator Blinker Flowing White/blue Yellow Lamp" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/lighting/mirror-waterproof-dynamic-turn-signal-lights-led-for-audi-a3.html">Mirror Waterproof Dynamic Turn Signal Lights Led For Audi A3 8v S3/rs3 Rearview Indicator Blinker Flowing White/blue Yellow Lamp</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/mirror-waterproof-dynamic-turn-signal-lights-led-for-audi-a3.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Suspension (3)</h2></div><div class="prod-grid"><article class="prod-card" data-name="2013-2020 8v audi rs3 coilovers - 2-way long-stroke monotube | 2-way coils &amp; damping-adjustable struts 2013-2020 8v audi rs3 coilovers - 2-way long-stroke monotube | 2-way coils &amp; damping-adjustable struts zhejiang longtai shock absorber co., ltd.  8v" data-price-min="1319" data-rating="4.6" data-reviews="0" data-cat="suspension" data-band="600-plus" data-chassis="8V" data-material="">
+<a class="pimg" href="/factoryplug-catalog/suspension/2013-2020-8v-audi-rs3-coilovers-2-way-long-stroke-monotube-2.html"><img src="/factoryplug-catalog/assets/img/products/2013-2020-8v-audi-rs3-coilovers-2-way-long-stroke-monotube-2/g3.jpg" alt="2013-2020 8V Audi RS3 Coilovers - 2-Way Long-Stroke Monotube | 2-Way Coils &amp; Damping-Adjustable Struts" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/suspension/2013-2020-8v-audi-rs3-coilovers-2-way-long-stroke-monotube-2.html">2013-2020 8V Audi RS3 Coilovers - 2-Way Long-Stroke Monotube | 2-Way Coils &amp; Damping-Adjustable Struts</a></h3>
+<div class="price"><span class="conv-price" data-min="1319" data-max="1799" data-cur="USD" data-orig="$1,319-1,799">$1,319-1,799</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.6 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:92%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/zhejiang-longtai-shock-absorber-co-ltd.html">Zhejiang Longtai Shock Absorber Co., Ltd.</a> · <b>4.6</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/2013-2020-8v-audi-rs3-coilovers-2-way-long-stroke-monotube-2.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="high quality front subframe brace for vw golf mk7 mk8 r gti / audi rs3 8v fl ttrs 8s high quality front subframe brace for vw golf mk7 mk8 r gti / audi rs3 8v fl ttrs 8s   mk7 mk8 8v" data-price-min="" data-rating="" data-reviews="0" data-cat="suspension" data-band="" data-chassis="MK7 MK8 8V" data-material="">
+<a class="pimg" href="/factoryplug-catalog/suspension/high-quality-front-subframe-brace-for-vw-golf-mk7-mk8-r-gti.html"><img src="/factoryplug-catalog/assets/img/products/high-quality-front-subframe-brace-for-vw-golf-mk7-mk8-r-gti/hero.webp" alt="High Quality Front Subframe Brace For Vw Golf Mk7 Mk8 R Gti / Audi Rs3 8v Fl Ttrs 8s" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/suspension/high-quality-front-subframe-brace-for-vw-golf-mk7-mk8-r-gti.html">High Quality Front Subframe Brace For Vw Golf Mk7 Mk8 R Gti / Audi Rs3 8v Fl Ttrs 8s</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/high-quality-front-subframe-brace-for-vw-golf-mk7-mk8-r-gti.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="front subframe brace for vw golf mk7 mk8 r gti / audi rs3 8v fl ttrs 8s front subframe brace for vw golf mk7 mk8 r gti / audi rs3 8v fl ttrs 8s   mk7 mk8 8v" data-price-min="" data-rating="" data-reviews="0" data-cat="suspension" data-band="" data-chassis="MK7 MK8 8V" data-material="">
+<a class="pimg" href="/factoryplug-catalog/suspension/front-subframe-brace-for-vw-golf-mk7-mk8-r-gti-audi-rs3-8v-f.html"><img src="/factoryplug-catalog/assets/img/products/front-subframe-brace-for-vw-golf-mk7-mk8-r-gti-audi-rs3-8v-f/hero.webp" alt="Front Subframe Brace For Vw Golf Mk7 Mk8 R Gti / Audi Rs3 8v Fl Ttrs 8s" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/suspension/front-subframe-brace-for-vw-golf-mk7-mk8-r-gti-audi-rs3-8v-f.html">Front Subframe Brace For Vw Golf Mk7 Mk8 R Gti / Audi Rs3 8v Fl Ttrs 8s</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/front-subframe-brace-for-vw-golf-mk7-mk8-r-gti-audi-rs3-8v-f.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Engine &amp; Fuel (3)</h2></div><div class="prod-grid"><article class="prod-card" data-name="billet cnc aluminum intake runner for rs3 8v &amp; ttrs billet cnc aluminum intake runner for rs3 8v &amp; ttrs   8v" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="8V" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/billet-cnc-aluminum-intake-runner-for-rs3-8v-ttrs.html"><img src="/factoryplug-catalog/assets/img/products/billet-cnc-aluminum-intake-runner-for-rs3-8v-ttrs/hero.webp" alt="Billet Cnc Aluminum Intake Runner For Rs3 8v &amp; Ttrs" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/billet-cnc-aluminum-intake-runner-for-rs3-8v-ttrs.html">Billet Cnc Aluminum Intake Runner For Rs3 8v &amp; Ttrs</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/billet-cnc-aluminum-intake-runner-for-rs3-8v-ttrs.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="front mount intercooler kits for vw golf gti r mk7 2.0t tsi audi a3 s3 8v leon 5f 13+ front mount intercooler kits for vw golf gti r mk7 2.0t tsi audi a3 s3 8v leon 5f 13+   mk7 8v" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="MK7 8V" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/front-mount-intercooler-kits-for-vw-golf-gti-r-mk7-2-0t-tsi.html"><img src="/factoryplug-catalog/assets/img/products/front-mount-intercooler-kits-for-vw-golf-gti-r-mk7-2-0t-tsi/hero.webp" alt="Front Mount Intercooler Kits For Vw Golf Gti R Mk7 2.0t Tsi Audi A3 S3 8v Leon 5f 13+" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/front-mount-intercooler-kits-for-vw-golf-gti-r-mk7-2-0t-tsi.html">Front Mount Intercooler Kits For Vw Golf Gti R Mk7 2.0t Tsi Audi A3 S3 8v Leon 5f 13+</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/front-mount-intercooler-kits-for-vw-golf-gti-r-mk7-2-0t-tsi.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="upgrade twintercooler kit for vw golf mk7 gti r audi s3 8v leon cupra 2.0t ea888 fmic intercooler upgrade twintercooler kit for vw golf mk7 gti r audi s3 8v leon cupra 2.0t ea888 fmic intercooler   mk7 8v" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="MK7 8V" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/upgrade-twintercooler-kit-for-vw-golf-mk7-gti-r-audi-s3-8v-l.html"><img src="/factoryplug-catalog/assets/img/products/upgrade-twintercooler-kit-for-vw-golf-mk7-gti-r-audi-s3-8v-l/hero.webp" alt="Upgrade Twintercooler Kit For Vw Golf Mk7 Gti R Audi S3 8v Leon Cupra 2.0t Ea888 Fmic Intercooler" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/upgrade-twintercooler-kit-for-vw-golf-mk7-gti-r-audi-s3-8v-l.html">Upgrade Twintercooler Kit For Vw Golf Mk7 Gti R Audi S3 8v Leon Cupra 2.0t Ea888 Fmic Intercooler</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/upgrade-twintercooler-kit-for-vw-golf-mk7-gti-r-audi-s3-8v-l.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Interior Accessories (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="kyncho for audi a3 8v led car ambient light automotive ambient lighting auto interior lighting kyncho for audi a3 8v led car ambient light automotive ambient lighting auto interior lighting   8v" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="8V" data-material="">
+<a class="pimg" href="/factoryplug-catalog/interior/kyncho-for-audi-a3-8v-led-car-ambient-light-automotive-ambie.html"><img src="/factoryplug-catalog/assets/img/products/kyncho-for-audi-a3-8v-led-car-ambient-light-automotive-ambie/hero.webp" alt="Kyncho For Audi A3 8v Led Car Ambient Light Automotive Ambient Lighting Auto Interior Lighting" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/kyncho-for-audi-a3-8v-led-car-ambient-light-automotive-ambie.html">Kyncho For Audi A3 8v Led Car Ambient Light Automotive Ambient Lighting Auto Interior Lighting</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/kyncho-for-audi-a3-8v-led-car-ambient-light-automotive-ambie.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Electronics &amp; Gauges (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="kanor car accessories digital cluster speedometer dashboard for audi a3 s3 8v 2013-2020 kanor car accessories digital cluster speedometer dashboard for audi a3 s3 8v 2013-2020   8v" data-price-min="" data-rating="" data-reviews="0" data-cat="electronics" data-band="" data-chassis="8V" data-material="">
+<a class="pimg" href="/factoryplug-catalog/electronics/kanor-car-accessories-digital-cluster-speedometer-dashboard.html"><img src="/factoryplug-catalog/assets/img/products/kanor-car-accessories-digital-cluster-speedometer-dashboard/hero.webp" alt="Kanor Car Accessories Digital Cluster Speedometer Dashboard For Audi A3 S3 8v 2013-2020" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/electronics/kanor-car-accessories-digital-cluster-speedometer-dashboard.html">Kanor Car Accessories Digital Cluster Speedometer Dashboard For Audi A3 S3 8v 2013-2020</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/electronics/kanor-car-accessories-digital-cluster-speedometer-dashboard.html">View details &rarr;</a></div>
+</div>
+</article>
+</div>
+<div style="margin-top:30px"><div class="btn-row">
+<a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
+</section>
+<footer class="site"><div class="wrap"><div class="cols">
+<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:var(--text)">Catalog</b><br>
+<a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
+<div><b style="color:var(--text)">More</b><br>
+<a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
+<div><b style="color:var(--text)">Trust</b><br>
+<a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
+<div><b style="color:var(--text)">Follow Conroy</b><br>
+<a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
+<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+</div>
+<small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+&copy; 2026 FactoryPlug. All rights reserved.</small>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BMW 5 Series Touring (F11) Parts (2011–2017) — 12 Parts | FactoryPlug</title>
+<meta name="description" content="Every BMW 5 Series Touring (F11) (2011–2017) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+
+<link rel="canonical" href="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/f11/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FactoryPlug">
+<meta property="og:title" content="BMW 5 Series Touring (F11) Parts (2011–2017) — 12 Parts | FactoryPlug">
+<meta property="og:description" content="Every BMW 5 Series Touring (F11) (2011–2017) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/f11/">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BMW 5 Series Touring (F11) Parts (2011–2017) — 12 Parts | FactoryPlug">
+<meta name="twitter:description" content="Every BMW 5 Series Touring (F11) (2011–2017) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
+<script src="/factoryplug-catalog/assets/fx.js" defer></script>
+<script src="/factoryplug-catalog/assets/search.js" defer></script>
+<script>
+/* My Garage: Year -> Make -> Model -> Chassis picker + "Everything for your
+   X" client-side results, persisted in localStorage (key fp_garage_v1).
+   All picker options derive from /garage/vehicles.json, which is built from
+   the catalog's own chassis detections — never hand-typed. Used on /garage/
+   (picker + results + indicator) and vehicle pages (indicator only). */
+(function(){
+  var KEY = 'fp_garage_v1';
+  var CATALOG_URL = '/garage/catalog.json';
+  var VEHICLES_URL = '/garage/vehicles.json';
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY)); } catch(e){ return null; } }
+  function save(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+  function clear(){ try { localStorage.removeItem(KEY); } catch(e){} }
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  /* ---- saved-garage indicator: "Shopping for: F80 M3" + change/clear ---- */
+  var ind = document.getElementById('garage-indicator');
+  var g = load();
+  if (g && g.code && ind) {
+    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.classList.remove('hidden');
+    var c = document.getElementById('garage-clear');
+    if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+  }
+
+  /* ---- picker (hub page only) ---- */
+  var yearSel = document.getElementById('garage-year');
+  var makeSel = document.getElementById('garage-make');
+  var modelSel = document.getElementById('garage-model');
+  var chassisSel = document.getElementById('garage-chassis');
+  var goBtn = document.getElementById('garage-go');
+  var results = document.getElementById('garage-results');
+  if (!yearSel || !makeSel || !modelSel || !chassisSel) {
+    return; /* vehicle landing pages: indicator only */
+  }
+  function resetSel(sel, label){
+    sel.innerHTML = '<option value="">' + label + '</option>';
+    sel.disabled = true;
+  }
+  function covers(v, y){ return v.y0 != null && v.y1 != null && y >= v.y0 && y <= v.y1; }
+
+  fetch(VEHICLES_URL).then(function(r){ return r.json(); }).then(function(data){
+    var codes = Object.keys(data).filter(function(code){
+      var v = data[code]; return v.y0 != null && v.y1 != null;
+    });
+    if (!codes.length) return;
+    var minY = Math.min.apply(null, codes.map(function(c){ return data[c].y0; }));
+    var maxY = Math.max.apply(null, codes.map(function(c){ return data[c].y1; }));
+    for (var y = maxY; y >= minY; y--) {
+      var o = document.createElement('option');
+      o.value = y; o.textContent = y;
+      yearSel.appendChild(o);
+    }
+    function makesFor(year){
+      var seen = {};
+      codes.forEach(function(code){
+        if (covers(data[code], year)) seen[data[code].make] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function modelsFor(year, make){
+      var seen = {};
+      codes.forEach(function(code){
+        var v = data[code];
+        if (v.make === make && covers(v, year)) seen[v.model] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function chassisFor(year, make, model){
+      return codes.filter(function(code){
+        var v = data[code];
+        return v.make === make && v.model === model && covers(v, year);
+      }).sort(function(a, b){ return data[b].count - data[a].count; });
+    }
+    yearSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(makeSel, 'Select make…'); resetSel(modelSel, 'Select model…');
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!year) return;
+      makesFor(year).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        makeSel.appendChild(o);
+      });
+      makeSel.disabled = false;
+    });
+    makeSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(modelSel, 'Select model…'); resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!makeSel.value) return;
+      modelsFor(year, makeSel.value).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        modelSel.appendChild(o);
+      });
+      modelSel.disabled = false;
+    });
+    modelSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!modelSel.value) return;
+      chassisFor(year, makeSel.value, modelSel.value).forEach(function(code){
+        var v = data[code];
+        var o = document.createElement('option');
+        o.value = code;
+        o.textContent = code + ' — ' + v.years + ' (' + v.count + ' parts)';
+        chassisSel.appendChild(o);
+      });
+      chassisSel.disabled = false;
+    });
+    chassisSel.addEventListener('change', function(){
+      if (goBtn) goBtn.disabled = !chassisSel.value;
+    });
+    if (goBtn) goBtn.addEventListener('click', function(){
+      var code = chassisSel.value;
+      if (!code || !data[code]) return;
+      var v = data[code];
+      var _mt = (v.model || '').trim();
+      var _first = _mt.split(' ')[0].split('/')[0].toLowerCase();
+      // Never "Q50 Q50": when the model already starts with the chassis code,
+      // the model alone is the label (2026-10-07 fix).
+      var label = (_first === String(code).toLowerCase()) ? _mt : code + ' ' + _mt;
+      save({ code: code, make: v.make, label: label });
+      g = load();
+      if (ind) {
+        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.classList.remove('hidden');
+        var cc = document.getElementById('garage-clear');
+        if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+      }
+      renderResults(code, data);
+      if (results && results.scrollIntoView) results.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    /* Saved garage? show its parts right away. */
+    if (g && g.code && data[g.code] && results) renderResults(g.code, data);
+  }).catch(function(){ /* picker degrades silently; browse grid still works */ });
+
+  /* ---- "Everything for your X", grouped by category, from catalog.json ---- */
+  var catalogCache = null;
+  function getCatalog(cb){
+    if (catalogCache) { cb(catalogCache); return; }
+    fetch(CATALOG_URL).then(function(r){ return r.json(); }).then(function(j){
+      catalogCache = j; cb(j);
+    }).catch(function(){ cb(null); });
+  }
+  function card(p){
+    return '<a class="gcard" href="' + esc(p.url) + '">' +
+      '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy">' +
+      '<span class="gcard-body"><span class="gcard-title">' + esc(p.title) + '</span>' +
+      '<span class="gcard-link">View part →</span></span></a>';
+  }
+  function renderResults(code, vdata){
+    if (!results) return;
+    var v = vdata[code];
+    results.innerHTML = '<p class="garage-loading">Pulling every part for your ' +
+      esc(code) + '…</p>';
+    getCatalog(function(cat){
+      if (!cat || !v) {
+        results.innerHTML = '<p class="garage-loading">Could not load the parts index — ' +
+          '<a href="' + esc(v ? v.url : '/garage/') + '">open the ' + esc(code) +
+          ' garage page →</a></p>';
+        return;
+      }
+      var items = cat.filter(function(p){
+        return p.chassis && p.chassis.indexOf(code) !== -1;
+      });
+      var order = (typeof FP_CAT_ORDER !== 'undefined') ? FP_CAT_ORDER : [];
+      var titles = (typeof FP_CAT_TITLES !== 'undefined') ? FP_CAT_TITLES : {};
+      var groups = {};
+      items.forEach(function(p){
+        (groups[p.category] = groups[p.category] || []).push(p);
+      });
+      var html = '<div class="res-head"><h2 class="sec">Everything for your ' +
+        esc(code) + '</h2><a class="btn ghost" href="' + esc(v.url) +
+        '">Full ' + esc(code) + ' page →</a></div>' +
+        '<p class="res-sub">' + items.length + ' parts that fit the ' +
+        esc(v.make + ' ' + v.model) + ' (' + esc(v.years) +
+        ') — grouped by category. Only catalog parts with detected ' +
+        esc(code) + ' fitment are shown.</p>';
+      var seenCats = {};
+      order.forEach(function(slug){
+        if (groups[slug]) { seenCats[slug] = true; html += groupHtml(slug, groups[slug], titles); }
+      });
+      Object.keys(groups).sort().forEach(function(slug){
+        if (!seenCats[slug]) html += groupHtml(slug, groups[slug], titles);
+      });
+      if (!items.length) {
+        html += '<p class="garage-loading">No parts tagged for ' + esc(code) +
+          ' yet — try the browse grid below.</p>';
+      }
+      html += '<p class="fine">Fitment is never guaranteed — always confirm year, ' +
+        'model, trim and VIN directly with the supplier contact before buying.</p>';
+      results.innerHTML = html;
+    });
+  }
+  function groupHtml(slug, items, titles){
+    var title = titles[slug] || slug;
+    var cards = items.map(card).join('');
+    return '<div class="res-head"><h2 class="sec">' + esc(title) +
+      ' (' + items.length + ')</h2></div>' +
+      '<div class="gcard-grid">' + cards + '</div>';
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "BMW 5 Series Touring (F11) Parts (2011\u20132017)", "description": "Every BMW 5 Series Touring (F11) compatible part in the FactoryPlug catalog."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<nav>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+</nav>
+</div></header>
+<section class="content-sec"><div class="wrap-narrow">
+<div id="garage-indicator" class="garage-indicator hidden" role="status"></div>
+<nav aria-label="Breadcrumb"><ol class="crumbs">
+<li><a href="/factoryplug-catalog/">Home</a></li><li><a href="/factoryplug-catalog/garage/">My Garage</a></li>
+<li aria-current="page">F11</li></ol></nav>
+<h1>BMW 5 Series Touring (F11) Parts <span class="yr">(2011–2017)</span></h1>
+<p class="sec-sub">Everything in the catalog for your F11 — grouped by
+category. 12 parts and counting.</p>
+<p class="fine">Fitment is never guaranteed — always confirm year, model, trim
+and VIN directly with the supplier contact before buying.</p>
+</div></section>
+<section class="content-sec" style="max-width:none">
+<div class="sec-head"><h2 class="sec">Lighting (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="auto car accessories led headlights for bmw 5 series f10 f11 f18 front lamp assembly 10-17 yellow auto car accessories led headlights for bmw 5 series f10 f11 f18 front lamp assembly 10-17 yellow   f10 f11 f18" data-price-min="" data-rating="" data-reviews="0" data-cat="lighting" data-band="" data-chassis="F10 F11 F18" data-material="">
+<a class="pimg" href="/factoryplug-catalog/lighting/auto-car-accessories-led-headlights-for-bmw-5-series-f10-f11.html"><img src="/factoryplug-catalog/assets/img/products/auto-car-accessories-led-headlights-for-bmw-5-series-f10-f11/hero.webp" alt="Auto Car Accessories Led Headlights For BMW 5 Series F10 F11 F18 Front Lamp Assembly 10-17 Yellow" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/lighting/auto-car-accessories-led-headlights-for-bmw-5-series-f10-f11.html">Auto Car Accessories Led Headlights For BMW 5 Series F10 F11 F18 Front Lamp Assembly 10-17 Yellow</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/auto-car-accessories-led-headlights-for-bmw-5-series-f10-f11.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Engine &amp; Fuel (5)</h2></div><div class="prod-grid"><article class="prod-card" data-name="bm-012 performance cold air intake filter for bmw f10 f11 520i 528i 2.0l n20 2012-2018 bm-012 performance cold air intake filter for bmw f10 f11 520i 528i 2.0l n20 2012-2018   f10 f11" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="F10 F11" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/bm-012-performance-cold-air-intake-filter-for-bmw-f10-f11-52.html"><img src="/factoryplug-catalog/assets/img/products/bm-012-performance-cold-air-intake-filter-for-bmw-f10-f11-52/hero.webp" alt="Bm-012 Performance Cold Air Intake Filter For BMW F10 F11 520i 528i 2.0l N20 2012-2018" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/bm-012-performance-cold-air-intake-filter-for-bmw-f10-f11-52.html">Bm-012 Performance Cold Air Intake Filter For BMW F10 F11 520i 528i 2.0l N20 2012-2018</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/bm-012-performance-cold-air-intake-filter-for-bmw-f10-f11-52.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="cold air intake system for bmw 2009-2016 f10 f11 n55 535i 3.0t cold air intake system for bmw 2009-2016 f10 f11 n55 535i 3.0t   f10 f11" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="F10 F11" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/cold-air-intake-system-for-bmw-2009-2016-f10-f11-n55-535i-3.html"><img src="/factoryplug-catalog/assets/img/products/cold-air-intake-system-for-bmw-2009-2016-f10-f11-n55-535i-3/hero.webp" alt="Cold Air Intake System For BMW 2009-2016 F10 F11 N55 535i 3.0t" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/cold-air-intake-system-for-bmw-2009-2016-f10-f11-n55-535i-3.html">Cold Air Intake System For BMW 2009-2016 F10 F11 N55 535i 3.0t</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/cold-air-intake-system-for-bmw-2009-2016-f10-f11-n55-535i-3.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="high performance high flow competition intercooler for bmw f07 f10 f11 520i 528i n20 2.0t 2010-2016 high performance high flow competition intercooler for bmw f07 f10 f11 520i 528i n20 2.0t 2010-2016   f07 f10 f11" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="F07 F10 F11" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/high-performance-high-flow-competition-intercooler-for-bmw-f.html"><img src="/factoryplug-catalog/assets/img/products/high-performance-high-flow-competition-intercooler-for-bmw-f/hero.webp" alt="High Performance High Flow Competition Intercooler For BMW F07 F10 F11 520i 528i N20 2.0t 2010-2016" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/high-performance-high-flow-competition-intercooler-for-bmw-f.html">High Performance High Flow Competition Intercooler For BMW F07 F10 F11 520i 528i N20 2.0t 2010-2016</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/high-performance-high-flow-competition-intercooler-for-bmw-f.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="hot sale high performance aluminum intercooler for bmw f10 f11 535i 518d 520d 525d 530d 535d larger hot sale high performance aluminum intercooler for bmw f10 f11 535i 518d 520d 525d 530d 535d larger   f10 f11" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="F10 F11" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/hot-sale-high-performance-aluminum-intercooler-for-bmw-f10-f.html"><img src="/factoryplug-catalog/assets/img/products/hot-sale-high-performance-aluminum-intercooler-for-bmw-f10-f/hero.webp" alt="Hot Sale High Performance Aluminum Intercooler For BMW F10 F11 535i 518d 520d 525d 530d 535d Larger" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/hot-sale-high-performance-aluminum-intercooler-for-bmw-f10-f.html">Hot Sale High Performance Aluminum Intercooler For BMW F10 F11 535i 518d 520d 525d 530d 535d Larger</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/hot-sale-high-performance-aluminum-intercooler-for-bmw-f10-f.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="aluminum transmission oil cooler kit for bmw f07 f10 f11 f18 520i 528i ga8hp45z gearbox aluminum transmission oil cooler kit for bmw f07 f10 f11 f18 520i 528i ga8hp45z gearbox   f07 f10 f11 f18" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="F07 F10 F11 F18" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/aluminum-transmission-oil-cooler-kit-for-bmw-f07-f10-f11-f18.html"><img src="/factoryplug-catalog/assets/img/products/aluminum-transmission-oil-cooler-kit-for-bmw-f07-f10-f11-f18/hero.webp" alt="Aluminum Transmission Oil Cooler Kit For BMW F07 F10 F11 F18 520i 528i Ga8hp45z Gearbox" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/aluminum-transmission-oil-cooler-kit-for-bmw-f07-f10-f11-f18.html">Aluminum Transmission Oil Cooler Kit For BMW F07 F10 F11 F18 520i 528i Ga8hp45z Gearbox</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/aluminum-transmission-oil-cooler-kit-for-bmw-f07-f10-f11-f18.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Interior Accessories (5)</h2></div><div class="prod-grid"><article class="prod-card" data-name="lcd cockpit virtual speedometer carplay for bmw 5 series m5 f10 f11 f18 gt f07 digital cluster linux system lcd cockpit virtual speedometer carplay for bmw 5 series m5 f10 f11 f18 gt f07 digital cluster linux system shenzhen kanor electronic technology co., ltd., 8 yrs, shenzhen cn, 4.3/5, tuv rheinland verified  f10 f11 f18 f07" data-price-min="1" data-rating="4.3" data-reviews="0" data-cat="interior" data-band="under-100" data-chassis="F10 F11 F18 F07" data-material="">
+<a class="pimg" href="/factoryplug-catalog/interior/lcd-cockpit-virtual-speedometer-carplay-for-bmw-5-series-m5.html"><img src="/factoryplug-catalog/assets/img/products/lcd-cockpit-virtual-speedometer-carplay-for-bmw-5-series-m5/hero.jpg" alt="LCD Cockpit Virtual Speedometer Carplay for BMW 5 Series M5 F10 F11 F18 GT F07 Digital Cluster Linux System" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/lcd-cockpit-virtual-speedometer-carplay-for-bmw-5-series-m5.html">LCD Cockpit Virtual Speedometer Carplay for BMW 5 Series M5 F10 F11 F18 GT F07 Digital Cluster Linux System</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="314" data-cur="USD" data-orig="$314 (1-19), $305 (20-49), $296 (50+) / piece — 10% off til Sept 30">$314 (1-19), $305 (20-49), $296 (50+) / piece — 10% off til Sept 30</span></div>
+<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.3 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:86%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/shenzhen-kanor-electronic-technology-co-ltd.html">Shenzhen Kanor Electronic Technology Co., Ltd., 8 yrs, Shenzhen CN, 4.3/5, TUV Rheinland verified</a> · <b>4.3</b></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/lcd-cockpit-virtual-speedometer-carplay-for-bmw-5-series-m5.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="icarsin dynamic 64 colors f10 ambient lights for bmw 5 series 2011-2017 f11 f18 interior upgrade icarsin dynamic 64 colors f10 ambient lights for bmw 5 series 2011-2017 f11 f18 interior upgrade   f10 f11 f18" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="F10 F11 F18" data-material="">
+<a class="pimg" href="/factoryplug-catalog/interior/icarsin-dynamic-64-colors-f10-ambient-lights-for-bmw-5-serie.html"><img src="/factoryplug-catalog/assets/img/products/icarsin-dynamic-64-colors-f10-ambient-lights-for-bmw-5-serie/hero.webp" alt="Icarsin Dynamic 64 Colors F10 Ambient Lights For BMW 5 Series 2011-2017 F11 F18 Interior Upgrade" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/icarsin-dynamic-64-colors-f10-ambient-lights-for-bmw-5-serie.html">Icarsin Dynamic 64 Colors F10 Ambient Lights For BMW 5 Series 2011-2017 F11 F18 Interior Upgrade</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/icarsin-dynamic-64-colors-f10-ambient-lights-for-bmw-5-serie.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="10.25&quot; linux head unit for bmw 5 series f10 f11 nbt cic wireless and wired carplay android auto 10.25&quot; linux head unit for bmw 5 series f10 f11 nbt cic wireless and wired carplay android auto   f10 f11" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="F10 F11" data-material="">
+<a class="pimg" href="/factoryplug-catalog/interior/10-25-linux-head-unit-for-bmw-5-series-f10-f11-nbt-cic-wirel.html"><img src="/factoryplug-catalog/assets/img/products/10-25-linux-head-unit-for-bmw-5-series-f10-f11-nbt-cic-wirel/hero.webp" alt="10.25&quot; Linux Head Unit For BMW 5 Series F10 F11 Nbt Cic Wireless And Wired Carplay Android Auto" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/10-25-linux-head-unit-for-bmw-5-series-f10-f11-nbt-cic-wirel.html">10.25&quot; Linux Head Unit For BMW 5 Series F10 F11 Nbt Cic Wireless And Wired Carplay Android Auto</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/10-25-linux-head-unit-for-bmw-5-series-f10-f11-nbt-cic-wirel.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="kanor 12.3&quot; screen lcd dashboard speedometer digital cluster for bmw 3 4 5 6 7 series f10 f11 f30 kanor 12.3&quot; screen lcd dashboard speedometer digital cluster for bmw 3 4 5 6 7 series f10 f11 f30   f10 f11 f30" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="F10 F11 F30" data-material="">
+<a class="pimg" href="/factoryplug-catalog/interior/kanor-12-3-screen-lcd-dashboard-speedometer-digital-cluster.html"><img src="/factoryplug-catalog/assets/img/products/kanor-12-3-screen-lcd-dashboard-speedometer-digital-cluster/hero.webp" alt="Kanor 12.3&quot; Screen Lcd Dashboard Speedometer Digital Cluster For BMW 3 4 5 6 7 Series F10 F11 F30" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/kanor-12-3-screen-lcd-dashboard-speedometer-digital-cluster.html">Kanor 12.3&quot; Screen Lcd Dashboard Speedometer Digital Cluster For BMW 3 4 5 6 7 Series F10 F11 F30</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/kanor-12-3-screen-lcd-dashboard-speedometer-digital-cluster.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="hot sell carbon fiber racing car steering wheel for bmw m5 m6 f18 f11 f12 f13 hot sell carbon fiber racing car steering wheel for bmw m5 m6 f18 f11 f12 f13   f18 f11 f12" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="F18 F11 F12" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/interior/hot-sell-carbon-fiber-racing-car-steering-wheel-for-bmw-m5-m.html"><img src="/factoryplug-catalog/assets/img/products/hot-sell-carbon-fiber-racing-car-steering-wheel-for-bmw-m5-m/hero.webp" alt="Hot Sell Carbon Fiber Racing Car Steering Wheel For BMW M5 M6 F18 F11 F12 F13" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/hot-sell-carbon-fiber-racing-car-steering-wheel-for-bmw-m5-m.html">Hot Sell Carbon Fiber Racing Car Steering Wheel For BMW M5 M6 F18 F11 F12 F13</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/hot-sell-carbon-fiber-racing-car-steering-wheel-for-bmw-m5-m.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Electronics &amp; Gauges (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="bmw f30 f34 f10 f11 f20 f22 f25 f15 multimedia audio system apple car play android auto linux bmw f30 f34 f10 f11 f20 f22 f25 f15 multimedia audio system apple car play android auto linux   f30 f34 f10 f11 f20 f22 f15" data-price-min="" data-rating="" data-reviews="0" data-cat="electronics" data-band="" data-chassis="F30 F34 F10 F11 F20 F22 F15" data-material="">
+<a class="pimg" href="/factoryplug-catalog/electronics/bmw-f30-f34-f10-f11-f20-f22-f25-f15-multimedia-audio-system.html"><img src="/factoryplug-catalog/assets/img/products/bmw-f30-f34-f10-f11-f20-f22-f25-f15-multimedia-audio-system/hero.webp" alt="BMW F30 F34 F10 F11 F20 F22 F25 F15 Multimedia Audio System Apple Car Play Android Auto Linux" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/electronics/bmw-f30-f34-f10-f11-f20-f22-f25-f15-multimedia-audio-system.html">BMW F30 F34 F10 F11 F20 F22 F25 F15 Multimedia Audio System Apple Car Play Android Auto Linux</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/electronics/bmw-f30-f34-f10-f11-f20-f22-f25-f15-multimedia-audio-system.html">View details &rarr;</a></div>
+</div>
+</article>
+</div>
+<div style="margin-top:30px"><div class="btn-row">
+<a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
+</section>
+<footer class="site"><div class="wrap"><div class="cols">
+<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:var(--text)">Catalog</b><br>
+<a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
+<div><b style="color:var(--text)">More</b><br>
+<a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
+<div><b style="color:var(--text)">Trust</b><br>
+<a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
+<div><b style="color:var(--text)">Follow Conroy</b><br>
+<a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
+<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+</div>
+<small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+&copy; 2026 FactoryPlug. All rights reserved.</small>
+</div></footer>
+</body>
+</html>

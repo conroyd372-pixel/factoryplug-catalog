@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volkswagen Golf GTI/R (Mk8) Parts (2022+) — 9 Parts | FactoryPlug</title>
+<meta name="description" content="Every Volkswagen Golf GTI/R (Mk8) (2022+) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+
+<link rel="canonical" href="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/mk8/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FactoryPlug">
+<meta property="og:title" content="Volkswagen Golf GTI/R (Mk8) Parts (2022+) — 9 Parts | FactoryPlug">
+<meta property="og:description" content="Every Volkswagen Golf GTI/R (Mk8) (2022+) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/mk8/">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Volkswagen Golf GTI/R (Mk8) Parts (2022+) — 9 Parts | FactoryPlug">
+<meta name="twitter:description" content="Every Volkswagen Golf GTI/R (Mk8) (2022+) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
+<script src="/factoryplug-catalog/assets/fx.js" defer></script>
+<script src="/factoryplug-catalog/assets/search.js" defer></script>
+<script>
+/* My Garage: Year -> Make -> Model -> Chassis picker + "Everything for your
+   X" client-side results, persisted in localStorage (key fp_garage_v1).
+   All picker options derive from /garage/vehicles.json, which is built from
+   the catalog's own chassis detections — never hand-typed. Used on /garage/
+   (picker + results + indicator) and vehicle pages (indicator only). */
+(function(){
+  var KEY = 'fp_garage_v1';
+  var CATALOG_URL = '/garage/catalog.json';
+  var VEHICLES_URL = '/garage/vehicles.json';
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY)); } catch(e){ return null; } }
+  function save(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+  function clear(){ try { localStorage.removeItem(KEY); } catch(e){} }
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  /* ---- saved-garage indicator: "Shopping for: F80 M3" + change/clear ---- */
+  var ind = document.getElementById('garage-indicator');
+  var g = load();
+  if (g && g.code && ind) {
+    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.classList.remove('hidden');
+    var c = document.getElementById('garage-clear');
+    if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+  }
+
+  /* ---- picker (hub page only) ---- */
+  var yearSel = document.getElementById('garage-year');
+  var makeSel = document.getElementById('garage-make');
+  var modelSel = document.getElementById('garage-model');
+  var chassisSel = document.getElementById('garage-chassis');
+  var goBtn = document.getElementById('garage-go');
+  var results = document.getElementById('garage-results');
+  if (!yearSel || !makeSel || !modelSel || !chassisSel) {
+    return; /* vehicle landing pages: indicator only */
+  }
+  function resetSel(sel, label){
+    sel.innerHTML = '<option value="">' + label + '</option>';
+    sel.disabled = true;
+  }
+  function covers(v, y){ return v.y0 != null && v.y1 != null && y >= v.y0 && y <= v.y1; }
+
+  fetch(VEHICLES_URL).then(function(r){ return r.json(); }).then(function(data){
+    var codes = Object.keys(data).filter(function(code){
+      var v = data[code]; return v.y0 != null && v.y1 != null;
+    });
+    if (!codes.length) return;
+    var minY = Math.min.apply(null, codes.map(function(c){ return data[c].y0; }));
+    var maxY = Math.max.apply(null, codes.map(function(c){ return data[c].y1; }));
+    for (var y = maxY; y >= minY; y--) {
+      var o = document.createElement('option');
+      o.value = y; o.textContent = y;
+      yearSel.appendChild(o);
+    }
+    function makesFor(year){
+      var seen = {};
+      codes.forEach(function(code){
+        if (covers(data[code], year)) seen[data[code].make] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function modelsFor(year, make){
+      var seen = {};
+      codes.forEach(function(code){
+        var v = data[code];
+        if (v.make === make && covers(v, year)) seen[v.model] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function chassisFor(year, make, model){
+      return codes.filter(function(code){
+        var v = data[code];
+        return v.make === make && v.model === model && covers(v, year);
+      }).sort(function(a, b){ return data[b].count - data[a].count; });
+    }
+    yearSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(makeSel, 'Select make…'); resetSel(modelSel, 'Select model…');
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!year) return;
+      makesFor(year).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        makeSel.appendChild(o);
+      });
+      makeSel.disabled = false;
+    });
+    makeSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(modelSel, 'Select model…'); resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!makeSel.value) return;
+      modelsFor(year, makeSel.value).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        modelSel.appendChild(o);
+      });
+      modelSel.disabled = false;
+    });
+    modelSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!modelSel.value) return;
+      chassisFor(year, makeSel.value, modelSel.value).forEach(function(code){
+        var v = data[code];
+        var o = document.createElement('option');
+        o.value = code;
+        o.textContent = code + ' — ' + v.years + ' (' + v.count + ' parts)';
+        chassisSel.appendChild(o);
+      });
+      chassisSel.disabled = false;
+    });
+    chassisSel.addEventListener('change', function(){
+      if (goBtn) goBtn.disabled = !chassisSel.value;
+    });
+    if (goBtn) goBtn.addEventListener('click', function(){
+      var code = chassisSel.value;
+      if (!code || !data[code]) return;
+      var v = data[code];
+      var _mt = (v.model || '').trim();
+      var _first = _mt.split(' ')[0].split('/')[0].toLowerCase();
+      // Never "Q50 Q50": when the model already starts with the chassis code,
+      // the model alone is the label (2026-10-07 fix).
+      var label = (_first === String(code).toLowerCase()) ? _mt : code + ' ' + _mt;
+      save({ code: code, make: v.make, label: label });
+      g = load();
+      if (ind) {
+        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.classList.remove('hidden');
+        var cc = document.getElementById('garage-clear');
+        if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+      }
+      renderResults(code, data);
+      if (results && results.scrollIntoView) results.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    /* Saved garage? show its parts right away. */
+    if (g && g.code && data[g.code] && results) renderResults(g.code, data);
+  }).catch(function(){ /* picker degrades silently; browse grid still works */ });
+
+  /* ---- "Everything for your X", grouped by category, from catalog.json ---- */
+  var catalogCache = null;
+  function getCatalog(cb){
+    if (catalogCache) { cb(catalogCache); return; }
+    fetch(CATALOG_URL).then(function(r){ return r.json(); }).then(function(j){
+      catalogCache = j; cb(j);
+    }).catch(function(){ cb(null); });
+  }
+  function card(p){
+    return '<a class="gcard" href="' + esc(p.url) + '">' +
+      '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy">' +
+      '<span class="gcard-body"><span class="gcard-title">' + esc(p.title) + '</span>' +
+      '<span class="gcard-link">View part →</span></span></a>';
+  }
+  function renderResults(code, vdata){
+    if (!results) return;
+    var v = vdata[code];
+    results.innerHTML = '<p class="garage-loading">Pulling every part for your ' +
+      esc(code) + '…</p>';
+    getCatalog(function(cat){
+      if (!cat || !v) {
+        results.innerHTML = '<p class="garage-loading">Could not load the parts index — ' +
+          '<a href="' + esc(v ? v.url : '/garage/') + '">open the ' + esc(code) +
+          ' garage page →</a></p>';
+        return;
+      }
+      var items = cat.filter(function(p){
+        return p.chassis && p.chassis.indexOf(code) !== -1;
+      });
+      var order = (typeof FP_CAT_ORDER !== 'undefined') ? FP_CAT_ORDER : [];
+      var titles = (typeof FP_CAT_TITLES !== 'undefined') ? FP_CAT_TITLES : {};
+      var groups = {};
+      items.forEach(function(p){
+        (groups[p.category] = groups[p.category] || []).push(p);
+      });
+      var html = '<div class="res-head"><h2 class="sec">Everything for your ' +
+        esc(code) + '</h2><a class="btn ghost" href="' + esc(v.url) +
+        '">Full ' + esc(code) + ' page →</a></div>' +
+        '<p class="res-sub">' + items.length + ' parts that fit the ' +
+        esc(v.make + ' ' + v.model) + ' (' + esc(v.years) +
+        ') — grouped by category. Only catalog parts with detected ' +
+        esc(code) + ' fitment are shown.</p>';
+      var seenCats = {};
+      order.forEach(function(slug){
+        if (groups[slug]) { seenCats[slug] = true; html += groupHtml(slug, groups[slug], titles); }
+      });
+      Object.keys(groups).sort().forEach(function(slug){
+        if (!seenCats[slug]) html += groupHtml(slug, groups[slug], titles);
+      });
+      if (!items.length) {
+        html += '<p class="garage-loading">No parts tagged for ' + esc(code) +
+          ' yet — try the browse grid below.</p>';
+      }
+      html += '<p class="fine">Fitment is never guaranteed — always confirm year, ' +
+        'model, trim and VIN directly with the supplier contact before buying.</p>';
+      results.innerHTML = html;
+    });
+  }
+  function groupHtml(slug, items, titles){
+    var title = titles[slug] || slug;
+    var cards = items.map(card).join('');
+    return '<div class="res-head"><h2 class="sec">' + esc(title) +
+      ' (' + items.length + ')</h2></div>' +
+      '<div class="gcard-grid">' + cards + '</div>';
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Volkswagen Golf GTI/R (Mk8) Parts (2022+)", "description": "Every Volkswagen Golf GTI/R (Mk8) compatible part in the FactoryPlug catalog."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<nav>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+</nav>
+</div></header>
+<section class="content-sec"><div class="wrap-narrow">
+<div id="garage-indicator" class="garage-indicator hidden" role="status"></div>
+<nav aria-label="Breadcrumb"><ol class="crumbs">
+<li><a href="/factoryplug-catalog/">Home</a></li><li><a href="/factoryplug-catalog/garage/">My Garage</a></li>
+<li aria-current="page">MK8</li></ol></nav>
+<h1>Volkswagen Golf GTI/R (Mk8) Parts <span class="yr">(2022+)</span></h1>
+<p class="sec-sub">Everything in the catalog for your MK8 — grouped by
+category. 9 parts and counting.</p>
+<p class="fine">Fitment is never guaranteed — always confirm year, model, trim
+and VIN directly with the supplier contact before buying.</p>
+</div></section>
+<section class="content-sec" style="max-width:none">
+<div class="sec-head"><h2 class="sec">Exhaust Systems (3)</h2></div><div class="prod-grid"><article class="prod-card" data-name="exhaust downpipe for vw mk8 gti 2020+ with opf exhaust downpipe for vw mk8 gti 2020+ with opf   mk8" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="MK8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/exhaust/exhaust-downpipe-for-vw-mk8-gti-2020-with-opf.html"><img src="/factoryplug-catalog/assets/img/products/exhaust-downpipe-for-vw-mk8-gti-2020-with-opf/hero.webp" alt="Exhaust Downpipe For Vw Mk8 Gti 2020+ With Opf" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/exhaust-downpipe-for-vw-mk8-gti-2020-with-opf.html">Exhaust Downpipe For Vw Mk8 Gti 2020+ With Opf</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/exhaust-downpipe-for-vw-mk8-gti-2020-with-opf.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="high flow catalytic converter euro-6 exhaust for vw golf8 mk8 golf 8/golf 8 gti/tiguan 2.0t high flow catalytic converter euro-6 exhaust for vw golf8 mk8 golf 8/golf 8 gti/tiguan 2.0t   mk8" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="MK8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/exhaust/high-flow-catalytic-converter-euro-6-exhaust-for-vw-golf8-mk.html"><img src="/factoryplug-catalog/assets/img/products/high-flow-catalytic-converter-euro-6-exhaust-for-vw-golf8-mk/hero.webp" alt="High Flow Catalytic Converter Euro-6 Exhaust For Vw Golf8 Mk8 Golf 8/golf 8 Gti/tiguan 2.0t" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/high-flow-catalytic-converter-euro-6-exhaust-for-vw-golf8-mk.html">High Flow Catalytic Converter Euro-6 Exhaust For Vw Golf8 Mk8 Golf 8/golf 8 Gti/tiguan 2.0t</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/high-flow-catalytic-converter-euro-6-exhaust-for-vw-golf8-mk.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="high performance exhaust downpipe stainless steel downpipe for vw golf mk8 r high performance exhaust downpipe stainless steel downpipe for vw golf mk8 r   mk8" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="MK8" data-material="Stainless steel">
+<a class="pimg" href="/factoryplug-catalog/exhaust/high-performance-exhaust-downpipe-stainless-steel-downpipe-f.html"><img src="/factoryplug-catalog/assets/img/products/high-performance-exhaust-downpipe-stainless-steel-downpipe-f/hero.webp" alt="High Performance Exhaust Downpipe Stainless Steel Downpipe For Vw Golf Mk8 R" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/high-performance-exhaust-downpipe-stainless-steel-downpipe-f.html">High Performance Exhaust Downpipe Stainless Steel Downpipe For Vw Golf Mk8 R</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/high-performance-exhaust-downpipe-stainless-steel-downpipe-f.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Aerodynamics &amp; Exterior (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="carbon fiber intake for golf mk8 gti 2.0t gloss black carbon fiber intake for golf mk8 gti 2.0t gloss black   mk8" data-price-min="" data-rating="" data-reviews="0" data-cat="carbon" data-band="" data-chassis="MK8" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/carbon-fiber-intake-for-golf-mk8-gti-2-0t-gloss-black.html"><img src="/factoryplug-catalog/assets/img/products/carbon-fiber-intake-for-golf-mk8-gti-2-0t-gloss-black/hero.webp" alt="Carbon Fiber Intake For Golf Mk8 Gti 2.0t Gloss Black" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/carbon-fiber-intake-for-golf-mk8-gti-2-0t-gloss-black.html">Carbon Fiber Intake For Golf Mk8 Gti 2.0t Gloss Black</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/carbon-fiber-intake-for-golf-mk8-gti-2-0t-gloss-black.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Suspension (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="high quality front subframe brace for vw golf mk7 mk8 r gti / audi rs3 8v fl ttrs 8s high quality front subframe brace for vw golf mk7 mk8 r gti / audi rs3 8v fl ttrs 8s   mk7 mk8 8v" data-price-min="" data-rating="" data-reviews="0" data-cat="suspension" data-band="" data-chassis="MK7 MK8 8V" data-material="">
+<a class="pimg" href="/factoryplug-catalog/suspension/high-quality-front-subframe-brace-for-vw-golf-mk7-mk8-r-gti.html"><img src="/factoryplug-catalog/assets/img/products/high-quality-front-subframe-brace-for-vw-golf-mk7-mk8-r-gti/hero.webp" alt="High Quality Front Subframe Brace For Vw Golf Mk7 Mk8 R Gti / Audi Rs3 8v Fl Ttrs 8s" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/suspension/high-quality-front-subframe-brace-for-vw-golf-mk7-mk8-r-gti.html">High Quality Front Subframe Brace For Vw Golf Mk7 Mk8 R Gti / Audi Rs3 8v Fl Ttrs 8s</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/high-quality-front-subframe-brace-for-vw-golf-mk7-mk8-r-gti.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="front subframe brace for vw golf mk7 mk8 r gti / audi rs3 8v fl ttrs 8s front subframe brace for vw golf mk7 mk8 r gti / audi rs3 8v fl ttrs 8s   mk7 mk8 8v" data-price-min="" data-rating="" data-reviews="0" data-cat="suspension" data-band="" data-chassis="MK7 MK8 8V" data-material="">
+<a class="pimg" href="/factoryplug-catalog/suspension/front-subframe-brace-for-vw-golf-mk7-mk8-r-gti-audi-rs3-8v-f.html"><img src="/factoryplug-catalog/assets/img/products/front-subframe-brace-for-vw-golf-mk7-mk8-r-gti-audi-rs3-8v-f/hero.webp" alt="Front Subframe Brace For Vw Golf Mk7 Mk8 R Gti / Audi Rs3 8v Fl Ttrs 8s" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/suspension/front-subframe-brace-for-vw-golf-mk7-mk8-r-gti-audi-rs3-8v-f.html">Front Subframe Brace For Vw Golf Mk7 Mk8 R Gti / Audi Rs3 8v Fl Ttrs 8s</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/front-subframe-brace-for-vw-golf-mk7-mk8-r-gti-audi-rs3-8v-f.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Engine &amp; Fuel (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="high quality cold air intake system performance cold air intake filter kit for vw golf mk8 gti high quality cold air intake system performance cold air intake filter kit for vw golf mk8 gti   mk8" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="MK8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/high-quality-cold-air-intake-system-performance-cold-air-int.html"><img src="/factoryplug-catalog/assets/img/products/high-quality-cold-air-intake-system-performance-cold-air-int/hero.webp" alt="High Quality Cold Air Intake System Performance Cold Air Intake Filter Kit For Vw Golf Mk8 Gti" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/high-quality-cold-air-intake-system-performance-cold-air-int.html">High Quality Cold Air Intake System Performance Cold Air Intake Filter Kit For Vw Golf Mk8 Gti</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/high-quality-cold-air-intake-system-performance-cold-air-int.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="intercooler charge pipe kit for vw golf mk8 gti intercooler charge pipe kit for vw golf mk8 gti   mk8" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="MK8" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/intercooler-charge-pipe-kit-for-vw-golf-mk8-gti.html"><img src="/factoryplug-catalog/assets/img/products/intercooler-charge-pipe-kit-for-vw-golf-mk8-gti/hero.webp" alt="Intercooler Charge Pipe Kit For Vw Golf Mk8 Gti" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/engine/intercooler-charge-pipe-kit-for-vw-golf-mk8-gti.html">Intercooler Charge Pipe Kit For Vw Golf Mk8 Gti</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/intercooler-charge-pipe-kit-for-vw-golf-mk8-gti.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Interior Accessories (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="the all new led carbon fiber steering wheel is suitable for volkswagen mk6 mk7 mk8 gti gtr golf gte the all new led carbon fiber steering wheel is suitable for volkswagen mk6 mk7 mk8 gti gtr golf gte   mk7 mk8" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="MK7 MK8" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/interior/the-all-new-led-carbon-fiber-steering-wheel-is-suitable-for.html"><img src="/factoryplug-catalog/assets/img/products/the-all-new-led-carbon-fiber-steering-wheel-is-suitable-for/hero.webp" alt="The All New Led Carbon Fiber Steering Wheel Is Suitable For Volkswagen Mk6 Mk7 Mk8 Gti Gtr Golf Gte" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/the-all-new-led-carbon-fiber-steering-wheel-is-suitable-for.html">The All New Led Carbon Fiber Steering Wheel Is Suitable For Volkswagen Mk6 Mk7 Mk8 Gti Gtr Golf Gte</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/the-all-new-led-carbon-fiber-steering-wheel-is-suitable-for.html">View details &rarr;</a></div>
+</div>
+</article>
+</div>
+<div style="margin-top:30px"><div class="btn-row">
+<a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
+</section>
+<footer class="site"><div class="wrap"><div class="cols">
+<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:var(--text)">Catalog</b><br>
+<a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
+<div><b style="color:var(--text)">More</b><br>
+<a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
+<div><b style="color:var(--text)">Trust</b><br>
+<a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
+<div><b style="color:var(--text)">Follow Conroy</b><br>
+<a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
+<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+</div>
+<small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+&copy; 2026 FactoryPlug. All rights reserved.</small>
+</div></footer>
+</body>
+</html>

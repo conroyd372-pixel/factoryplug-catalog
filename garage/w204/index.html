@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mercedes-Benz C Class Parts (2008–2014) — 16 Parts | FactoryPlug</title>
+<meta name="description" content="Every Mercedes-Benz C Class (2008–2014) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+
+<link rel="canonical" href="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/w204/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FactoryPlug">
+<meta property="og:title" content="Mercedes-Benz C Class Parts (2008–2014) — 16 Parts | FactoryPlug">
+<meta property="og:description" content="Every Mercedes-Benz C Class (2008–2014) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/w204/">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mercedes-Benz C Class Parts (2008–2014) — 16 Parts | FactoryPlug">
+<meta name="twitter:description" content="Every Mercedes-Benz C Class (2008–2014) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
+<script src="/factoryplug-catalog/assets/fx.js" defer></script>
+<script src="/factoryplug-catalog/assets/search.js" defer></script>
+<script>
+/* My Garage: Year -> Make -> Model -> Chassis picker + "Everything for your
+   X" client-side results, persisted in localStorage (key fp_garage_v1).
+   All picker options derive from /garage/vehicles.json, which is built from
+   the catalog's own chassis detections — never hand-typed. Used on /garage/
+   (picker + results + indicator) and vehicle pages (indicator only). */
+(function(){
+  var KEY = 'fp_garage_v1';
+  var CATALOG_URL = '/garage/catalog.json';
+  var VEHICLES_URL = '/garage/vehicles.json';
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY)); } catch(e){ return null; } }
+  function save(v){ try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){} }
+  function clear(){ try { localStorage.removeItem(KEY); } catch(e){} }
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  /* ---- saved-garage indicator: "Shopping for: F80 M3" + change/clear ---- */
+  var ind = document.getElementById('garage-indicator');
+  var g = load();
+  if (g && g.code && ind) {
+    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.classList.remove('hidden');
+    var c = document.getElementById('garage-clear');
+    if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+  }
+
+  /* ---- picker (hub page only) ---- */
+  var yearSel = document.getElementById('garage-year');
+  var makeSel = document.getElementById('garage-make');
+  var modelSel = document.getElementById('garage-model');
+  var chassisSel = document.getElementById('garage-chassis');
+  var goBtn = document.getElementById('garage-go');
+  var results = document.getElementById('garage-results');
+  if (!yearSel || !makeSel || !modelSel || !chassisSel) {
+    return; /* vehicle landing pages: indicator only */
+  }
+  function resetSel(sel, label){
+    sel.innerHTML = '<option value="">' + label + '</option>';
+    sel.disabled = true;
+  }
+  function covers(v, y){ return v.y0 != null && v.y1 != null && y >= v.y0 && y <= v.y1; }
+
+  fetch(VEHICLES_URL).then(function(r){ return r.json(); }).then(function(data){
+    var codes = Object.keys(data).filter(function(code){
+      var v = data[code]; return v.y0 != null && v.y1 != null;
+    });
+    if (!codes.length) return;
+    var minY = Math.min.apply(null, codes.map(function(c){ return data[c].y0; }));
+    var maxY = Math.max.apply(null, codes.map(function(c){ return data[c].y1; }));
+    for (var y = maxY; y >= minY; y--) {
+      var o = document.createElement('option');
+      o.value = y; o.textContent = y;
+      yearSel.appendChild(o);
+    }
+    function makesFor(year){
+      var seen = {};
+      codes.forEach(function(code){
+        if (covers(data[code], year)) seen[data[code].make] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function modelsFor(year, make){
+      var seen = {};
+      codes.forEach(function(code){
+        var v = data[code];
+        if (v.make === make && covers(v, year)) seen[v.model] = true;
+      });
+      return Object.keys(seen).sort();
+    }
+    function chassisFor(year, make, model){
+      return codes.filter(function(code){
+        var v = data[code];
+        return v.make === make && v.model === model && covers(v, year);
+      }).sort(function(a, b){ return data[b].count - data[a].count; });
+    }
+    yearSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(makeSel, 'Select make…'); resetSel(modelSel, 'Select model…');
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!year) return;
+      makesFor(year).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        makeSel.appendChild(o);
+      });
+      makeSel.disabled = false;
+    });
+    makeSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(modelSel, 'Select model…'); resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!makeSel.value) return;
+      modelsFor(year, makeSel.value).forEach(function(m){
+        var o = document.createElement('option');
+        o.value = m; o.textContent = m;
+        modelSel.appendChild(o);
+      });
+      modelSel.disabled = false;
+    });
+    modelSel.addEventListener('change', function(){
+      var year = parseInt(yearSel.value, 10);
+      resetSel(chassisSel, 'Select chassis…');
+      if (goBtn) goBtn.disabled = true;
+      if (!modelSel.value) return;
+      chassisFor(year, makeSel.value, modelSel.value).forEach(function(code){
+        var v = data[code];
+        var o = document.createElement('option');
+        o.value = code;
+        o.textContent = code + ' — ' + v.years + ' (' + v.count + ' parts)';
+        chassisSel.appendChild(o);
+      });
+      chassisSel.disabled = false;
+    });
+    chassisSel.addEventListener('change', function(){
+      if (goBtn) goBtn.disabled = !chassisSel.value;
+    });
+    if (goBtn) goBtn.addEventListener('click', function(){
+      var code = chassisSel.value;
+      if (!code || !data[code]) return;
+      var v = data[code];
+      var _mt = (v.model || '').trim();
+      var _first = _mt.split(' ')[0].split('/')[0].toLowerCase();
+      // Never "Q50 Q50": when the model already starts with the chassis code,
+      // the model alone is the label (2026-10-07 fix).
+      var label = (_first === String(code).toLowerCase()) ? _mt : code + ' ' + _mt;
+      save({ code: code, make: v.make, label: label });
+      g = load();
+      if (ind) {
+        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.classList.remove('hidden');
+        var cc = document.getElementById('garage-clear');
+        if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
+      }
+      renderResults(code, data);
+      if (results && results.scrollIntoView) results.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+
+    /* Saved garage? show its parts right away. */
+    if (g && g.code && data[g.code] && results) renderResults(g.code, data);
+  }).catch(function(){ /* picker degrades silently; browse grid still works */ });
+
+  /* ---- "Everything for your X", grouped by category, from catalog.json ---- */
+  var catalogCache = null;
+  function getCatalog(cb){
+    if (catalogCache) { cb(catalogCache); return; }
+    fetch(CATALOG_URL).then(function(r){ return r.json(); }).then(function(j){
+      catalogCache = j; cb(j);
+    }).catch(function(){ cb(null); });
+  }
+  function card(p){
+    return '<a class="gcard" href="' + esc(p.url) + '">' +
+      '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy">' +
+      '<span class="gcard-body"><span class="gcard-title">' + esc(p.title) + '</span>' +
+      '<span class="gcard-link">View part →</span></span></a>';
+  }
+  function renderResults(code, vdata){
+    if (!results) return;
+    var v = vdata[code];
+    results.innerHTML = '<p class="garage-loading">Pulling every part for your ' +
+      esc(code) + '…</p>';
+    getCatalog(function(cat){
+      if (!cat || !v) {
+        results.innerHTML = '<p class="garage-loading">Could not load the parts index — ' +
+          '<a href="' + esc(v ? v.url : '/garage/') + '">open the ' + esc(code) +
+          ' garage page →</a></p>';
+        return;
+      }
+      var items = cat.filter(function(p){
+        return p.chassis && p.chassis.indexOf(code) !== -1;
+      });
+      var order = (typeof FP_CAT_ORDER !== 'undefined') ? FP_CAT_ORDER : [];
+      var titles = (typeof FP_CAT_TITLES !== 'undefined') ? FP_CAT_TITLES : {};
+      var groups = {};
+      items.forEach(function(p){
+        (groups[p.category] = groups[p.category] || []).push(p);
+      });
+      var html = '<div class="res-head"><h2 class="sec">Everything for your ' +
+        esc(code) + '</h2><a class="btn ghost" href="' + esc(v.url) +
+        '">Full ' + esc(code) + ' page →</a></div>' +
+        '<p class="res-sub">' + items.length + ' parts that fit the ' +
+        esc(v.make + ' ' + v.model) + ' (' + esc(v.years) +
+        ') — grouped by category. Only catalog parts with detected ' +
+        esc(code) + ' fitment are shown.</p>';
+      var seenCats = {};
+      order.forEach(function(slug){
+        if (groups[slug]) { seenCats[slug] = true; html += groupHtml(slug, groups[slug], titles); }
+      });
+      Object.keys(groups).sort().forEach(function(slug){
+        if (!seenCats[slug]) html += groupHtml(slug, groups[slug], titles);
+      });
+      if (!items.length) {
+        html += '<p class="garage-loading">No parts tagged for ' + esc(code) +
+          ' yet — try the browse grid below.</p>';
+      }
+      html += '<p class="fine">Fitment is never guaranteed — always confirm year, ' +
+        'model, trim and VIN directly with the supplier contact before buying.</p>';
+      results.innerHTML = html;
+    });
+  }
+  function groupHtml(slug, items, titles){
+    var title = titles[slug] || slug;
+    var cards = items.map(card).join('');
+    return '<div class="res-head"><h2 class="sec">' + esc(title) +
+      ' (' + items.length + ')</h2></div>' +
+      '<div class="gcard-grid">' + cards + '</div>';
+  }
+})();
+</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Mercedes-Benz C Class Parts (2008\u20132014)", "description": "Every Mercedes-Benz C Class compatible part in the FactoryPlug catalog."}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<nav>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+</nav>
+</div></header>
+<section class="content-sec"><div class="wrap-narrow">
+<div id="garage-indicator" class="garage-indicator hidden" role="status"></div>
+<nav aria-label="Breadcrumb"><ol class="crumbs">
+<li><a href="/factoryplug-catalog/">Home</a></li><li><a href="/factoryplug-catalog/garage/">My Garage</a></li>
+<li aria-current="page">W204</li></ol></nav>
+<h1>Mercedes-Benz C Class Parts <span class="yr">(2008–2014)</span></h1>
+<p class="sec-sub">Everything in the catalog for your W204 — grouped by
+category. 16 parts and counting.</p>
+<p class="fine">Fitment is never guaranteed — always confirm year, model, trim
+and VIN directly with the supplier contact before buying.</p>
+</div></section>
+<section class="content-sec" style="max-width:none">
+<div class="sec-head"><h2 class="sec">Brakes &amp; Rotors (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="icooh gt6/gt4 big brake kit — mercedes-benz w204/w205/w211 | brakes icooh gt6/gt4 big brake kit — mercedes-benz w204/w205/w211 | brakes guangzhou wantian industrial co., ltd.  w204 w205" data-price-min="1" data-rating="4.6" data-reviews="173" data-cat="brakes" data-band="under-100" data-chassis="W204 W205" data-material="">
+<a class="pimg" href="/factoryplug-catalog/brakes/icooh-gt6-gt4-big-brake-kit-mercedes-benz-w204-w205-w211-bra.html"><img src="/factoryplug-catalog/assets/img/products/icooh-gt6-gt4-big-brake-kit-mercedes-benz-w204-w205-w211-bra/hero.jpg" alt="ICOOH GT6/GT4 Big Brake Kit — Mercedes-Benz W204/W205/W211 | Brakes" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/brakes/icooh-gt6-gt4-big-brake-kit-mercedes-benz-w204-w205-w211-bra.html">ICOOH GT6/GT4 Big Brake Kit — Mercedes-Benz W204/W205/W211 | Brakes</a></h3>
+<div class="price"><span class="conv-price" data-min="1" data-max="453" data-cur="USD" data-orig="$453 (1–9 sets)">$453 (1–9 sets)</span></div>
+<div class="meta-row"><span class="chip">MOQ: 2 sets</span></div>
+<div class="psupplier"><span class="stars" role="img" aria-label="4.6 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:92%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/icooh.html">Guangzhou Wantian Industrial Co., Ltd.</a> · <b>4.6</b> · 173 ratings</div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/brakes/icooh-gt6-gt4-big-brake-kit-mercedes-benz-w204-w205-w211-bra.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="factory direct sale new carbon ceramic brake kit 10 pot caliper rotor upgrade for benz w222 w204 factory direct sale new carbon ceramic brake kit 10 pot caliper rotor upgrade for benz w222 w204   w222 w204" data-price-min="" data-rating="" data-reviews="0" data-cat="brakes" data-band="" data-chassis="W222 W204" data-material="Carbon ceramic">
+<a class="pimg" href="/factoryplug-catalog/brakes/factory-direct-sale-new-carbon-ceramic-brake-kit-10-pot-cali.html"><img src="/factoryplug-catalog/assets/img/products/factory-direct-sale-new-carbon-ceramic-brake-kit-10-pot-cali/hero.webp" alt="Factory Direct Sale New Carbon Ceramic Brake Kit 10 Pot Caliper Rotor Upgrade For Benz W222 W204" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/brakes/factory-direct-sale-new-carbon-ceramic-brake-kit-10-pot-cali.html">Factory Direct Sale New Carbon Ceramic Brake Kit 10 Pot Caliper Rotor Upgrade For Benz W222 W204</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/brakes/factory-direct-sale-new-carbon-ceramic-brake-kit-10-pot-cali.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Exhaust Systems (5)</h2></div><div class="prod-grid"><article class="prod-card" data-name="1 valvetronic exhaust muffler for mercedes-benz c63 amg w204 6.2l 2011-15 plating gold exhaust pipe 1 valvetronic exhaust muffler for mercedes-benz c63 amg w204 6.2l 2011-15 plating gold exhaust pipe   w204" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="W204" data-material="">
+<a class="pimg" href="/factoryplug-catalog/exhaust/1-valvetronic-exhaust-muffler-for-mercedes-benz-c63-amg-w204.html"><img src="/factoryplug-catalog/assets/img/products/1-valvetronic-exhaust-muffler-for-mercedes-benz-c63-amg-w204/hero.webp" alt="1 Valvetronic Exhaust Muffler For Mercedes-benz C63 Amg W204 6.2l 2011-15 Plating Gold Exhaust Pipe" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/1-valvetronic-exhaust-muffler-for-mercedes-benz-c63-amg-w204.html">1 Valvetronic Exhaust Muffler For Mercedes-benz C63 Amg W204 6.2l 2011-15 Plating Gold Exhaust Pipe</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/1-valvetronic-exhaust-muffler-for-mercedes-benz-c63-amg-w204.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="ing c63 w204 exhaust stainless steel exhaust downpipe headers for mercedes benz c63 w204 with high ing c63 w204 exhaust stainless steel exhaust downpipe headers for mercedes benz c63 w204 with high   w204" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="W204" data-material="Stainless steel">
+<a class="pimg" href="/factoryplug-catalog/exhaust/ing-c63-w204-exhaust-stainless-steel-exhaust-downpipe-header.html"><img src="/factoryplug-catalog/assets/img/products/ing-c63-w204-exhaust-stainless-steel-exhaust-downpipe-header/hero.webp" alt="Ing C63 W204 Exhaust Stainless Steel Exhaust Downpipe Headers For Mercedes Benz C63 W204 With High" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/ing-c63-w204-exhaust-stainless-steel-exhaust-downpipe-header.html">Ing C63 W204 Exhaust Stainless Steel Exhaust Downpipe Headers For Mercedes Benz C63 W204 With High</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/ing-c63-w204-exhaust-stainless-steel-exhaust-downpipe-header.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="obm stainless steel catback exhaust for mercedes-benz c280/c300 w204 3.0l 2010-2014 exhaust pipe obm stainless steel catback exhaust for mercedes-benz c280/c300 w204 3.0l 2010-2014 exhaust pipe   w204" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="W204" data-material="Stainless steel">
+<a class="pimg" href="/factoryplug-catalog/exhaust/obm-stainless-steel-catback-exhaust-for-mercedes-benz-c280-c.html"><img src="/factoryplug-catalog/assets/img/products/obm-stainless-steel-catback-exhaust-for-mercedes-benz-c280-c/hero.webp" alt="Obm Stainless Steel Catback Exhaust For Mercedes-benz C280/c300 W204 3.0l 2010-2014 Exhaust Pipe" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/obm-stainless-steel-catback-exhaust-for-mercedes-benz-c280-c.html">Obm Stainless Steel Catback Exhaust For Mercedes-benz C280/c300 W204 3.0l 2010-2014 Exhaust Pipe</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/obm-stainless-steel-catback-exhaust-for-mercedes-benz-c280-c.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="obm sus304 rear axle section exhaust pipes for mercedes-benz c63 amg w204 6.2l 2012-2015 exhaust obm sus304 rear axle section exhaust pipes for mercedes-benz c63 amg w204 6.2l 2012-2015 exhaust   w204" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="W204" data-material="">
+<a class="pimg" href="/factoryplug-catalog/exhaust/obm-sus304-rear-axle-section-exhaust-pipes-for-mercedes-benz.html"><img src="/factoryplug-catalog/assets/img/products/obm-sus304-rear-axle-section-exhaust-pipes-for-mercedes-benz/hero.webp" alt="Obm Sus304 Rear Axle Section Exhaust Pipes For Mercedes-benz C63 Amg W204 6.2l 2012-2015 Exhaust" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/obm-sus304-rear-axle-section-exhaust-pipes-for-mercedes-benz.html">Obm Sus304 Rear Axle Section Exhaust Pipes For Mercedes-benz C63 Amg W204 6.2l 2012-2015 Exhaust</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/obm-sus304-rear-axle-section-exhaust-pipes-for-mercedes-benz.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="new performance stainless steel front pipe exhaust downpipe for benz w204 c63 new performance stainless steel front pipe exhaust downpipe for benz w204 c63   w204" data-price-min="" data-rating="" data-reviews="0" data-cat="exhaust" data-band="" data-chassis="W204" data-material="Stainless steel">
+<a class="pimg" href="/factoryplug-catalog/exhaust/new-performance-stainless-steel-front-pipe-exhaust-downpipe.html"><img src="/factoryplug-catalog/assets/img/products/new-performance-stainless-steel-front-pipe-exhaust-downpipe/hero.webp" alt="New Performance Stainless Steel Front Pipe Exhaust Downpipe For Benz W204 C63" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/exhaust/new-performance-stainless-steel-front-pipe-exhaust-downpipe.html">New Performance Stainless Steel Front Pipe Exhaust Downpipe For Benz W204 C63</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/new-performance-stainless-steel-front-pipe-exhaust-downpipe.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Aerodynamics &amp; Exterior (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="auto body system 3k twill w204 transparent front bonnet for mercedes-benz c class w204 carbon fiber engine hood c63 amg auto body system 3k twill w204 transparent front bonnet for mercedes-benz c class w204 carbon fiber engine hood c63 amg   w204" data-price-min="" data-rating="" data-reviews="0" data-cat="carbon" data-band="" data-chassis="W204" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/carbon/auto-body-system-3k-twill-w204-transparent-front-bonnet-for.html"><img src="/factoryplug-catalog/assets/img/products/auto-body-system-3k-twill-w204-transparent-front-bonnet-for/hero.webp" alt="Auto Body System 3k Twill W204 Transparent Front Bonnet For Mercedes-benz C Class W204 Carbon Fiber Engine Hood C63 AMG" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/carbon/auto-body-system-3k-twill-w204-transparent-front-bonnet-for.html">Auto Body System 3k Twill W204 Transparent Front Bonnet For Mercedes-benz C Class W204 Carbon Fiber Engine Hood C63 AMG</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/auto-body-system-3k-twill-w204-transparent-front-bonnet-for.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Lighting (3)</h2></div><div class="prod-grid"><article class="prod-card" data-name="auto head light for mercedes-benz 2007-2011 w204 c200 c260 c300 led headlights front lamps auto head light for mercedes-benz 2007-2011 w204 c200 c260 c300 led headlights front lamps   w204" data-price-min="" data-rating="" data-reviews="0" data-cat="lighting" data-band="" data-chassis="W204" data-material="">
+<a class="pimg" href="/factoryplug-catalog/lighting/auto-head-light-for-mercedes-benz-2007-2011-w204-c200-c260-c.html"><img src="/factoryplug-catalog/assets/img/products/auto-head-light-for-mercedes-benz-2007-2011-w204-c200-c260-c/hero.webp" alt="Auto Head Light For Mercedes-benz 2007-2011 W204 C200 C260 C300 Led Headlights Front Lamps" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/lighting/auto-head-light-for-mercedes-benz-2007-2011-w204-c200-c260-c.html">Auto Head Light For Mercedes-benz 2007-2011 W204 C200 C260 C300 Led Headlights Front Lamps</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/auto-head-light-for-mercedes-benz-2007-2011-w204-c200-c260-c.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="car accessories suitable for 11-14 mercedes benz c-class w204 headlight assembly low rise led lens car accessories suitable for 11-14 mercedes benz c-class w204 headlight assembly low rise led lens   w204" data-price-min="" data-rating="" data-reviews="0" data-cat="lighting" data-band="" data-chassis="W204" data-material="">
+<a class="pimg" href="/factoryplug-catalog/lighting/car-accessories-suitable-for-11-14-mercedes-benz-c-class-w20.html"><img src="/factoryplug-catalog/assets/img/products/car-accessories-suitable-for-11-14-mercedes-benz-c-class-w20/hero.webp" alt="Car Accessories Suitable For 11-14 Mercedes Benz C-class W204 Headlight Assembly Low Rise Led Lens" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/lighting/car-accessories-suitable-for-11-14-mercedes-benz-c-class-w20.html">Car Accessories Suitable For 11-14 Mercedes Benz C-class W204 Headlight Assembly Low Rise Led Lens</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/car-accessories-suitable-for-11-14-mercedes-benz-c-class-w20.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="mercedes benz glk x204 w204 front headlamps upgrade to new style led headlights 2013-2015 mercedes benz glk x204 w204 front headlamps upgrade to new style led headlights 2013-2015   w204" data-price-min="" data-rating="" data-reviews="0" data-cat="lighting" data-band="" data-chassis="W204" data-material="">
+<a class="pimg" href="/factoryplug-catalog/lighting/mercedes-benz-glk-x204-w204-front-headlamps-upgrade-to-new-s.html"><img src="/factoryplug-catalog/assets/img/products/mercedes-benz-glk-x204-w204-front-headlamps-upgrade-to-new-s/hero.webp" alt="Mercedes Benz GLK X204 W204 Front Headlamps Upgrade To New Style LED Headlights 2013-2015" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/lighting/mercedes-benz-glk-x204-w204-front-headlamps-upgrade-to-new-s.html">Mercedes Benz GLK X204 W204 Front Headlamps Upgrade To New Style LED Headlights 2013-2015</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/mercedes-benz-glk-x204-w204-front-headlamps-upgrade-to-new-s.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Suspension (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="adjustable endlinks stabilizer link with balance rod ball head for benz w204/c200 w203/c230 adjustable endlinks stabilizer link with balance rod ball head for benz w204/c200 w203/c230   w204" data-price-min="" data-rating="" data-reviews="0" data-cat="suspension" data-band="" data-chassis="W204" data-material="">
+<a class="pimg" href="/factoryplug-catalog/suspension/adjustable-endlinks-stabilizer-link-with-balance-rod-ball-he-2.html"><img src="/factoryplug-catalog/assets/img/products/adjustable-endlinks-stabilizer-link-with-balance-rod-ball-he-2/hero.webp" alt="Adjustable Endlinks Stabilizer Link With Balance Rod Ball Head For Benz W204/c200 W203/c230" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/suspension/adjustable-endlinks-stabilizer-link-with-balance-rod-ball-he-2.html">Adjustable Endlinks Stabilizer Link With Balance Rod Ball Head For Benz W204/c200 W203/c230</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/adjustable-endlinks-stabilizer-link-with-balance-rod-ball-he-2.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="engine front upper tower bar front strut bar for mercedes benz w204 c class engine front upper tower bar front strut bar for mercedes benz w204 c class   w204" data-price-min="" data-rating="" data-reviews="0" data-cat="suspension" data-band="" data-chassis="W204" data-material="">
+<a class="pimg" href="/factoryplug-catalog/suspension/engine-front-upper-tower-bar-front-strut-bar-for-mercedes-be.html"><img src="/factoryplug-catalog/assets/img/products/engine-front-upper-tower-bar-front-strut-bar-for-mercedes-be/hero.webp" alt="Engine Front Upper Tower Bar Front Strut Bar For Mercedes Benz W204 C Class" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/suspension/engine-front-upper-tower-bar-front-strut-bar-for-mercedes-be.html">Engine Front Upper Tower Bar Front Strut Bar For Mercedes Benz W204 C Class</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/engine-front-upper-tower-bar-front-strut-bar-for-mercedes-be.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Interior Accessories (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="for mercedes benz gla cla 180 glc gle w211 w212 w213 w203 w204 w205 2013 2014 2015 2016 2017 2018 carbon fiber steering wheel for mercedes benz gla cla 180 glc gle w211 w212 w213 w203 w204 w205 2013 2014 2015 2016 2017 2018 carbon fiber steering wheel   w213 w204 w205" data-price-min="" data-rating="" data-reviews="0" data-cat="interior" data-band="" data-chassis="W213 W204 W205" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/interior/for-mercedes-benz-gla-cla-180-glc-gle-w211-w212-w213-w203-w2.html"><img src="/factoryplug-catalog/assets/img/products/for-mercedes-benz-gla-cla-180-glc-gle-w211-w212-w213-w203-w2/hero.webp" alt="For Mercedes Benz Gla Cla 180 Glc Gle W211 W212 W213 W203 W204 W205 2013 2014 2015 2016 2017 2018 Carbon Fiber Steering Wheel" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/interior/for-mercedes-benz-gla-cla-180-glc-gle-w211-w212-w213-w203-w2.html">For Mercedes Benz Gla Cla 180 Glc Gle W211 W212 W213 W203 W204 W205 2013 2014 2015 2016 2017 2018 Carbon Fiber Steering Wheel</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/for-mercedes-benz-gla-cla-180-glc-gle-w211-w212-w213-w203-w2.html">View details &rarr;</a></div>
+</div>
+</article>
+</div><div class="sec-head"><h2 class="sec">Body Conversion Kits (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="c63 amg style pp body kits for 2011-2013 mercedes benz w204 c180 c200 c250 c63 amg style pp body kits for 2011-2013 mercedes benz w204 c180 c200 c250   w204" data-price-min="" data-rating="" data-reviews="0" data-cat="conversion-kits" data-band="" data-chassis="W204" data-material="">
+<a class="pimg" href="/factoryplug-catalog/conversion-kits/c63-amg-style-pp-body-kits-for-2011-2013-mercedes-benz-w204.html"><img src="/factoryplug-catalog/assets/img/products/c63-amg-style-pp-body-kits-for-2011-2013-mercedes-benz-w204/hero.webp" alt="C63 Amg Style Pp Body Kits For 2011-2013 Mercedes Benz W204 C180 C200 C250" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/conversion-kits/c63-amg-style-pp-body-kits-for-2011-2013-mercedes-benz-w204.html">C63 Amg Style Pp Body Kits For 2011-2013 Mercedes Benz W204 C180 C200 C250</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/conversion-kits/c63-amg-style-pp-body-kits-for-2011-2013-mercedes-benz-w204.html">View details &rarr;</a></div>
+</div>
+</article>
+
+<article class="prod-card" data-name="lb style fiber glass wide body kit for mercedes benz c-class w204 c63 4d bodykit lb style fiber glass wide body kit for mercedes benz c-class w204 c63 4d bodykit   w204" data-price-min="" data-rating="" data-reviews="0" data-cat="conversion-kits" data-band="" data-chassis="W204" data-material="">
+<a class="pimg" href="/factoryplug-catalog/conversion-kits/lb-style-fiber-glass-wide-body-kit-for-mercedes-benz-c-class.html"><img src="/factoryplug-catalog/assets/img/products/lb-style-fiber-glass-wide-body-kit-for-mercedes-benz-c-class/hero.webp" alt="Lb Style Fiber Glass Wide Body Kit For Mercedes Benz C-class W204 C63 4d Bodykit" loading="lazy"></a>
+<div class="body">
+<h3><a href="/factoryplug-catalog/conversion-kits/lb-style-fiber-glass-wide-body-kit-for-mercedes-benz-c-class.html">Lb Style Fiber Glass Wide Body Kit For Mercedes Benz C-class W204 C63 4d Bodykit</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+
+<div class="psupplier"></div>
+<div class="foot"><a class="btn deal" href="/factoryplug-catalog/conversion-kits/lb-style-fiber-glass-wide-body-kit-for-mercedes-benz-c-class.html">View details &rarr;</a></div>
+</div>
+</article>
+</div>
+<div style="margin-top:30px"><div class="btn-row">
+<a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
+</section>
+<footer class="site"><div class="wrap"><div class="cols">
+<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:var(--text)">Catalog</b><br>
+<a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
+<div><b style="color:var(--text)">More</b><br>
+<a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
+<div><b style="color:var(--text)">Trust</b><br>
+<a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
+<div><b style="color:var(--text)">Follow Conroy</b><br>
+<a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
+<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+</div>
+<small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+&copy; 2026 FactoryPlug. All rights reserved.</small>
+</div></footer>
+</body>
+</html>
