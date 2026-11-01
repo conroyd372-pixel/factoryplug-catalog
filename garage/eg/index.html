@@ -12,11 +12,14 @@
 <meta property="og:title" content="Honda Civic (EG) Parts (1992–1995) — 13 Parts | FactoryPlug">
 <meta property="og:description" content="Every Honda Civic (EG) (1992–1995) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
 <meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/eg/">
-<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Honda Civic (EG) Parts (1992–1995) — 13 Parts | FactoryPlug">
 <meta name="twitter:description" content="Every Honda Civic (EG) (1992–1995) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
-<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
+<link rel="icon" type="image/png" href="/factoryplug-catalog/assets/img/brand/favicon.png">
+<link rel="apple-touch-icon" href="/factoryplug-catalog/assets/img/brand/app-icon-512.png">
+<link rel="manifest" href="/factoryplug-catalog/site.webmanifest">
 <link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
 <script src="/factoryplug-catalog/assets/fx.js" defer></script>
 <script src="/factoryplug-catalog/assets/search.js" defer></script>
@@ -39,9 +42,9 @@
   var ind = document.getElementById('garage-indicator');
   var g = load();
   if (g && g.code && ind) {
-    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
     ind.classList.remove('hidden');
     var c = document.getElementById('garage-clear');
     if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -150,9 +153,9 @@
       save({ code: code, make: v.make, label: label });
       g = load();
       if (ind) {
-        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
         ind.classList.remove('hidden');
         var cc = document.getElementById('garage-clear');
         if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -233,13 +236,13 @@
 })();
 </script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Honda Civic (EG) Parts (1992\u20131995)", "description": "Every Honda Civic (EG) compatible part in the FactoryPlug catalog."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#organization", "name": "FactoryPlug", "alternateName": ["TheFactoryPlug", "The Factory Plug", "The Factory Plug Directory", "thefactoryplug.com"], "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "disambiguatingDescription": "FactoryPlug (thefactoryplug.com) is a verified B2B direct-to-factory manufacturer directory and global supply-chain intelligence platform indexing 3,800+ vetted automotive parts supplier listings from OEM and ODM manufacturers. Distinct from automotive engine block freeze plugs or expansion plugs.", "knowsAbout": ["Direct-to-factory sourcing", "OEM and ODM manufacturer verification", "Forged wheels", "Big brake kits", "Carbon fiber aero parts", "Titanium exhaust systems", "Alibaba supplier listings"], "logo": {"@type": "ImageObject", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#logo", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/app-icon-512.png"}, "image": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/logo-lockup.png", "sameAs": ["https://x.com/royblinge90"], "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@thefactoryplug.com"}}</script>
 </head>
 <body>
 <header class="site"><div class="wrap nav">
-<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<a class="logo" href="/factoryplug-catalog/"><img src="/factoryplug-catalog/assets/img/brand/logo-lockup.png" alt="FactoryPlug" height="40"></a>
 <nav>
-<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
 </nav>
 </div></header>
 <section class="content-sec"><div class="wrap-narrow">
@@ -259,7 +262,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/auso-stainless-exhaust-manifold-header-for-88-00-honda-civic.html">Auso Stainless Exhaust Manifold Header For 88-00 Honda Civic D-series Ej/eg/eh/ek D15</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/auso-stainless-exhaust-manifold-header-for-88-00-honda-civic.html">View details &rarr;</a></div>
 </div>
@@ -270,7 +273,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/k-swap-k20-k24-megaphone-3-exit-4-1-header-integra-eg-ek-dc2.html">K Swap K20 K24 Megaphone 3&quot; Exit 4-1 Header Integra Eg Ek Dc2 Honda Acura Civic V Band Exhaust Header</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/k-swap-k20-k24-megaphone-3-exit-4-1-header-integra-eg-ek-dc2.html">View details &rarr;</a></div>
 </div>
@@ -280,7 +283,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/suspension/honda-eg-coilover-kit.html">Honda EG Coilover Kit</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/honda-eg-coilover-kit.html">View details &rarr;</a></div>
 </div>
@@ -290,7 +293,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/koastar-red-plastic-air-intake-pipe-ek-eg-dc2-filter-oem-sta.html">Koastar Red Plastic Air Intake Pipe Ek Eg Dc2 Filter Oem Standard Size</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/koastar-red-plastic-air-intake-pipe-ek-eg-dc2-filter-oem-sta.html">View details &rarr;</a></div>
 </div>
@@ -301,7 +304,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/wholesale-real-carbon-fiber-intake-tube-car-air-filter-intak.html">Wholesale Real Carbon Fiber Intake Tube Car Air Filter Intake Pipe For 92-00 Eg Ek</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/wholesale-real-carbon-fiber-intake-tube-car-air-filter-intak.html">View details &rarr;</a></div>
 </div>
@@ -311,18 +314,18 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/electronics/dac061-k-swap-conversion-wiring-harness-for-honda-civic-eg-1.html">Dac061 K Swap Conversion Wiring Harness For Honda Civic Eg 1992-1995 Integra Dc2 1994-2001 Cable Assemblies Cable Looms Wires</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/electronics/dac061-k-swap-conversion-wiring-harness-for-honda-civic-eg-1.html">View details &rarr;</a></div>
 </div>
 </article>
-</div><div class="sec-head"><h2 class="sec">K-Swap (6)</h2></div><div class="prod-grid"><article class="prod-card" data-name="70a engine mounts for 92-95 honda civic k20 k24 k-series eg motor swap kit 70a engine mounts for 92-95 honda civic k20 k24 k-series eg motor swap kit   eg" data-price-min="" data-rating="" data-reviews="0" data-cat="k-swap" data-band="" data-chassis="EG" data-material="">
+</div><div class="sec-head"><h2 class="sec">K-Swap (6)</h2></div><div class="prod-grid"><article class="prod-card" data-name="70a engine mounts for 92-95 honda civic k20 k24 k-series eg motor swap kit 70a engine mounts for 92-95 honda civic k20 k24 k-series eg motor swap kit e-motor industries international shanghai co., ltd.  eg" data-price-min="130" data-rating="4.5" data-reviews="0" data-cat="k-swap" data-band="100-300" data-chassis="EG" data-material="">
 <a class="pimg" href="/factoryplug-catalog/k-swap/70a-engine-mounts-for-92-95-honda-civic-k20-k24-k-series-eg.html"><img src="/factoryplug-catalog/assets/img/products/70a-engine-mounts-for-92-95-honda-civic-k20-k24-k-series-eg/hero.webp" alt="70a Engine Mounts For 92-95 Honda Civic K20 K24 K-series Eg Motor Swap Kit" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/k-swap/70a-engine-mounts-for-92-95-honda-civic-k20-k24-k-series-eg.html">70a Engine Mounts For 92-95 Honda Civic K20 K24 K-series Eg Motor Swap Kit</a></h3>
-<div class="price"><span class="conv-price">See listing</span></div>
-
-<div class="psupplier"></div>
+<div class="price"><span class="conv-price" data-min="130" data-max="150" data-cur="USD" data-orig="$150 (1–4) / $130 (5+)">$150 (1–4) / $130 (5+)</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.5 out of 5">[★ 4.5]</span> · Made by E-Motor Industries International Shanghai Co., Ltd.</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/k-swap/70a-engine-mounts-for-92-95-honda-civic-k20-k24-k-series-eg.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -332,19 +335,19 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/k-swap/iatf16949-k20-k20a2-k24-k-series-swap-tucked-wire-harness-ci.html">Iatf16949 K20 K20a2 K24 K Series Swap Tucked Wire Harness Civic Ek Eg Ef Acura Wire Harness</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/k-swap/iatf16949-k20-k20a2-k24-k-series-swap-tucked-wire-harness-ci.html">View details &rarr;</a></div>
 </div>
 </article>
 
-<article class="prod-card" data-name="dac061 k20 k24 k-swap conversion wiring harness for honda eg civic 1992-1995 &amp; dc2 integra 1994-2001 wiring harness for car wire dac061 k20 k24 k-swap conversion wiring harness for honda eg civic 1992-1995 &amp; dc2 integra 1994-2001 wiring harness for car wire   eg dc2" data-price-min="" data-rating="" data-reviews="0" data-cat="k-swap" data-band="" data-chassis="EG DC2" data-material="">
+<article class="prod-card" data-name="dac061 k20 k24 k-swap conversion wiring harness for honda eg civic 1992-1995 &amp; dc2 integra 1994-2001 wiring harness for car wire dac061 k20 k24 k-swap conversion wiring harness for honda eg civic 1992-1995 &amp; dc2 integra 1994-2001 wiring harness for car wire dongguan haozhi automotive electronics co., ltd.  eg dc2" data-price-min="53.9" data-rating="4.8" data-reviews="0" data-cat="k-swap" data-band="under-100" data-chassis="EG DC2" data-material="">
 <a class="pimg" href="/factoryplug-catalog/k-swap/dac061-k20-k24-k-swap-conversion-wiring-harness-for-honda-eg.html"><img src="/factoryplug-catalog/assets/img/products/dac061-k20-k24-k-swap-conversion-wiring-harness-for-honda-eg/hero.webp" alt="Dac061 K20 K24 K-swap Conversion Wiring Harness For Honda Eg Civic 1992-1995 &amp; Dc2 Integra 1994-2001 Wiring Harness For Car Wire" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/k-swap/dac061-k20-k24-k-swap-conversion-wiring-harness-for-honda-eg.html">Dac061 K20 K24 K-swap Conversion Wiring Harness For Honda Eg Civic 1992-1995 &amp; Dc2 Integra 1994-2001 Wiring Harness For Car Wire</a></h3>
-<div class="price"><span class="conv-price">See listing</span></div>
-
-<div class="psupplier"></div>
+<div class="price"><span class="conv-price" data-min="53.9" data-max="58.8" data-cur="USD" data-orig="$58.80 (5–9) / $53.90 (10+)">$58.80 (5–9) / $53.90 (10+)</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">5 pieces</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.8 out of 5">[★ 4.8]</span> · Made by Dongguan Haozhi Automotive Electronics Co., Ltd.</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/k-swap/dac061-k20-k24-k-swap-conversion-wiring-harness-for-honda-eg.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -354,7 +357,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/k-swap/k-swap-engine-mount-bracket-for-honda-civic-96-00-eg-ek-k20.html">K-swap Engine Mount Bracket For Honda Civic 96-00 Eg Ek K20 K24 K-series Mount Kit Engine Swap</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/k-swap/k-swap-engine-mount-bracket-for-honda-civic-96-00-eg-ek-k20.html">View details &rarr;</a></div>
 </div>
@@ -365,7 +368,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/k-swap/rsx-shifter-cables-trans-bracket-shift-linkage-for-honda-k20.html">Rsx Shifter Cables &amp; Trans Bracket Shift Linkage For Honda K20 K24 K Swap Series Eg Ek K-series Dc2 Race</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/k-swap/rsx-shifter-cables-trans-bracket-shift-linkage-for-honda-k20.html">View details &rarr;</a></div>
 </div>
@@ -376,18 +379,18 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/k-swap/rsx-shifter-cables-trans-bracket-for-k20-k20a-k24-k-swap-ser.html">Rsx Shifter Cables &amp; Trans Bracket For K20 K20a K24 K Swap Series Eg Ek Dc2 Race</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/k-swap/rsx-shifter-cables-trans-bracket-for-k20-k20a-k24-k-swap-ser.html">View details &rarr;</a></div>
 </div>
 </article>
-</div><div class="sec-head"><h2 class="sec">Body Conversion Kits (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="fiber glass 1992 to 1995 civic cvc hatchback eg pd style front bumper fender side skirts rear bumper spats wing body kit for eg fiber glass 1992 to 1995 civic cvc hatchback eg pd style front bumper fender side skirts rear bumper spats wing body kit for eg   eg" data-price-min="" data-rating="" data-reviews="0" data-cat="conversion-kits" data-band="" data-chassis="EG" data-material="">
+</div><div class="sec-head"><h2 class="sec">Body Conversion Kits (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="fiber glass 1992 to 1995 civic cvc hatchback eg pd style front bumper fender side skirts rear bumper spats wing body kit for eg fiber glass 1992 to 1995 civic cvc hatchback eg pd style front bumper fender side skirts rear bumper spats wing body kit for eg wenzhou yachant trading co., ltd.  eg" data-price-min="900" data-rating="4.6" data-reviews="163" data-cat="conversion-kits" data-band="600-plus" data-chassis="EG" data-material="">
 <a class="pimg" href="/factoryplug-catalog/conversion-kits/fiber-glass-1992-to-1995-civic-cvc-hatchback-eg-pd-style-fro.html"><img src="/factoryplug-catalog/assets/img/products/fiber-glass-1992-to-1995-civic-cvc-hatchback-eg-pd-style-fro/hero.webp" alt="Fiber Glass 1992 To 1995 Civic Cvc Hatchback Eg Pd Style Front Bumper Fender Side Skirts Rear Bumper Spats Wing Body Kit For Eg" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/conversion-kits/fiber-glass-1992-to-1995-civic-cvc-hatchback-eg-pd-style-fro.html">Fiber Glass 1992 To 1995 Civic Cvc Hatchback Eg Pd Style Front Bumper Fender Side Skirts Rear Bumper Spats Wing Body Kit For Eg</a></h3>
-<div class="price"><span class="conv-price">See listing</span></div>
-
-<div class="psupplier"></div>
+<div class="price"><span class="conv-price" data-min="900" data-max="1350" data-cur="USD" data-orig="$1,350 (1–2) / $1,170 (3–4) / $900 (5+)">$1,350 (1–2) / $1,170 (3–4) / $900 (5+)</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.6 out of 5">[★ 4.6]</span> · Made by Wenzhou Yachant Trading Co., Ltd. · 163 ratings</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/conversion-kits/fiber-glass-1992-to-1995-civic-cvc-hatchback-eg-pd-style-fro.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -396,19 +399,20 @@ and VIN directly with the supplier contact before buying.</p>
 <a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
 </section>
 <footer class="site"><div class="wrap"><div class="cols">
-<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
-<div><b style="color:var(--text)">Catalog</b><br>
+<div><b style="color:#F5F5F2">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:#F5F5F2">Catalog</b><br>
 <a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
-<div><b style="color:var(--text)">More</b><br>
+<div><b style="color:#F5F5F2">More</b><br>
 <a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
-<div><b style="color:var(--text)">Trust</b><br>
+<div><b style="color:#F5F5F2">Trust</b><br>
 <a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
-<div><b style="color:var(--text)">Follow Conroy</b><br>
+<div><b style="color:#F5F5F2">Follow Conroy</b><br>
 <a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
-<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+<span style="font-size:.85rem;color:#9AA1A9">Want more info? Follow me here.</span></div>
 </div>
 <small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
-Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+Contact: <a href="mailto:support@thefactoryplug.com">support@thefactoryplug.com</a> · 3939 Castro Valley Blvd #1051, Castro Valley, CA 94546 · or DM <a href="https://www.instagram.com/royblinge90" target="_blank" rel="noopener">@royblinge90 on Instagram</a>.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b><br>
 &copy; 2026 FactoryPlug. All rights reserved.</small>
 </div></footer>
 </body>

@@ -12,11 +12,14 @@
 <meta property="og:title" content="BMW X6 (E71) Parts (2008–2014) — 9 Parts | FactoryPlug">
 <meta property="og:description" content="Every BMW X6 (E71) (2008–2014) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
 <meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/e71/">
-<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="BMW X6 (E71) Parts (2008–2014) — 9 Parts | FactoryPlug">
 <meta name="twitter:description" content="Every BMW X6 (E71) (2008–2014) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
-<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
+<link rel="icon" type="image/png" href="/factoryplug-catalog/assets/img/brand/favicon.png">
+<link rel="apple-touch-icon" href="/factoryplug-catalog/assets/img/brand/app-icon-512.png">
+<link rel="manifest" href="/factoryplug-catalog/site.webmanifest">
 <link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
 <script src="/factoryplug-catalog/assets/fx.js" defer></script>
 <script src="/factoryplug-catalog/assets/search.js" defer></script>
@@ -39,9 +42,9 @@
   var ind = document.getElementById('garage-indicator');
   var g = load();
   if (g && g.code && ind) {
-    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
     ind.classList.remove('hidden');
     var c = document.getElementById('garage-clear');
     if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -150,9 +153,9 @@
       save({ code: code, make: v.make, label: label });
       g = load();
       if (ind) {
-        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
         ind.classList.remove('hidden');
         var cc = document.getElementById('garage-clear');
         if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -233,13 +236,13 @@
 })();
 </script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "BMW X6 (E71) Parts (2008\u20132014)", "description": "Every BMW X6 (E71) compatible part in the FactoryPlug catalog."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#organization", "name": "FactoryPlug", "alternateName": ["TheFactoryPlug", "The Factory Plug", "The Factory Plug Directory", "thefactoryplug.com"], "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "disambiguatingDescription": "FactoryPlug (thefactoryplug.com) is a verified B2B direct-to-factory manufacturer directory and global supply-chain intelligence platform indexing 3,800+ vetted automotive parts supplier listings from OEM and ODM manufacturers. Distinct from automotive engine block freeze plugs or expansion plugs.", "knowsAbout": ["Direct-to-factory sourcing", "OEM and ODM manufacturer verification", "Forged wheels", "Big brake kits", "Carbon fiber aero parts", "Titanium exhaust systems", "Alibaba supplier listings"], "logo": {"@type": "ImageObject", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#logo", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/app-icon-512.png"}, "image": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/logo-lockup.png", "sameAs": ["https://x.com/royblinge90"], "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@thefactoryplug.com"}}</script>
 </head>
 <body>
 <header class="site"><div class="wrap nav">
-<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<a class="logo" href="/factoryplug-catalog/"><img src="/factoryplug-catalog/assets/img/brand/logo-lockup.png" alt="FactoryPlug" height="40"></a>
 <nav>
-<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
 </nav>
 </div></header>
 <section class="content-sec"><div class="wrap-narrow">
@@ -259,7 +262,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/suitable-for-2009-and-2013-bmw-x5-x6-e70-e71-modified-oss-he.html">Suitable For 2009 And 2013 BMW X5 X6,E70 E71 Modified Oss Headlight Dual-color Switch Drl With Rgb</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/suitable-for-2009-and-2013-bmw-x5-x6-e70-e71-modified-oss-he.html">View details &rarr;</a></div>
 </div>
@@ -270,7 +273,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/yu-guang-for-bmw-x6-e71-tail-light-2008-2014-taillights-upgr.html">Yu Guang For BMW X6 E71 Tail Light 2008-2014 Taillights Upgrade X5 Rear Lamp New Led Turn Signals</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/yu-guang-for-bmw-x6-e71-tail-light-2008-2014-taillights-upgr.html">View details &rarr;</a></div>
 </div>
@@ -280,7 +283,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/rc-drift-car-h-beam-s63-forged-connecting-rods-for-bmw-e70-x.html">RC Drift Car H Beam S63 Forged Connecting Rods for BMW E70 X5 E71 X6 S63B44 V8 Engine</a></h3>
 <div class="price"><span class="conv-price" data-min="579" data-max="599" data-cur="USD" data-orig="$599-$579">$579–$599</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/rc-drift-car-h-beam-s63-forged-connecting-rods-for-bmw-e70-x.html">View details &rarr;</a></div>
 </div>
@@ -291,18 +294,18 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/n55-bolt-on-turbocharger-chra-g30-770-upgrade-ewg-ball-beari.html">N55 Bolt On Turbocharger Chra G30-770 Upgrade Ewg Ball Bearing For BMW 335i 535i 135i E71 F10 N55b30</a></h3>
 <div class="price"><span class="conv-price" data-min="1599" data-max="1799" data-cur="USD" data-orig="$1,799-$1,599">$1,599–$1,799</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/n55-bolt-on-turbocharger-chra-g30-770-upgrade-ewg-ball-beari.html">View details &rarr;</a></div>
 </div>
 </article>
-</div><div class="sec-head"><h2 class="sec">Interior Accessories (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="8.8&#x27;&#x27; original style radio wireless apple carplay e70 e71 touch screen for bmw x5 x6 ccc cic carplay screen (senyet syt-s039) 8.8&#x27;&#x27; original style radio wireless apple carplay e70 e71 touch screen for bmw x5 x6 ccc cic carplay screen (senyet syt-s039) shenzhen senyet electronics co., ltd., 1 yr, 4.8/5  e70 e71" data-price-min="1" data-rating="4.8" data-reviews="0" data-cat="interior" data-band="under-100" data-chassis="E70 E71" data-material="">
+</div><div class="sec-head"><h2 class="sec">Interior Accessories (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="8.8&#x27;&#x27; original style radio wireless apple carplay e70 e71 touch screen for bmw x5 x6 ccc cic carplay screen (senyet syt-s039) 8.8&#x27;&#x27; original style radio wireless apple carplay e70 e71 touch screen for bmw x5 x6 ccc cic carplay screen (senyet syt-s039) shenzhen senyet electronics co., ltd., 1 yr, 4.8/5  e70 e71" data-price-min="135" data-rating="4.8" data-reviews="0" data-cat="interior" data-band="100-300" data-chassis="E70 E71" data-material="">
 <a class="pimg" href="/factoryplug-catalog/interior/8-8-original-style-radio-wireless-apple-carplay-e70-e71-touc.html"><img src="/factoryplug-catalog/assets/img/products/8-8-original-style-radio-wireless-apple-carplay-e70-e71-touc/hero.jpg" alt="8.8&#x27;&#x27; Original Style Radio Wireless Apple CarPlay E70 E71 Touch Screen for BMW X5 X6 CCC CIC Carplay Screen (Senyet SYT-S039)" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/8-8-original-style-radio-wireless-apple-carplay-e70-e71-touc.html">8.8&#x27;&#x27; Original Style Radio Wireless Apple CarPlay E70 E71 Touch Screen for BMW X5 X6 CCC CIC Carplay Screen (Senyet SYT-S039)</a></h3>
-<div class="price"><span class="conv-price" data-min="1" data-max="165" data-cur="USD" data-orig="$165/set (1-9), $155 (10-99), $135 (100+)">$165/set (1-9), $155 (10-99), $135 (100+)</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.8 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:96%">★★★★★</span></span> · Made by Shenzhen Senyet Electronics Co., Ltd., 1 yr, 4.8/5 · <b>4.8</b></div>
+<div class="price"><span class="conv-price" data-min="135" data-max="165" data-cur="USD" data-orig="$165/set (1-9), $155 (10-99), $135 (100+)">$165/set (1-9), $155 (10-99), $135 (100+)</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.8 out of 5">[★ 4.8]</span> · Made by Shenzhen Senyet Electronics Co., Ltd., 1 yr, 4.8/5</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/8-8-original-style-radio-wireless-apple-carplay-e70-e71-touc.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -311,7 +314,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exterior/oem-odm-wheel-spacers-adapters-20-100mm-pcd-5x120-cb-74-1mm.html">Oem Odm Wheel Spacers Adapters 20-100mm Pcd 5x120 Cb 74.1mm For BMW E39 X5 X6 E70 E71 E72 F15 F16 F85 F86 Wheel Spacer Flange</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exterior/oem-odm-wheel-spacers-adapters-20-100mm-pcd-5x120-cb-74-1mm.html">View details &rarr;</a></div>
 </div>
@@ -321,7 +324,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/electronics/dashboard-for-bmw-e70-x5-e71-x6-2006-2013-speedometer-lcd-in.html">Dashboard For BMW E70 X5 E71 X6 2006-2013 Speedometer Lcd Instrument Panel Hud Digital Instrument</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/electronics/dashboard-for-bmw-e70-x5-e71-x6-2006-2013-speedometer-lcd-in.html">View details &rarr;</a></div>
 </div>
@@ -331,7 +334,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/conversion-kits/hm-style-frp-material-bumpers-side-skirts-fenders-spoiler-bo.html">Hm Style Frp Material Bumpers Side Skirts Fenders Spoiler Body Kit For BMW X6 E71 08-15 Upgrade To Hm Style Car Facelift Kit</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/conversion-kits/hm-style-frp-material-bumpers-side-skirts-fenders-spoiler-bo.html">View details &rarr;</a></div>
 </div>
@@ -342,7 +345,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/conversion-kits/wholesale-price-bodykit-for-08-14-e71-upgrade-to-2023-g06-mt.html">Wholesale Price Bodykit For 08-14 E71 Upgrade To 2023+ G06 Mt Style Bumpers With Lights Hood For BMW X6 Series E71 Conversion</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/conversion-kits/wholesale-price-bodykit-for-08-14-e71-upgrade-to-2023-g06-mt.html">View details &rarr;</a></div>
 </div>
@@ -352,19 +355,20 @@ and VIN directly with the supplier contact before buying.</p>
 <a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
 </section>
 <footer class="site"><div class="wrap"><div class="cols">
-<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
-<div><b style="color:var(--text)">Catalog</b><br>
+<div><b style="color:#F5F5F2">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:#F5F5F2">Catalog</b><br>
 <a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
-<div><b style="color:var(--text)">More</b><br>
+<div><b style="color:#F5F5F2">More</b><br>
 <a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
-<div><b style="color:var(--text)">Trust</b><br>
+<div><b style="color:#F5F5F2">Trust</b><br>
 <a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
-<div><b style="color:var(--text)">Follow Conroy</b><br>
+<div><b style="color:#F5F5F2">Follow Conroy</b><br>
 <a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
-<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+<span style="font-size:.85rem;color:#9AA1A9">Want more info? Follow me here.</span></div>
 </div>
 <small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
-Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+Contact: <a href="mailto:support@thefactoryplug.com">support@thefactoryplug.com</a> · 3939 Castro Valley Blvd #1051, Castro Valley, CA 94546 · or DM <a href="https://www.instagram.com/royblinge90" target="_blank" rel="noopener">@royblinge90 on Instagram</a>.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b><br>
 &copy; 2026 FactoryPlug. All rights reserved.</small>
 </div></footer>
 </body>

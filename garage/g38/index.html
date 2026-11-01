@@ -12,11 +12,14 @@
 <meta property="og:title" content="BMW 5 Series Li (G38) Parts (2017–2023) — 18 Parts | FactoryPlug">
 <meta property="og:description" content="Every BMW 5 Series Li (G38) (2017–2023) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
 <meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/g38/">
-<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="BMW 5 Series Li (G38) Parts (2017–2023) — 18 Parts | FactoryPlug">
 <meta name="twitter:description" content="Every BMW 5 Series Li (G38) (2017–2023) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
-<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
+<link rel="icon" type="image/png" href="/factoryplug-catalog/assets/img/brand/favicon.png">
+<link rel="apple-touch-icon" href="/factoryplug-catalog/assets/img/brand/app-icon-512.png">
+<link rel="manifest" href="/factoryplug-catalog/site.webmanifest">
 <link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
 <script src="/factoryplug-catalog/assets/fx.js" defer></script>
 <script src="/factoryplug-catalog/assets/search.js" defer></script>
@@ -39,9 +42,9 @@
   var ind = document.getElementById('garage-indicator');
   var g = load();
   if (g && g.code && ind) {
-    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
     ind.classList.remove('hidden');
     var c = document.getElementById('garage-clear');
     if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -150,9 +153,9 @@
       save({ code: code, make: v.make, label: label });
       g = load();
       if (ind) {
-        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
         ind.classList.remove('hidden');
         var cc = document.getElementById('garage-clear');
         if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -233,13 +236,13 @@
 })();
 </script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "BMW 5 Series Li (G38) Parts (2017\u20132023)", "description": "Every BMW 5 Series Li (G38) compatible part in the FactoryPlug catalog."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#organization", "name": "FactoryPlug", "alternateName": ["TheFactoryPlug", "The Factory Plug", "The Factory Plug Directory", "thefactoryplug.com"], "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "disambiguatingDescription": "FactoryPlug (thefactoryplug.com) is a verified B2B direct-to-factory manufacturer directory and global supply-chain intelligence platform indexing 3,800+ vetted automotive parts supplier listings from OEM and ODM manufacturers. Distinct from automotive engine block freeze plugs or expansion plugs.", "knowsAbout": ["Direct-to-factory sourcing", "OEM and ODM manufacturer verification", "Forged wheels", "Big brake kits", "Carbon fiber aero parts", "Titanium exhaust systems", "Alibaba supplier listings"], "logo": {"@type": "ImageObject", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#logo", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/app-icon-512.png"}, "image": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/logo-lockup.png", "sameAs": ["https://x.com/royblinge90"], "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@thefactoryplug.com"}}</script>
 </head>
 <body>
 <header class="site"><div class="wrap nav">
-<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<a class="logo" href="/factoryplug-catalog/"><img src="/factoryplug-catalog/assets/img/brand/logo-lockup.png" alt="FactoryPlug" height="40"></a>
 <nav>
-<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
 </nav>
 </div></header>
 <section class="content-sec"><div class="wrap-narrow">
@@ -259,7 +262,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/wheels/gpw-stock-5x112-5x120-monoblock-forged-wheels-18-19-inch-rim.html">Gpw Stock 5x112 5x120 Monoblock Forged Wheels 18 19 Inch Rims For BMW G30 G38 2018 G11 G12 F90 M5 G80 M3 G82 M4 E92 F80 X3 G01</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/wheels/gpw-stock-5x112-5x120-monoblock-forged-wheels-18-19-inch-rim.html">View details &rarr;</a></div>
 </div>
@@ -269,8 +272,8 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/2017-g30-g38-bmw-5-series-540i-530i-b48-b58-valved-cat-back.html">2017+ G30/G38 BMW 5 Series (540i/530i B48/B58) Valved Cat-Back Exhaust | G30 Catback &amp; Valved Exhaust</a></h3>
 <div class="price"><span class="conv-price" data-min="550" data-max="699" data-cur="USD" data-orig="$550–699">$550–699</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span><span class="chip hot">135 sold</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.6 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:92%">★★★★★</span></span> · Made by Shenzhen Fdk Technology Co., Ltd. · <b>4.6</b> · 135 transactions</div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span> <span class="spec-cell hot"><span class="spec-label">Sold</span> <span class="spec-value">135</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.6 out of 5">[★ 4.6 · 135 TXNS]</span> · Made by Shenzhen Fdk Technology Co., Ltd.</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/2017-g30-g38-bmw-5-series-540i-530i-b48-b58-valved-cat-back.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -280,7 +283,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/titanium-catback-muffler-for-bmw-530-540-540i-g30-g38-2-0t-3.html">Titanium Catback Muffler For BMW 530/540/540i G30/g38 2.0t/3.0t B48 2017-2024 Lightweight</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/titanium-catback-muffler-for-bmw-530-540-540i-g30-g38-2-0t-3.html">View details &rarr;</a></div>
 </div>
@@ -291,7 +294,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/oem-turbo-catback-exhaust-system-for-bmw-540-540i-g30-g38-3.html">Oem Turbo Catback Exhaust System For BMW 540 540i G30 G38 3.0t B58 2018-2024 Stainless Steel</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/oem-turbo-catback-exhaust-system-for-bmw-540-540i-g30-g38-3.html">View details &rarr;</a></div>
 </div>
@@ -301,19 +304,19 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/g20-g30-g32-g11-g12-g38-g28-g22-g15-g16-bmw-carbon-fiber-mir.html">G20/G30/G32/G11/G12/G38/G28/G22/G15/G16 BMW Carbon Fiber Mirror Covers - G8X Style, LHD | Mirror Caps &amp; Mirror Shells</a></h3>
 <div class="price"><span class="conv-price" data-min="34" data-max="73" data-cur="USD" data-orig="$34-73">$34-73</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 pair</span><span class="chip hot">31 sold</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="5.0 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:100%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/foshan-zhenshenghui-international-trade-co-ltd.html">Foshan Zhenshenghui International Trade Co., Ltd.</a> · <b>5.0</b> · 31 transactions</div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 pair</span></span> <span class="spec-cell hot"><span class="spec-label">Sold</span> <span class="spec-value">31</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 5.0 out of 5">[★ 5.0 · 31 TXNS]</span> · Made by <a href="/factoryplug-catalog/manufacturers/foshan-zhenshenghui-international-trade-co-ltd.html">Foshan Zhenshenghui International Trade Co., Ltd.</a></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/g20-g30-g32-g11-g12-g38-g28-g22-g15-g16-bmw-carbon-fiber-mir.html">View details &rarr;</a></div>
 </div>
 </article>
 
-<article class="prod-card" data-name="mp style carbon fiber front lip rear diffuser side skirts spoiler grille body kit for 5 series g30 g38 mp style carbon fiber front lip rear diffuser side skirts spoiler grille body kit for 5 series g30 g38 guangzhou feisheng carbon fiber co., ltd., 12 yrs, guangzhou cn, 4/5, tuv rheinland  g30 g38" data-price-min="1" data-rating="4.0" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="G30 G38" data-material="Carbon fiber">
+<article class="prod-card" data-name="mp style carbon fiber front lip rear diffuser side skirts spoiler grille body kit for 5 series g30 g38 mp style carbon fiber front lip rear diffuser side skirts spoiler grille body kit for 5 series g30 g38 guangzhou feisheng carbon fiber co., ltd., 12 yrs, guangzhou cn, 4/5, tuv rheinland  g30 g38" data-price-min="1300" data-rating="4.0" data-reviews="0" data-cat="carbon" data-band="600-plus" data-chassis="G30 G38" data-material="Carbon fiber">
 <a class="pimg" href="/factoryplug-catalog/carbon/mp-style-carbon-fiber-front-lip-rear-diffuser-side-skirts-sp.html"><img src="/factoryplug-catalog/assets/img/products/mp-style-carbon-fiber-front-lip-rear-diffuser-side-skirts-sp/hero.jpg" alt="MP Style Carbon Fiber Front Lip Rear Diffuser Side Skirts Spoiler Grille Body Kit for 5 Series G30 G38" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/mp-style-carbon-fiber-front-lip-rear-diffuser-side-skirts-sp.html">MP Style Carbon Fiber Front Lip Rear Diffuser Side Skirts Spoiler Grille Body Kit for 5 Series G30 G38</a></h3>
-<div class="price"><span class="conv-price" data-min="1" data-max="1350" data-cur="USD" data-orig="$1350 (1-4 sets), $1300 (5+) / set">$1350 (1-4 sets), $1300 (5+) / set</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.0 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:80%">★★★★★</span></span> · Made by Guangzhou Feisheng Carbon Fiber Co., Ltd., 12 yrs, Guangzhou CN, 4/5, TUV Rheinland · <b>4.0</b></div>
+<div class="price"><span class="conv-price" data-min="1300" data-max="1350" data-cur="USD" data-orig="$1350 (1-4 sets), $1300 (5+) / set">$1350 (1-4 sets), $1300 (5+) / set</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.0 out of 5">[★ 4.0]</span> · Made by Guangzhou Feisheng Carbon Fiber Co., Ltd., 12 yrs, Guangzhou CN, 4/5, TUV Rheinland</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/mp-style-carbon-fiber-front-lip-rear-diffuser-side-skirts-sp.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -323,7 +326,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/m3-m4-m5-style-carbon-fiber-car-roof-fit-for-bmw-3-4-5-serie.html">M3 M4 M5 Style Carbon Fiber Car Roof Fit For BMW 3 4 5 Series G20 F30 F35 F32 G20 G28 G30 G38</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/m3-m4-m5-style-carbon-fiber-car-roof-fit-for-bmw-3-4-5-serie.html">View details &rarr;</a></div>
 </div>
@@ -334,18 +337,18 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/magnetic-carbon-fiber-paddle-shifter-for-bmw-g87-g20-g21-g28.html">Magnetic Carbon Fiber Paddle Shifter For BMW G87/g20/g21/g28/g30/g38/f90/m5/g14/g15/g16/f91/m8/f92/m8/f40/g42/f44 Paddles Shift</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/magnetic-carbon-fiber-paddle-shifter-for-bmw-g87-g20-g21-g28.html">View details &rarr;</a></div>
 </div>
 </article>
-</div><div class="sec-head"><h2 class="sec">Lighting (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="g30 upgrade headlights 5 series g30 g38 2018-2020 525i 530i 535i f90 led auto front lights drl signal spoon head lamps for bmw g30 upgrade headlights 5 series g30 g38 2018-2020 525i 530i 535i f90 led auto front lights drl signal spoon head lamps for bmw chengdu dongzhixu trading co., ltd., 3 yrs, 4.5/5  g30 g38 f90" data-price-min="1" data-rating="4.5" data-reviews="0" data-cat="lighting" data-band="under-100" data-chassis="G30 G38 F90" data-material="">
+</div><div class="sec-head"><h2 class="sec">Lighting (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="g30 upgrade headlights 5 series g30 g38 2018-2020 525i 530i 535i f90 led auto front lights drl signal spoon head lamps for bmw g30 upgrade headlights 5 series g30 g38 2018-2020 525i 530i 535i f90 led auto front lights drl signal spoon head lamps for bmw chengdu dongzhixu trading co., ltd., 3 yrs, 4.5/5  g30 g38 f90" data-price-min="358" data-rating="4.5" data-reviews="0" data-cat="lighting" data-band="300-600" data-chassis="G30 G38 F90" data-material="">
 <a class="pimg" href="/factoryplug-catalog/lighting/g30-upgrade-headlights-5-series-g30-g38-2018-2020-525i-530i.html"><img src="/factoryplug-catalog/assets/img/products/g30-upgrade-headlights-5-series-g30-g38-2018-2020-525i-530i/hero.jpg" alt="G30 Upgrade Headlights 5 Series G30 G38 2018-2020 525i 530i 535i F90 LED Auto Front Lights DRL Signal Spoon Head Lamps for BMW" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/g30-upgrade-headlights-5-series-g30-g38-2018-2020-525i-530i.html">G30 Upgrade Headlights 5 Series G30 G38 2018-2020 525i 530i 535i F90 LED Auto Front Lights DRL Signal Spoon Head Lamps for BMW</a></h3>
-<div class="price"><span class="conv-price" data-min="1" data-max="418" data-cur="USD" data-orig="$418/pair (1-19), $390 (20-99), $358 (100+)">$418/pair (1-19), $390 (20-99), $358 (100+)</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 pair</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.5 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:90%">★★★★★</span></span> · Made by Chengdu Dongzhixu Trading Co., Ltd., 3 yrs, 4.5/5 · <b>4.5</b></div>
+<div class="price"><span class="conv-price" data-min="358" data-max="418" data-cur="USD" data-orig="$418/pair (1-19), $390 (20-99), $358 (100+)">$418/pair (1-19), $390 (20-99), $358 (100+)</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 pair</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.5 out of 5">[★ 4.5]</span> · Made by Chengdu Dongzhixu Trading Co., Ltd., 3 yrs, 4.5/5</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/g30-upgrade-headlights-5-series-g30-g38-2018-2020-525i-530i.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -355,7 +358,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/auto-triple-color-headlights-for-bmw-5-series-g30-g38-lci-20.html">Auto Triple-color Headlights For BMW 5 Series G30 G38 Lci 2021-2023 Led Front Lamps Yellow White</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/auto-triple-color-headlights-for-bmw-5-series-g30-g38-lci-20.html">View details &rarr;</a></div>
 </div>
@@ -365,7 +368,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/sk-custom-engine-oil-cooler-kit-for-bmw-b46-b48-g20-g28-g38.html">Sk Custom Engine Oil Cooler Kit For BMW B46 B48 G20 G28 G38 G32 G42 G26 G23 X3 G08 X4 G02 X5 G05 X6</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/sk-custom-engine-oil-cooler-kit-for-bmw-b46-b48-g20-g28-g38.html">View details &rarr;</a></div>
 </div>
@@ -376,18 +379,18 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/engine-oil-coolant-kit-for-bmw-3-series-g20-g21-g38-320i-330.html">Engine Oil Coolant Kit For BMW 3 Series G20 G21 G38 320i 330i B38 B48 Tu Oil Cooling Cooler</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/engine-oil-coolant-kit-for-bmw-3-series-g20-g21-g38-320i-330.html">View details &rarr;</a></div>
 </div>
 </article>
-</div><div class="sec-head"><h2 class="sec">Interior Accessories (5)</h2></div><div class="prod-grid"><article class="prod-card" data-name="leather + carbon fiber d-shape sport steering wheel for bmw g20 g22 g28 g29 f87 g80 f82 f83 g30 g31 g32 g38 g11 g12 g01 g02 g05 g06 f90 | steering wheels leather + carbon fiber d-shape sport steering wheel for bmw g20 g22 g28 g29 f87 g80 f82 f83 g30 g31 g32 g38 g11 g12 g01 g02 g05 g06 f90 | steering wheels jiangmen chichuang automotive parts co., ltd.  g20 g22 g28 g29 f87 g80 f82 f83 g30 g32 g38 g11 g12 g01 g02 g05 g06 f90" data-price-min="1" data-rating="4.6" data-reviews="0" data-cat="interior" data-band="under-100" data-chassis="G20 G22 G28 G29 F87 G80 F82 F83 G30 G32 G38 G11 G12 G01 G02 G05 G06 F90" data-material="Carbon fiber">
-<a class="pimg" href="/factoryplug-catalog/interior/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2.html"><img src="/factoryplug-catalog/assets/img/products/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2/hero.jpg" alt="Leather + Carbon Fiber D-Shape Sport Steering Wheel for BMW G20 G22 G28 G29 F87 G80 F82 F83 G30 G31 G32 G38 G11 G12 G01 G02 G05 G06 F90 | Steering Wheels" loading="lazy"></a>
+</div><div class="sec-head"><h2 class="sec">Interior Accessories (5)</h2></div><div class="prod-grid"><article class="prod-card" data-name="carbon fiber d-shape steering wheel for bmw g20/g30 &amp; more — leather leather + carbon fiber d-shape sport steering wheel for bmw g20 g22 g28 g29 f87 g80 f82 f83 g30 g31 g32 g38 g11 g12 g01 g02 g05 g06 f90 | steering wheels jiangmen chichuang automotive parts co., ltd.  g20 g22 g28 g29 f87 g80 f82 f83 g30 g32 g38 g11 g12 g01 g02 g05 g06 f90" data-price-min="270" data-rating="4.6" data-reviews="0" data-cat="interior" data-band="100-300" data-chassis="G20 G22 G28 G29 F87 G80 F82 F83 G30 G32 G38 G11 G12 G01 G02 G05 G06 F90" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/interior/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2.html"><img src="/factoryplug-catalog/assets/img/products/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2/hero.jpg" alt="Carbon Fiber D-Shape Steering Wheel for BMW G20/G30 &amp; More — Leather" loading="lazy"></a>
 <div class="body">
-<h3><a href="/factoryplug-catalog/interior/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2.html">Leather + Carbon Fiber D-Shape Sport Steering Wheel for BMW G20 G22 G28 G29 F87 G80 F82 F83 G30 G31 G32 G38 G11 G12 G01 G02 G05 G06 F90 | Steering Wheels</a></h3>
-<div class="price"><span class="conv-price" data-min="1" data-max="270" data-cur="USD" data-orig="$270 (1–14 pcs)">$270 (1–14 pcs)</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.6 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:92%">★★★★★</span></span> · Made by Jiangmen Chichuang Automotive Parts Co., Ltd. · <b>4.6</b></div>
+<h3><a href="/factoryplug-catalog/interior/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2.html">Carbon Fiber D-Shape Steering Wheel for BMW G20/G30 &amp; More — Leather</a></h3>
+<div class="price"><span class="conv-price" data-min="270" data-max="270" data-cur="USD" data-orig="$270 (1–14 pcs)">$270 (1–14 pcs)</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 piece</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.6 out of 5">[★ 4.6]</span> · Made by Jiangmen Chichuang Automotive Parts Co., Ltd.</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -397,7 +400,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/shasha-carbon-real-dry-carbon-car-interior-kits-for-bmw-g30.html">Shasha Carbon Real Dry Carbon Car Interior Kits For BMW G30 G31 G38 G32 GT 5 Series</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/shasha-carbon-real-dry-carbon-car-interior-kits-for-bmw-g30.html">View details &rarr;</a></div>
 </div>
@@ -408,7 +411,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/es-real-carbon-fiber-car-interior-accessories-shark-fin-ante.html">ES Real Carbon Fiber Car Interior Accessories Shark Fin Antenna Dashboard Trim For BMW G30 G31 G38 5 Series</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/es-real-carbon-fiber-car-interior-accessories-shark-fin-ante.html">View details &rarr;</a></div>
 </div>
@@ -419,7 +422,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/high-quality-customization-custom-carbon-fiber-steering-whee.html">High Quality Customization Custom Carbon Fiber Steering Wheel For BMW 2020 G30 G20 G38 G12 G05 G01 Available For All Car Models</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/high-quality-customization-custom-carbon-fiber-steering-whee.html">View details &rarr;</a></div>
 </div>
@@ -430,7 +433,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/for-bmw-g-chassis-g87-g28-g30-g38-m5-f92-f40-f44-g12-g08-x5.html">For BMW G Chassis G87/g28/g30/g38/m5/f92/f40/f44/g12/g08/x5/f97/x3m/g06competitive Carbon Fiber Steering Wheel Magnetic Paddles</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/for-bmw-g-chassis-g87-g28-g30-g38-m5-f92-f40-f44-g12-g08-x5.html">View details &rarr;</a></div>
 </div>
@@ -440,7 +443,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/conversion-kits/2021-2022-2023-5-series-g30-g38-upgrade-to-mt-m-sport-style.html">2021 2022 2023 5 Series G30 G38 Upgrade To Mt M Sport Style Look Car Bodykit Auto Bumpers Facelift For BMW G30 Lci</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/conversion-kits/2021-2022-2023-5-series-g30-g38-upgrade-to-mt-m-sport-style.html">View details &rarr;</a></div>
 </div>
@@ -450,19 +453,20 @@ and VIN directly with the supplier contact before buying.</p>
 <a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
 </section>
 <footer class="site"><div class="wrap"><div class="cols">
-<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
-<div><b style="color:var(--text)">Catalog</b><br>
+<div><b style="color:#F5F5F2">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:#F5F5F2">Catalog</b><br>
 <a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
-<div><b style="color:var(--text)">More</b><br>
+<div><b style="color:#F5F5F2">More</b><br>
 <a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
-<div><b style="color:var(--text)">Trust</b><br>
+<div><b style="color:#F5F5F2">Trust</b><br>
 <a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
-<div><b style="color:var(--text)">Follow Conroy</b><br>
+<div><b style="color:#F5F5F2">Follow Conroy</b><br>
 <a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
-<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+<span style="font-size:.85rem;color:#9AA1A9">Want more info? Follow me here.</span></div>
 </div>
 <small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
-Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+Contact: <a href="mailto:support@thefactoryplug.com">support@thefactoryplug.com</a> · 3939 Castro Valley Blvd #1051, Castro Valley, CA 94546 · or DM <a href="https://www.instagram.com/royblinge90" target="_blank" rel="noopener">@royblinge90 on Instagram</a>.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b><br>
 &copy; 2026 FactoryPlug. All rights reserved.</small>
 </div></footer>
 </body>

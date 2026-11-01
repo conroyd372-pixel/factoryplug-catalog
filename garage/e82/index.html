@@ -12,11 +12,14 @@
 <meta property="og:title" content="BMW 1 Series Coupe (E82) Parts (2008–2013) — 25 Parts | FactoryPlug">
 <meta property="og:description" content="Every BMW 1 Series Coupe (E82) (2008–2013) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
 <meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/e82/">
-<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="BMW 1 Series Coupe (E82) Parts (2008–2013) — 25 Parts | FactoryPlug">
 <meta name="twitter:description" content="Every BMW 1 Series Coupe (E82) (2008–2013) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
-<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
+<link rel="icon" type="image/png" href="/factoryplug-catalog/assets/img/brand/favicon.png">
+<link rel="apple-touch-icon" href="/factoryplug-catalog/assets/img/brand/app-icon-512.png">
+<link rel="manifest" href="/factoryplug-catalog/site.webmanifest">
 <link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
 <script src="/factoryplug-catalog/assets/fx.js" defer></script>
 <script src="/factoryplug-catalog/assets/search.js" defer></script>
@@ -39,9 +42,9 @@
   var ind = document.getElementById('garage-indicator');
   var g = load();
   if (g && g.code && ind) {
-    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
     ind.classList.remove('hidden');
     var c = document.getElementById('garage-clear');
     if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -150,9 +153,9 @@
       save({ code: code, make: v.make, label: label });
       g = load();
       if (ind) {
-        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
         ind.classList.remove('hidden');
         var cc = document.getElementById('garage-clear');
         if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -233,13 +236,13 @@
 })();
 </script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "BMW 1 Series Coupe (E82) Parts (2008\u20132013)", "description": "Every BMW 1 Series Coupe (E82) compatible part in the FactoryPlug catalog."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#organization", "name": "FactoryPlug", "alternateName": ["TheFactoryPlug", "The Factory Plug", "The Factory Plug Directory", "thefactoryplug.com"], "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "disambiguatingDescription": "FactoryPlug (thefactoryplug.com) is a verified B2B direct-to-factory manufacturer directory and global supply-chain intelligence platform indexing 3,800+ vetted automotive parts supplier listings from OEM and ODM manufacturers. Distinct from automotive engine block freeze plugs or expansion plugs.", "knowsAbout": ["Direct-to-factory sourcing", "OEM and ODM manufacturer verification", "Forged wheels", "Big brake kits", "Carbon fiber aero parts", "Titanium exhaust systems", "Alibaba supplier listings"], "logo": {"@type": "ImageObject", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#logo", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/app-icon-512.png"}, "image": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/logo-lockup.png", "sameAs": ["https://x.com/royblinge90"], "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@thefactoryplug.com"}}</script>
 </head>
 <body>
 <header class="site"><div class="wrap nav">
-<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<a class="logo" href="/factoryplug-catalog/"><img src="/factoryplug-catalog/assets/img/brand/logo-lockup.png" alt="FactoryPlug" height="40"></a>
 <nav>
-<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
 </nav>
 </div></header>
 <section class="content-sec"><div class="wrap-narrow">
@@ -254,13 +257,13 @@ category. 25 parts and counting.</p>
 and VIN directly with the supplier contact before buying.</p>
 </div></section>
 <section class="content-sec" style="max-width:none">
-<div class="sec-head"><h2 class="sec">Exhaust Systems (5)</h2></div><div class="prod-grid"><article class="prod-card" data-name="jtld performance exhaust system exhaust valvetronic catback for bmw e82 135i jtld performance exhaust system exhaust valvetronic catback for bmw e82 135i qingdao jtld industrial &amp; commercial co., ltd., 10 yrs, qingdao cn, 4.7/5, tuv rheinland  e82" data-price-min="1" data-rating="4.7" data-reviews="0" data-cat="exhaust" data-band="under-100" data-chassis="E82" data-material="">
+<div class="sec-head"><h2 class="sec">Exhaust Systems (5)</h2></div><div class="prod-grid"><article class="prod-card" data-name="jtld performance exhaust system exhaust valvetronic catback for bmw e82 135i jtld performance exhaust system exhaust valvetronic catback for bmw e82 135i qingdao jtld industrial &amp; commercial co., ltd., 10 yrs, qingdao cn, 4.7/5, tuv rheinland  e82" data-price-min="550" data-rating="4.7" data-reviews="0" data-cat="exhaust" data-band="300-600" data-chassis="E82" data-material="">
 <a class="pimg" href="/factoryplug-catalog/exhaust/jtld-performance-exhaust-system-exhaust-valvetronic-catback.html"><img src="/factoryplug-catalog/assets/img/products/jtld-performance-exhaust-system-exhaust-valvetronic-catback/hero.jpg" alt="JTLD Performance Exhaust System Exhaust Valvetronic Catback for BMW E82 135i" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/jtld-performance-exhaust-system-exhaust-valvetronic-catback.html">JTLD Performance Exhaust System Exhaust Valvetronic Catback for BMW E82 135i</a></h3>
-<div class="price"><span class="conv-price" data-min="1" data-max="899" data-cur="USD" data-orig="$899 (1-9 sets), $799 (10-99), $550 (100+)">$899 (1-9 sets), $799 (10-99), $550 (100+)</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.7 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:94%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/qingdao-jtld-industrial-commercial-co-ltd.html">Qingdao Jtld Industrial &amp; Commercial Co., Ltd., 10 yrs, Qingdao CN, 4.7/5, TUV Rheinland</a> · <b>4.7</b></div>
+<div class="price"><span class="conv-price" data-min="550" data-max="899" data-cur="USD" data-orig="$899 (1-9 sets), $799 (10-99), $550 (100+)">$899 (1-9 sets), $799 (10-99), $550 (100+)</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.7 out of 5">[★ 4.7]</span> · Made by <a href="/factoryplug-catalog/manufacturers/qingdao-jtld-industrial-commercial-co-ltd.html">Qingdao Jtld Industrial &amp; Commercial Co., Ltd., 10 yrs, Qingdao CN, 4.7/5, TUV Rheinland</a></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/jtld-performance-exhaust-system-exhaust-valvetronic-catback.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -270,7 +273,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/exhaust-downpipe-intercooler-turbocharger-intake-manifold-in.html">Exhaust Downpipe+intercooler+turbocharger+intake Manifold+inlet Hose Fits For N54 135i 335i Z4 E82</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/exhaust-downpipe-intercooler-turbocharger-intake-manifold-in.html">View details &rarr;</a></div>
 </div>
@@ -281,7 +284,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/evo1-intercooler-downpipe-chargepipe-for-bmw-e82-e88-135i-e9.html">Evo1 Intercooler + Downpipe + Chargepipe For BMW E82 E88 135i E90 E92 335i N55</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/evo1-intercooler-downpipe-chargepipe-for-bmw-e82-e88-135i-e9.html">View details &rarr;</a></div>
 </div>
@@ -292,7 +295,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/new-type-top-sale-exhaust-downpipe-intercooler-charge-pipe-f.html">New Type Top Sale Exhaust Downpipe+intercooler+charge Pipe For BMW E82 E88 135i 335i E90 E91 E92</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/new-type-top-sale-exhaust-downpipe-intercooler-charge-pipe-f.html">View details &rarr;</a></div>
 </div>
@@ -303,29 +306,29 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/special-design-widely-used-intercooler-downpipe-charge-pipe.html">Special Design Widely Used Intercooler + Downpipe + Charge Pipe For E82 E88 E90 E92 335i 435i M235i</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/special-design-widely-used-intercooler-downpipe-charge-pipe.html">View details &rarr;</a></div>
 </div>
 </article>
-</div><div class="sec-head"><h2 class="sec">Aerodynamics &amp; Exterior (13)</h2><a class="more" href="/factoryplug-catalog/carbon/">More Aerodynamics &amp; Exterior →</a></div><div class="prod-grid"><article class="prod-card" data-name="1m e82 front bumper lip side skirts rear diffuser with spats for bmw 1m e82 12-15 rza style carbon fiber body kit 1m e82 front bumper lip side skirts rear diffuser with spats for bmw 1m e82 12-15 rza style carbon fiber body kit dongguan saibang carbon fiber products technology co., ltd., 8 yrs, dongguan cn, 4.6/5, tuv rheinland  e82" data-price-min="1" data-rating="4.6" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="E82" data-material="Carbon fiber">
+</div><div class="sec-head"><h2 class="sec">Aerodynamics &amp; Exterior (13)</h2><a class="more" href="/factoryplug-catalog/carbon/">More Aerodynamics &amp; Exterior →</a></div><div class="prod-grid"><article class="prod-card" data-name="1m e82 front bumper lip side skirts rear diffuser with spats for bmw 1m e82 12-15 rza style carbon fiber body kit 1m e82 front bumper lip side skirts rear diffuser with spats for bmw 1m e82 12-15 rza style carbon fiber body kit dongguan saibang carbon fiber products technology co., ltd., 8 yrs, dongguan cn, 4.6/5, tuv rheinland  e82" data-price-min="750" data-rating="4.6" data-reviews="0" data-cat="carbon" data-band="600-plus" data-chassis="E82" data-material="Carbon fiber">
 <a class="pimg" href="/factoryplug-catalog/carbon/1m-e82-front-bumper-lip-side-skirts-rear-diffuser-with-spats.html"><img src="/factoryplug-catalog/assets/img/products/1m-e82-front-bumper-lip-side-skirts-rear-diffuser-with-spats/hero.jpg" alt="1M E82 Front Bumper Lip Side Skirts Rear Diffuser with Spats for BMW 1M E82 12-15 RZA Style Carbon Fiber Body Kit" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/1m-e82-front-bumper-lip-side-skirts-rear-diffuser-with-spats.html">1M E82 Front Bumper Lip Side Skirts Rear Diffuser with Spats for BMW 1M E82 12-15 RZA Style Carbon Fiber Body Kit</a></h3>
-<div class="price"><span class="conv-price" data-min="1" data-max="950" data-cur="USD" data-orig="$950 (1-2 sets), $750 (3+)">$950 (1-2 sets), $750 (3+)</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.6 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:92%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/dongguan-saibang-carbon-fiber-products-technology-co-ltd.html">Dongguan Saibang Carbon Fiber Products Technology Co., Ltd., 8 yrs, Dongguan CN, 4.6/5, TUV Rheinland</a> · <b>4.6</b></div>
+<div class="price"><span class="conv-price" data-min="750" data-max="950" data-cur="USD" data-orig="$950 (1-2 sets), $750 (3+)">$950 (1-2 sets), $750 (3+)</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.6 out of 5">[★ 4.6]</span> · Made by <a href="/factoryplug-catalog/manufacturers/dongguan-saibang-carbon-fiber-products-technology-co-ltd.html">Dongguan Saibang Carbon Fiber Products Technology Co., Ltd., 8 yrs, Dongguan CN, 4.6/5, TUV Rheinland</a></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/1m-e82-front-bumper-lip-side-skirts-rear-diffuser-with-spats.html">View details &rarr;</a></div>
 </div>
 </article>
 
-<article class="prod-card" data-name="sjc facelift body kit for bmw 1 series e82 e87 2008-2011 auto accessories grille body hardware hot sale front rear bumper sjc facelift body kit for bmw 1 series e82 e87 2008-2011 auto accessories grille body hardware hot sale front rear bumper guangzhou meishi electronic technology co., ltd., 3 yrs, 4.1/5  e82 e87" data-price-min="4" data-rating="4.1" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="E82 E87" data-material="">
+<article class="prod-card" data-name="sjc facelift body kit for bmw 1 series e82 e87 2008-2011 auto accessories grille body hardware hot sale front rear bumper sjc facelift body kit for bmw 1 series e82 e87 2008-2011 auto accessories grille body hardware hot sale front rear bumper guangzhou meishi electronic technology co., ltd., 3 yrs, 4.1/5  e82 e87" data-price-min="400" data-rating="4.1" data-reviews="0" data-cat="carbon" data-band="300-600" data-chassis="E82 E87" data-material="">
 <a class="pimg" href="/factoryplug-catalog/carbon/sjc-facelift-body-kit-for-bmw-1-series-e82-e87-2008-2011-aut.html"><img src="/factoryplug-catalog/assets/img/products/sjc-facelift-body-kit-for-bmw-1-series-e82-e87-2008-2011-aut/hero.jpg" alt="SJC Facelift Body Kit for BMW 1 Series E82 E87 2008-2011 Auto Accessories Grille Body Hardware Hot Sale Front Rear Bumper" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/sjc-facelift-body-kit-for-bmw-1-series-e82-e87-2008-2011-aut.html">SJC Facelift Body Kit for BMW 1 Series E82 E87 2008-2011 Auto Accessories Grille Body Hardware Hot Sale Front Rear Bumper</a></h3>
-<div class="price"><span class="conv-price" data-min="4" data-max="500" data-cur="USD" data-orig="$500/set (4 sets), $400/set (5+)">$500/set (4 sets), $400/set (5+)</span></div>
-<div class="meta-row"><span class="chip">MOQ: 4 sets</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.1 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:82%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/guangzhou-meishi-electronic-technology-co-ltd.html">Guangzhou Meishi Electronic Technology Co., Ltd., 3 yrs, 4.1/5</a> · <b>4.1</b></div>
+<div class="price"><span class="conv-price" data-min="400" data-max="500" data-cur="USD" data-orig="$500/set (4 sets), $400/set (5+)">$500/set (4 sets), $400/set (5+)</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">4 sets</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.1 out of 5">[★ 4.1]</span> · Made by <a href="/factoryplug-catalog/manufacturers/guangzhou-meishi-electronic-technology-co-ltd.html">Guangzhou Meishi Electronic Technology Co., Ltd., 3 yrs, 4.1/5</a></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/sjc-facelift-body-kit-for-bmw-1-series-e82-e87-2008-2011-aut.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -335,7 +338,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/jcsportline-carbon-fiber-csl-style-rear-trunk-for-bmw-1-seri.html">Jcsportline Carbon Fiber Csl Style Rear Trunk For BMW 1 Series E82 M Tech 2008-2013</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/jcsportline-carbon-fiber-csl-style-rear-trunk-for-bmw-1-seri.html">View details &rarr;</a></div>
 </div>
@@ -346,7 +349,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/m-style-m-look-dry-carbon-fiber-for-bmw-e81-e82-e87-e88-e90.html">M Style M Look Dry Carbon Fiber For BMW E81 E82 E87 E88 E90 E91 E92 E93 2004-2009 Mirror Cover</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/m-style-m-look-dry-carbon-fiber-for-bmw-e81-e82-e87-e88-e90.html">View details &rarr;</a></div>
 </div>
@@ -357,7 +360,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/carbon-fiber-side-fenders-for-e82-1m-e88-1-series-coupe.html">Carbon Fiber Side Fenders For E82 1m E88 1 Series Coupe</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/carbon-fiber-side-fenders-for-e82-1m-e88-1-series-coupe.html">View details &rarr;</a></div>
 </div>
@@ -368,7 +371,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/double-side-carbon-fiber-doors-for-e82-1m-coupe-perfect-fitm.html">Double Side Carbon Fiber Doors For E82 1m Coupe Perfect Fitment Guaranteed</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/double-side-carbon-fiber-doors-for-e82-1m-coupe-perfect-fitm.html">View details &rarr;</a></div>
 </div>
@@ -379,7 +382,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/carbon-fiber-hood-for-bmw-1m-e82-2011-2013-hood-carbon-fiber.html">Carbon Fiber Hood For BMW 1m E82 2011-2013 Hood Carbon Fiber Bonnet Carbon Hood</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/carbon-fiber-hood-for-bmw-1m-e82-2011-2013-hood-carbon-fiber.html">View details &rarr;</a></div>
 </div>
@@ -390,7 +393,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/carbon-fiber-rear-trunk-fit-for-bmw-1m-e82-2011-2013-carbon.html">Carbon Fiber Rear Trunk Fit For BMW 1m E82 2011-2013 Carbon Trunk</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/carbon-fiber-rear-trunk-fit-for-bmw-1m-e82-2011-2013-carbon.html">View details &rarr;</a></div>
 </div>
@@ -401,7 +404,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/carbon-fiber-spoiler-fit-for-bmw-e82-1m-2011-2013-carbon-fib.html">Carbon Fiber Spoiler Fit For BMW E82 1m 2011-2013 Carbon Fiber Wing Tail Spoiler Mp Style</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/carbon-fiber-spoiler-fit-for-bmw-e82-1m-2011-2013-carbon-fib.html">View details &rarr;</a></div>
 </div>
@@ -412,7 +415,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/new-carbon-fiber-rear-diffuser-for-e82-1m-2011-2013-rear-bum.html">New Carbon Fiber Rear Diffuser For E82 1m 2011-2013 Rear Bumper Diffuser With Splitters</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/new-carbon-fiber-rear-diffuser-for-e82-1m-2011-2013-rear-bum.html">View details &rarr;</a></div>
 </div>
@@ -423,7 +426,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/bmw-e82-1-series-bumper-new-carbon-fiber-fender-vent-type-fi.html">BMW E82 1-series Bumper New Carbon Fiber Fender Vent Type Fibre</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/bmw-e82-1-series-bumper-new-carbon-fiber-fender-vent-type-fi.html">View details &rarr;</a></div>
 </div>
@@ -434,7 +437,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/carbon-fiber-fibre-front-engine-hood-bonnet-for-bmw-1-series.html">Carbon Fiber Fibre Front Engine Hood Bonnet For BMW 1 Series E81 E82 E87 M3 2010-2013</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/carbon-fiber-fibre-front-engine-hood-bonnet-for-bmw-1-series.html">View details &rarr;</a></div>
 </div>
@@ -444,17 +447,17 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/auto-dual-color-headlights-for-bmw-1-series-e87-e82-120i-130.html">Auto Dual Color Headlights For BMW 1 Series E87 E82 120i 130i 135i 2004-2011 Led Headlamp Plug</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/auto-dual-color-headlights-for-bmw-1-series-e87-e82-120i-130.html">View details &rarr;</a></div>
 </div>
 </article>
-</div><div class="sec-head"><h2 class="sec">Suspension (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="rts yz464 front angle kit drift angle lock kits control arm car suspension parts for bmw e90/e91/e92 e81/e82 rts yz464 front angle kit drift angle lock kits control arm car suspesnsion parts for bmw e90/e91/e92 e81/e82   e90 e82 e92 e91" data-price-min="" data-rating="" data-reviews="0" data-cat="suspension" data-band="" data-chassis="E90 E82 E92 E91" data-material="">
+</div><div class="sec-head"><h2 class="sec">Suspension (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="rts yz464 front angle kit drift angle lock kits control arm car suspension parts for bmw e90/e91/e92 e81/e82 rts yz464 front angle kit drift angle lock kits control arm car suspension parts for bmw e90/e91/e92 e81/e82   e90 e82 e92 e91" data-price-min="" data-rating="" data-reviews="0" data-cat="suspension" data-band="" data-chassis="E90 E82 E92 E91" data-material="">
 <a class="pimg" href="/factoryplug-catalog/suspension/rts-yz464-front-angle-kit-drift-angle-lock-kits-control-arm.html"><img src="/factoryplug-catalog/assets/img/products/rts-yz464-front-angle-kit-drift-angle-lock-kits-control-arm/hero.webp" alt="Rts Yz464 Front Angle Kit Drift Angle Lock Kits Control Arm Car Suspension Parts For BMW E90/e91/e92 E81/e82" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/suspension/rts-yz464-front-angle-kit-drift-angle-lock-kits-control-arm.html">Rts Yz464 Front Angle Kit Drift Angle Lock Kits Control Arm Car Suspension Parts For BMW E90/e91/e92 E81/e82</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/rts-yz464-front-angle-kit-drift-angle-lock-kits-control-arm.html">View details &rarr;</a></div>
 </div>
@@ -464,8 +467,8 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/aluminum-dct-7-speed-transmission-oil-pan-for-bmw-m2-m3-m4-m.html">Aluminum DCT 7 Speed Transmission Oil Pan for BMW M2 M3 M4 M5 M6 E91 E93 335i E82 E88 135i N55 S55 Gearbox</a></h3>
 <div class="price"><span class="conv-price" data-min="150" data-max="169.5" data-cur="USD" data-orig="$169.50-$150">$150–$169.50</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 piece</span><span class="chip hot">1 sold</span></div>
-<div class="psupplier">1 transactions</div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 piece</span></span> <span class="spec-cell hot"><span class="spec-label">Sold</span> <span class="spec-value">1</span></span></div>
+<div class="psupplier">1 transaction</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/aluminum-dct-7-speed-transmission-oil-pan-for-bmw-m2-m3-m4-m.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -475,7 +478,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/high-performance-intercooler-for-audi-a3-a4-vw-golf-mk7-mk7.html">High Performance Intercooler For Audi A3 A4 / Vw Golf Mk7 Mk7.5 R / BMW 120d E81 E82 E87 E88,Direct</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/high-performance-intercooler-for-audi-a3-a4-vw-golf-mk7-mk7.html">View details &rarr;</a></div>
 </div>
@@ -486,7 +489,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/engine-oil-coolant-kit-for-bmw-1-series-e81-e82-3-series-335.html">Engine Oil Coolant Kit For BMW 1 Series E81 E82 3 Series 335i E90 E92 E93 N54 N55 Oil Cooling Cooler</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/engine-oil-coolant-kit-for-bmw-1-series-e81-e82-3-series-335.html">View details &rarr;</a></div>
 </div>
@@ -496,7 +499,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/led-shift-light-carbon-fiber-steering-wheels-fit-for-bmw-e90.html">Led Shift Light Carbon Fiber Steering Wheels Fit For BMW E90 E92 M3 E82 E90 E87 M3 M2 Custom</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/led-shift-light-carbon-fiber-steering-wheels-fit-for-bmw-e90.html">View details &rarr;</a></div>
 </div>
@@ -507,7 +510,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/for-bmw-e90-e91-e92-e93-e81-e82-e87-e88-m3-m4-carbon-fiber-l.html">For BMW E90 E91 E92 E93 E81 E82 E87 E88 M3 M4 Carbon Fiber Led Steering Wheel | Custom Racing Flat Bottom Display Upgrade</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/for-bmw-e90-e91-e92-e93-e81-e82-e87-e88-m3-m4-carbon-fiber-l.html">View details &rarr;</a></div>
 </div>
@@ -517,19 +520,20 @@ and VIN directly with the supplier contact before buying.</p>
 <a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
 </section>
 <footer class="site"><div class="wrap"><div class="cols">
-<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
-<div><b style="color:var(--text)">Catalog</b><br>
+<div><b style="color:#F5F5F2">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:#F5F5F2">Catalog</b><br>
 <a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
-<div><b style="color:var(--text)">More</b><br>
+<div><b style="color:#F5F5F2">More</b><br>
 <a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
-<div><b style="color:var(--text)">Trust</b><br>
+<div><b style="color:#F5F5F2">Trust</b><br>
 <a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
-<div><b style="color:var(--text)">Follow Conroy</b><br>
+<div><b style="color:#F5F5F2">Follow Conroy</b><br>
 <a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
-<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+<span style="font-size:.85rem;color:#9AA1A9">Want more info? Follow me here.</span></div>
 </div>
 <small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
-Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+Contact: <a href="mailto:support@thefactoryplug.com">support@thefactoryplug.com</a> · 3939 Castro Valley Blvd #1051, Castro Valley, CA 94546 · or DM <a href="https://www.instagram.com/royblinge90" target="_blank" rel="noopener">@royblinge90 on Instagram</a>.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b><br>
 &copy; 2026 FactoryPlug. All rights reserved.</small>
 </div></footer>
 </body>

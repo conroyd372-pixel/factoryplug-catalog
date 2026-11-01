@@ -12,11 +12,14 @@
 <meta property="og:title" content="Audi A4 A5 S4 S5 RS4 RS5 Parts (2017–2019) — 28 Parts | FactoryPlug">
 <meta property="og:description" content="Every Audi A4 A5 S4 S5 RS4 RS5 (2017–2019) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
 <meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/b9/">
-<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Audi A4 A5 S4 S5 RS4 RS5 Parts (2017–2019) — 28 Parts | FactoryPlug">
 <meta name="twitter:description" content="Every Audi A4 A5 S4 S5 RS4 RS5 (2017–2019) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
-<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
+<link rel="icon" type="image/png" href="/factoryplug-catalog/assets/img/brand/favicon.png">
+<link rel="apple-touch-icon" href="/factoryplug-catalog/assets/img/brand/app-icon-512.png">
+<link rel="manifest" href="/factoryplug-catalog/site.webmanifest">
 <link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
 <script src="/factoryplug-catalog/assets/fx.js" defer></script>
 <script src="/factoryplug-catalog/assets/search.js" defer></script>
@@ -39,9 +42,9 @@
   var ind = document.getElementById('garage-indicator');
   var g = load();
   if (g && g.code && ind) {
-    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
     ind.classList.remove('hidden');
     var c = document.getElementById('garage-clear');
     if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -150,9 +153,9 @@
       save({ code: code, make: v.make, label: label });
       g = load();
       if (ind) {
-        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
         ind.classList.remove('hidden');
         var cc = document.getElementById('garage-clear');
         if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -233,13 +236,13 @@
 })();
 </script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Audi A4 A5 S4 S5 RS4 RS5 Parts (2017\u20132019)", "description": "Every Audi A4 A5 S4 S5 RS4 RS5 compatible part in the FactoryPlug catalog."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#organization", "name": "FactoryPlug", "alternateName": ["TheFactoryPlug", "The Factory Plug", "The Factory Plug Directory", "thefactoryplug.com"], "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "disambiguatingDescription": "FactoryPlug (thefactoryplug.com) is a verified B2B direct-to-factory manufacturer directory and global supply-chain intelligence platform indexing 3,800+ vetted automotive parts supplier listings from OEM and ODM manufacturers. Distinct from automotive engine block freeze plugs or expansion plugs.", "knowsAbout": ["Direct-to-factory sourcing", "OEM and ODM manufacturer verification", "Forged wheels", "Big brake kits", "Carbon fiber aero parts", "Titanium exhaust systems", "Alibaba supplier listings"], "logo": {"@type": "ImageObject", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#logo", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/app-icon-512.png"}, "image": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/logo-lockup.png", "sameAs": ["https://x.com/royblinge90"], "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@thefactoryplug.com"}}</script>
 </head>
 <body>
 <header class="site"><div class="wrap nav">
-<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<a class="logo" href="/factoryplug-catalog/"><img src="/factoryplug-catalog/assets/img/brand/logo-lockup.png" alt="FactoryPlug" height="40"></a>
 <nav>
-<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
 </nav>
 </div></header>
 <section class="content-sec"><div class="wrap-narrow">
@@ -259,18 +262,18 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/brakes/380-400-420mm-car-disk-rotots-and-pads-wavy-slotted-brakes-r.html">380 400 420mm Car Disk Rotots And Pads Wavy Slotted Brakes Rotor Set For Audi S6 C7 Rs6 Rs7 B9 S5</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/brakes/380-400-420mm-car-disk-rotots-and-pads-wavy-slotted-brakes-r.html">View details &rarr;</a></div>
 </div>
 </article>
-</div><div class="sec-head"><h2 class="sec">Exhaust Systems (5)</h2></div><div class="prod-grid"><article class="prod-card" data-name="yt high flow downpipe three-way catalytic heat shield for audi s4 s5 b9.5 3.0t auto exhaust mod parts yt sus304 high flow downpipe three-way catalytic heat shield for audi s4 s5 b9.5 3.0t auto exhaust mod parts changzhou yaotu international trade co., ltd., changzhou, 2 yrs, 4.9/5  b9" data-price-min="1" data-rating="4.9" data-reviews="0" data-cat="exhaust" data-band="under-100" data-chassis="B9" data-material="">
+</div><div class="sec-head"><h2 class="sec">Exhaust Systems (5)</h2></div><div class="prod-grid"><article class="prod-card" data-name="yt high flow downpipe three-way catalytic heat shield for audi s4 s5 b9.5 3.0t auto exhaust mod parts yt sus304 high flow downpipe three-way catalytic heat shield for audi s4 s5 b9.5 3.0t auto exhaust mod parts changzhou yaotu international trade co., ltd., changzhou, 2 yrs, 4.9/5  b9" data-price-min="300" data-rating="4.9" data-reviews="0" data-cat="exhaust" data-band="300-600" data-chassis="B9" data-material="">
 <a class="pimg" href="/factoryplug-catalog/exhaust/yt-sus304-high-flow-downpipe-three-way-catalytic-heat-shield.html"><img src="/factoryplug-catalog/assets/img/products/yt-sus304-high-flow-downpipe-three-way-catalytic-heat-shield/hero.jpg" alt="YT High Flow Downpipe Three-way Catalytic Heat Shield for Audi S4 S5 B9.5 3.0T Auto Exhaust Mod Parts" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/yt-sus304-high-flow-downpipe-three-way-catalytic-heat-shield.html">YT High Flow Downpipe Three-way Catalytic Heat Shield for Audi S4 S5 B9.5 3.0T Auto Exhaust Mod Parts</a></h3>
-<div class="price"><span class="conv-price" data-min="1" data-max="380" data-cur="USD" data-orig="$380 (1-4 sets), $340 (5-9), $300 (10+)">$380 (1-4 sets), $340 (5-9), $300 (10+)</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.9 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:98%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/changzhou-yaotu-international-trade-co-ltd-changzhou.html">Changzhou Yaotu International Trade Co., Ltd., Changzhou, 2 yrs, 4.9/5</a> · <b>4.9</b></div>
+<div class="price"><span class="conv-price" data-min="300" data-max="380" data-cur="USD" data-orig="$380 (1-4 sets), $340 (5-9), $300 (10+)">$380 (1-4 sets), $340 (5-9), $300 (10+)</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.9 out of 5">[★ 4.9]</span> · Made by <a href="/factoryplug-catalog/manufacturers/changzhou-yaotu-international-trade-co-ltd-changzhou.html">Changzhou Yaotu International Trade Co., Ltd., Changzhou, 2 yrs, 4.9/5</a></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/yt-sus304-high-flow-downpipe-three-way-catalytic-heat-shield.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -280,7 +283,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/audi-s4-s5-b9-3-0t-2019-2023-factory-customization-performan.html">Audi S4/s5 B9 3.0t 2019-2023 Factory Customization Performance Race Catback Exhaust Valvetronic</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/audi-s4-s5-b9-3-0t-2019-2023-factory-customization-performan.html">View details &rarr;</a></div>
 </div>
@@ -291,7 +294,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/performance-front-pipe-and-valvetronic-exhaust-catback-syste.html">Performance Front Pipe And Valvetronic Exhaust Catback System For Audi S5 B9 Exhaust</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/performance-front-pipe-and-valvetronic-exhaust-catback-syste.html">View details &rarr;</a></div>
 </div>
@@ -302,7 +305,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/stainless-steel-downpipe-without-engine-fault-light-for-audi.html">Stainless Steel Downpipe Without Engine Fault Light For Audi A5 2.0t B9.5 2020-2024 With Opf Gpf</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/stainless-steel-downpipe-without-engine-fault-light-for-audi.html">View details &rarr;</a></div>
 </div>
@@ -313,7 +316,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/factory-free-flow-downpipe-for-audi-s4-s5-b9-3-0t-2019-2023.html">Factory Free Flow Downpipe For Audi S4/s5 B9 3.0t 2019-2023 Heat Shield Exhaust Pipe Stainless</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/factory-free-flow-downpipe-for-audi-s4-s5-b9-3-0t-2019-2023.html">View details &rarr;</a></div>
 </div>
@@ -323,7 +326,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/top-material-rear-spoiler-for-audi-a5-sline-s5-b9-b9-5-sport.html">Top Material Rear Spoiler For Audi A5 Sline S5 B9 B9.5 Sportback Carbon Fiber Rear Trunk Spoiler</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/top-material-rear-spoiler-for-audi-a5-sline-s5-b9-b9-5-sport.html">View details &rarr;</a></div>
 </div>
@@ -334,7 +337,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/high-quality-carbon-fiber-engine-hood-vent-car-bonnet-for-au.html">High Quality Carbon Fiber Engine Hood Vent Car Bonnet For Audi A4 S4 Rs4 B9 B9.5 2016-2023</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/high-quality-carbon-fiber-engine-hood-vent-car-bonnet-for-au.html">View details &rarr;</a></div>
 </div>
@@ -345,7 +348,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/new-universal-front-lip-spoiler-dry-carbon-fiber-front-bumpe.html">New Universal Front Lip Spoiler Dry Carbon Fiber Front Bumper Diffuser For Audi A5 S5 Pa B9.5</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/new-universal-front-lip-spoiler-dry-carbon-fiber-front-bumpe.html">View details &rarr;</a></div>
 </div>
@@ -356,7 +359,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/for-audi-a5-s5-b9-2017-2019-genuine-dry-carbon-fiber-univers.html">For Audi A5 S5 B9 2017-2019 Genuine Dry Carbon Fiber Universal Rear Spoiler Bumper Rear Lip Diffuser Body Kits Trim Decoration</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/for-audi-a5-s5-b9-2017-2019-genuine-dry-carbon-fiber-univers.html">View details &rarr;</a></div>
 </div>
@@ -367,7 +370,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/carbon-fiber-side-fenders-for-rs5-s5-a5-b9-5-perfect-fitment.html">Carbon Fiber Side Fenders For Rs5 S5 A5 B9.5 Perfect Fitment Guaranteed</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/carbon-fiber-side-fenders-for-rs5-s5-a5-b9-5-perfect-fitment.html">View details &rarr;</a></div>
 </div>
@@ -377,7 +380,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/suspension/manufacturer-supplier-anti-roll-bars-for-audi-s4-rs4-s5-rs5.html">Manufacturer Supplier Anti Roll Bars For Audi S4/rs4/s5/rs5 (b9) 2016-present Rear Sway Stabilizer</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/manufacturer-supplier-anti-roll-bars-for-audi-s4-rs4-s5-rs5.html">View details &rarr;</a></div>
 </div>
@@ -388,7 +391,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/suspension/billet-aluminum-front-strut-brace-for-audi-b9-a4-a5-s4-s5-rs.html">Billet Aluminum Front Strut Brace For Audi B9 A4 A5 S4 S5 Rs5</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/billet-aluminum-front-strut-brace-for-audi-b9-a4-a5-s4-s5-rs.html">View details &rarr;</a></div>
 </div>
@@ -398,18 +401,18 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/cnc-aluminum-oil-catch-can-kit-for-audi-b9-s4-s5-sq5-3-0t-v6.html">CNC Aluminum Oil Catch Can Kit for Audi B9 S4 S5 SQ5 3.0T V6 (SK CUSTOM)</a></h3>
 <div class="price"><span class="conv-price" data-min="399.99" data-max="399.99" data-cur="USD" data-orig="$399.99">$399.99</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span><span class="chip hot">4 sold</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span> <span class="spec-cell hot"><span class="spec-label">Sold</span> <span class="spec-value">4</span></span></div>
 <div class="psupplier">4 transactions</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/cnc-aluminum-oil-catch-can-kit-for-audi-b9-s4-s5-sq5-3-0t-v6.html">View details &rarr;</a></div>
 </div>
 </article>
 
-<article class="prod-card" data-name="audi s4 s5 a6 a7 a8 q5 q7 q8 for porsche b9 3.0l turbo housing+chra upgrade stage 2 06m100031t 06m145a01 18539700025 06m100031t audi s4 s5 a6 a7 a8 q5 q7 q8 for porsche b9 3.0l turbo housing+chra upgrade stage 2 06m100031t 06m145a01 18539700025 06m100031t   b9" data-price-min="5" data-rating="" data-reviews="0" data-cat="engine" data-band="under-100" data-chassis="B9" data-material="">
-<a class="pimg" href="/factoryplug-catalog/engine/audi-s4-s5-a6-a7-a8-q5-q7-q8-for-porsche-b9-3-0l-turbo-housi.html"><img src="/factoryplug-catalog/assets/img/products/audi-s4-s5-a6-a7-a8-q5-q7-q8-for-porsche-b9-3-0l-turbo-housi/hero.webp" alt="Audi S4 S5 A6 A7 A8 Q5 Q7 Q8 for Porsche B9 3.0L Turbo Housing+CHRA Upgrade Stage 2 06M100031T 06M145A01 18539700025 06M100031T" loading="lazy"></a>
+<article class="prod-card" data-name="stage 2 turbo upgrade (housing + chra) for audi s4/s5 b9 3.0l audi s4 s5 a6 a7 a8 q5 q7 q8 for porsche b9 3.0l turbo housing+chra upgrade stage 2 06m100031t 06m145a01 18539700025 06m100031t   b9" data-price-min="" data-rating="" data-reviews="0" data-cat="engine" data-band="" data-chassis="B9" data-material="">
+<a class="pimg" href="/factoryplug-catalog/engine/audi-s4-s5-a6-a7-a8-q5-q7-q8-for-porsche-b9-3-0l-turbo-housi.html"><img src="/factoryplug-catalog/assets/img/products/audi-s4-s5-a6-a7-a8-q5-q7-q8-for-porsche-b9-3-0l-turbo-housi/hero.webp" alt="Stage 2 Turbo Upgrade (Housing + CHRA) for Audi S4/S5 B9 3.0L" loading="lazy"></a>
 <div class="body">
-<h3><a href="/factoryplug-catalog/engine/audi-s4-s5-a6-a7-a8-q5-q7-q8-for-porsche-b9-3-0l-turbo-housi.html">Audi S4 S5 A6 A7 A8 Q5 Q7 Q8 for Porsche B9 3.0L Turbo Housing+CHRA Upgrade Stage 2 06M100031T 06M145A01 18539700025 06M100031T</a></h3>
-<div class="price"><span class="conv-price" data-min="5" data-max="5" data-cur="USD" data-orig="$5">$5</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
+<h3><a href="/factoryplug-catalog/engine/audi-s4-s5-a6-a7-a8-q5-q7-q8-for-porsche-b9-3-0l-turbo-housi.html">Stage 2 Turbo Upgrade (Housing + CHRA) for Audi S4/S5 B9 3.0L</a></h3>
+<div class="price"><span class="conv-price">See listing</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 piece</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/audi-s4-s5-a6-a7-a8-q5-q7-q8-for-porsche-b9-3-0l-turbo-housi.html">View details &rarr;</a></div>
 </div>
@@ -420,7 +423,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/post-throttle-valve-charge-pipe-kit-for-audi-b9-b9-5-s4-s5-3.html">Post Throttle Valve Charge Pipe Kit For Audi B9/b9.5 S4 S5 3.0t 2017-2024 Engine Turbocharged</a></h3>
 <div class="price"><span class="conv-price" data-min="210" data-max="210" data-cur="USD" data-orig="$210">$210</span></div>
-<div class="meta-row"><span class="chip">MOQ: 10 sets</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">10 sets</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/post-throttle-valve-charge-pipe-kit-for-audi-b9-b9-5-s4-s5-3.html">View details &rarr;</a></div>
 </div>
@@ -431,7 +434,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/suitable-for-audi-b9-c8-rs4-rs5-s4-s5-s6-s7-a6-a7-3-0t-car-m.html">Suitable For Audi B9 C8 Rs4 Rs5 S4 S5 S6 S7 A6 A7 3.0t Car Modification Carbon Fiber Engine Hood Engine Intake System Kit</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/suitable-for-audi-b9-c8-rs4-rs5-s4-s5-s6-s7-a6-a7-3-0t-car-m.html">View details &rarr;</a></div>
 </div>
@@ -442,7 +445,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/post-throttle-valve-charge-pipe-kit-for-audi-b9-b9-5-s4-s5-3-2.html">Post Throttle Valve Charge Pipe Kit For Audi B9/b9.5 S4 S5 3.0t 2017+</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/post-throttle-valve-charge-pipe-kit-for-audi-b9-b9-5-s4-s5-3-2.html">View details &rarr;</a></div>
 </div>
@@ -453,7 +456,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/2015-audi-a4-b9-2-0t-short-for-ram-air-intake-system-aluminu.html">2015+ Audi A4 B9 2.0t Short For Ram Air Intake System Aluminum Cold Air Intake Kit Pipe For Improved Performance Air Filters</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/2015-audi-a4-b9-2-0t-short-for-ram-air-intake-system-aluminu.html">View details &rarr;</a></div>
 </div>
@@ -464,7 +467,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/wholesale-cold-air-intake-kit-pipe-for-b9-audi-a4-allroad-a5.html">Wholesale Cold Air Intake Kit Pipe For B9 Audi A4 Allroad A5 S4 S5 Rs4 Rs5 2.0t/3.0t</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/wholesale-cold-air-intake-kit-pipe-for-b9-audi-a4-allroad-a5.html">View details &rarr;</a></div>
 </div>
@@ -475,7 +478,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/carbon-fiber-cold-air-intake-induction-kit-new-condition-for.html">Carbon Fiber Cold Air Intake Induction Kit New Condition For Audi S4 Rs4 S5 Rs5 B9 3.0t</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/carbon-fiber-cold-air-intake-induction-kit-new-condition-for.html">View details &rarr;</a></div>
 </div>
@@ -486,7 +489,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/high-flow-aluminum-racing-intercooler-for-audi-rs4-b9-avant.html">High Flow Aluminum Racing Intercooler For Audi Rs4 B9 Avant Rs5 F5 Coupe Sportback Direct Fit Water</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/high-flow-aluminum-racing-intercooler-for-audi-rs4-b9-avant.html">View details &rarr;</a></div>
 </div>
@@ -497,7 +500,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/high-flow-aluminum-racing-intercooler-kit-for-audi-s4-b9-s5.html">High Flow Aluminum Racing Intercooler Kit For Audi S4 B9 S5 F5 Ea839 3.0t More Volume</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/high-flow-aluminum-racing-intercooler-kit-for-audi-s4-b9-s5.html">View details &rarr;</a></div>
 </div>
@@ -508,7 +511,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/performance-air-to-water-intercooler-charge-pipe-kit-for-aud.html">Performance Air-to-water Intercooler &amp; Charge Pipe Kit For Audi Rs4 B9 Rs5 F5 2.9 Tfsi Ea839 Engine</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/performance-air-to-water-intercooler-charge-pipe-kit-for-aud.html">View details &rarr;</a></div>
 </div>
@@ -519,7 +522,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/heavy-duty-aluminum-auxiliary-cooling-kit-for-audi-rs4-b9-rs.html">Heavy Duty Aluminum Auxiliary Cooling Kit For Audi Rs4 B9 Rs5 F5 2.9t V6 Masterpiece Performance</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/heavy-duty-aluminum-auxiliary-cooling-kit-for-audi-rs4-b9-rs.html">View details &rarr;</a></div>
 </div>
@@ -529,7 +532,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/carbon-fiber-for-audi-a3-a4-b9-a5-rs3-rs4-rs5-s3-s4-s5-rs6-r.html">Carbon Fiber For Audi A3 A4 B9 A5 Rs3 Rs4 Rs5 S3 S4 S5 Rs6 Rs7 A6 A7 A8 Q3 Q5 Q7 Q8 Tt R8 Complete</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/carbon-fiber-for-audi-a3-a4-b9-a5-rs3-rs4-rs5-s3-s4-s5-rs6-r.html">View details &rarr;</a></div>
 </div>
@@ -540,7 +543,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/large-quantities-carbon-fiber-steering-wheel-stock-for-audi.html">Large Quantities Carbon Fiber Steering Wheel Stock For Audi Q5 A8 S5 A3 S5 B9 Rs5 S4 A1 S3</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/large-quantities-carbon-fiber-steering-wheel-stock-for-audi.html">View details &rarr;</a></div>
 </div>
@@ -551,7 +554,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/car-steering-wheel-for-audi-rs3-8y-s3-8p-rsq8-a1-8x-rs4-b8-s.html">Car Steering Wheel For Audi Rs3 8y S3 8p Rsq8 A1 8x Rs4 B8 Sq8 B8.5 Q5 A7 A4 B9 Rs6 Rs7 S4 Carbon Fiber</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/car-steering-wheel-for-audi-rs3-8y-s3-8p-rsq8-a1-8x-rs4-b8-s.html">View details &rarr;</a></div>
 </div>
@@ -561,19 +564,20 @@ and VIN directly with the supplier contact before buying.</p>
 <a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
 </section>
 <footer class="site"><div class="wrap"><div class="cols">
-<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
-<div><b style="color:var(--text)">Catalog</b><br>
+<div><b style="color:#F5F5F2">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:#F5F5F2">Catalog</b><br>
 <a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
-<div><b style="color:var(--text)">More</b><br>
+<div><b style="color:#F5F5F2">More</b><br>
 <a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
-<div><b style="color:var(--text)">Trust</b><br>
+<div><b style="color:#F5F5F2">Trust</b><br>
 <a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
-<div><b style="color:var(--text)">Follow Conroy</b><br>
+<div><b style="color:#F5F5F2">Follow Conroy</b><br>
 <a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
-<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+<span style="font-size:.85rem;color:#9AA1A9">Want more info? Follow me here.</span></div>
 </div>
 <small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
-Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+Contact: <a href="mailto:support@thefactoryplug.com">support@thefactoryplug.com</a> · 3939 Castro Valley Blvd #1051, Castro Valley, CA 94546 · or DM <a href="https://www.instagram.com/royblinge90" target="_blank" rel="noopener">@royblinge90 on Instagram</a>.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b><br>
 &copy; 2026 FactoryPlug. All rights reserved.</small>
 </div></footer>
 </body>

@@ -12,11 +12,14 @@
 <meta property="og:title" content="BMW M2 (F87) Parts (2016–2021) — 36 Parts | FactoryPlug">
 <meta property="og:description" content="Every BMW M2 (F87) (2016–2021) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
 <meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/f87/">
-<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="BMW M2 (F87) Parts (2016–2021) — 36 Parts | FactoryPlug">
 <meta name="twitter:description" content="Every BMW M2 (F87) (2016–2021) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
-<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
+<link rel="icon" type="image/png" href="/factoryplug-catalog/assets/img/brand/favicon.png">
+<link rel="apple-touch-icon" href="/factoryplug-catalog/assets/img/brand/app-icon-512.png">
+<link rel="manifest" href="/factoryplug-catalog/site.webmanifest">
 <link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
 <script src="/factoryplug-catalog/assets/fx.js" defer></script>
 <script src="/factoryplug-catalog/assets/search.js" defer></script>
@@ -39,9 +42,9 @@
   var ind = document.getElementById('garage-indicator');
   var g = load();
   if (g && g.code && ind) {
-    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
     ind.classList.remove('hidden');
     var c = document.getElementById('garage-clear');
     if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -150,9 +153,9 @@
       save({ code: code, make: v.make, label: label });
       g = load();
       if (ind) {
-        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
         ind.classList.remove('hidden');
         var cc = document.getElementById('garage-clear');
         if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -233,13 +236,13 @@
 })();
 </script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "BMW M2 (F87) Parts (2016\u20132021)", "description": "Every BMW M2 (F87) compatible part in the FactoryPlug catalog."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#organization", "name": "FactoryPlug", "alternateName": ["TheFactoryPlug", "The Factory Plug", "The Factory Plug Directory", "thefactoryplug.com"], "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "disambiguatingDescription": "FactoryPlug (thefactoryplug.com) is a verified B2B direct-to-factory manufacturer directory and global supply-chain intelligence platform indexing 3,800+ vetted automotive parts supplier listings from OEM and ODM manufacturers. Distinct from automotive engine block freeze plugs or expansion plugs.", "knowsAbout": ["Direct-to-factory sourcing", "OEM and ODM manufacturer verification", "Forged wheels", "Big brake kits", "Carbon fiber aero parts", "Titanium exhaust systems", "Alibaba supplier listings"], "logo": {"@type": "ImageObject", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#logo", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/app-icon-512.png"}, "image": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/logo-lockup.png", "sameAs": ["https://x.com/royblinge90"], "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@thefactoryplug.com"}}</script>
 </head>
 <body>
 <header class="site"><div class="wrap nav">
-<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<a class="logo" href="/factoryplug-catalog/"><img src="/factoryplug-catalog/assets/img/brand/logo-lockup.png" alt="FactoryPlug" height="40"></a>
 <nav>
-<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
 </nav>
 </div></header>
 <section class="content-sec"><div class="wrap-narrow">
@@ -259,19 +262,19 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/wheels/e88-forged-3-piece-wheels-for-bmw-e90-e46-m3-e60-e92-f10-f80.html">E88 Forged 3 Piece Wheels For BMW E90 E46 M3 E60 E92 F10 F80 F87 M2 18 19 Inch Custom 5x120 Double</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/wheels/e88-forged-3-piece-wheels-for-bmw-e90-e46-m3-e60-e92-f10-f80.html">View details &rarr;</a></div>
 </div>
 </article>
 
-<article class="prod-card" data-name="mn forged frozen gold 1000m wheels for bmw f87 f80 f82 f83 f90 g87 g80 g81 g82 g83 g90 m2 m3 m4 m5 rims (forged rims &amp; monoblock wheels) mn forged frozen gold 1000m wheels for bmw f87 f80 f82 f83 f90 g87 g80 g81 g82 g83 g90 m2 m3 m4 m5 rims (forged rims &amp; monoblock wheels) maining forged wheels co., ltd. — 4.7/5  f87 f80 f82 f83 f90 g87 g80 g81 g82 g83 g90" data-price-min="4" data-rating="4.7" data-reviews="359" data-cat="wheels" data-band="under-100" data-chassis="F87 F80 F82 F83 F90 G87 G80 G81 G82 G83 G90" data-material="">
-<a class="pimg" href="/factoryplug-catalog/wheels/mn-forged-frozen-gold-1000m-wheels-for-bmw-f87-f80-f82-f83-f.html"><img src="/factoryplug-catalog/assets/img/products/mn-forged-frozen-gold-1000m-wheels-for-bmw-f87-f80-f82-f83-f/hero.jpg" alt="MN Forged Frozen Gold 1000M Wheels for BMW F87 F80 F82 F83 F90 G87 G80 G81 G82 G83 G90 M2 M3 M4 M5 Rims (Forged Rims &amp; Monoblock Wheels)" loading="lazy"></a>
+<article class="prod-card" data-name="mn forged 1000m wheels for bmw m2/m3/m4/m5 — frozen gold mn forged frozen gold 1000m wheels for bmw f87 f80 f82 f83 f90 g87 g80 g81 g82 g83 g90 m2 m3 m4 m5 rims (forged rims &amp; monoblock wheels) maining forged wheels co., ltd.  f87 f80 f82 f83 f90 g87 g80 g81 g82 g83 g90" data-price-min="282" data-rating="4.7" data-reviews="359" data-cat="wheels" data-band="100-300" data-chassis="F87 F80 F82 F83 F90 G87 G80 G81 G82 G83 G90" data-material="">
+<a class="pimg" href="/factoryplug-catalog/wheels/mn-forged-frozen-gold-1000m-wheels-for-bmw-f87-f80-f82-f83-f.html"><img src="/factoryplug-catalog/assets/img/products/mn-forged-frozen-gold-1000m-wheels-for-bmw-f87-f80-f82-f83-f/hero.jpg" alt="MN Forged 1000M Wheels for BMW M2/M3/M4/M5 — Frozen Gold" loading="lazy"></a>
 <div class="body">
-<h3><a href="/factoryplug-catalog/wheels/mn-forged-frozen-gold-1000m-wheels-for-bmw-f87-f80-f82-f83-f.html">MN Forged Frozen Gold 1000M Wheels for BMW F87 F80 F82 F83 F90 G87 G80 G81 G82 G83 G90 M2 M3 M4 M5 Rims (Forged Rims &amp; Monoblock Wheels)</a></h3>
-<div class="price"><span class="conv-price" data-min="4" data-max="400" data-cur="USD" data-orig="$282–$352/piece (tiered: $352 for 4–39 pcs, $322 for 40–399, $282 for 400+; sample $332)">$282–$352/piece (tiered: $352 for 4–39 pcs, $322 for 40–399, $282 for 400+; sample $332)</span></div>
-<div class="meta-row"><span class="chip">MOQ: 4 pieces</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.7 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:94%">★★★★★</span></span> · Made by Maining Forged Wheels Co., Ltd. — 4.7/5 · <b>4.7</b> · 359 ratings</div>
+<h3><a href="/factoryplug-catalog/wheels/mn-forged-frozen-gold-1000m-wheels-for-bmw-f87-f80-f82-f83-f.html">MN Forged 1000M Wheels for BMW M2/M3/M4/M5 — Frozen Gold</a></h3>
+<div class="price"><span class="conv-price" data-min="282" data-max="352" data-cur="USD" data-orig="$282–352">$282–352</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">4 pieces</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.7 out of 5">[★ 4.7]</span> · Made by Maining Forged Wheels Co., Ltd. · 359 ratings</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/wheels/mn-forged-frozen-gold-1000m-wheels-for-bmw-f87-f80-f82-f83-f.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -280,7 +283,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/brakes/front-brake-carbon-cooling-air-duct-plate-kit-for-bm-f87-m2.html">Front Brake Carbon Cooling Air Duct Plate Kit For Bm F87 M2 M2c M2 Competition</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/brakes/front-brake-carbon-cooling-air-duct-plate-kit-for-bm-f87-m2.html">View details &rarr;</a></div>
 </div>
@@ -290,7 +293,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/1-ss304-for-m2c-m2-competition-f87-s55-performance-exhaust-d.html">1 Ss304 For M2c M2 Competition F87 S55 Performance Exhaust Downpipe With Opf For BMW Exhaust Pipes</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/1-ss304-for-m2c-m2-competition-f87-s55-performance-exhaust-d.html">View details &rarr;</a></div>
 </div>
@@ -301,7 +304,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/titanium-exhaust-pipe-for-bmw-m2c-m2-competition-f87-3-0t-20.html">Titanium Exhaust Pipe For BMW M2c/m2 Competition F87 3.0t 2018-2023 Valvetronic Muffler Catback</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/titanium-exhaust-pipe-for-bmw-m2c-m2-competition-f87-3-0t-20.html">View details &rarr;</a></div>
 </div>
@@ -312,7 +315,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/oem-straight-exhaust-pipes-for-bmw-m2c-m2-competition-f87-s5.html">Oem Straight Exhaust Pipes For BMW M2c M2 Competition F87 S55 3.0t 2018-2023 Racing 304 Stainless</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/oem-straight-exhaust-pipes-for-bmw-m2c-m2-competition-f87-s5.html">View details &rarr;</a></div>
 </div>
@@ -323,7 +326,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/racing-downpipe-for-bmw-f80-m3-2015-2019-f82-m4-s55-2021-f87.html">Racing Downpipe For BMW F80 M3 2015-2019 F82 M4 S55 2021+ F87 M2 2021+ S55 304 Stainless Steel</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/racing-downpipe-for-bmw-f80-m3-2015-2019-f82-m4-s55-2021-f87.html">View details &rarr;</a></div>
 </div>
@@ -334,7 +337,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/wholesale-low-prices-for-bmw-f80-m3-f82-m4-f87-m2-s55-downpi.html">Wholesale Low Prices For BMW F80 M3 F82 M4 F87 M2 S55 Downpipe Miidpipe Oil Cooler Skid Plate Intercooler Air Intake Kit</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/wholesale-low-prices-for-bmw-f80-m3-f82-m4-f87-m2-s55-downpi.html">View details &rarr;</a></div>
 </div>
@@ -345,7 +348,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/evo1-intercooler-downpipe-for-bmw-f22-f32-f33-435xi-435i-m23.html">Evo1 Intercooler + Downpipe For BMW F22 F32 F33 435xi 435i M235i M235xi 2013+ Ewg F87 M2 2016+</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/evo1-intercooler-downpipe-for-bmw-f22-f32-f33-435xi-435i-m23.html">View details &rarr;</a></div>
 </div>
@@ -355,19 +358,19 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/2016-2021-f87-bmw-m2-dry-carbon-fiber-side-skirts-kb-style-p.html">2016-2021 F87 BMW M2 Dry Carbon Fiber Side Skirts - KB Style, Pre-preg | Rockers &amp; Side Splitters</a></h3>
 <div class="price"><span class="conv-price" data-min="575" data-max="676" data-cur="USD" data-orig="$575–$676">$575–$676</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 piece</span></span></div>
 <div class="psupplier">Made by <a href="/factoryplug-catalog/manufacturers/karbel-automotive-technology.html">Karbel Automotive Technology</a></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/2016-2021-f87-bmw-m2-dry-carbon-fiber-side-skirts-kb-style-p.html">View details &rarr;</a></div>
 </div>
 </article>
 
-<article class="prod-card" data-name="oem m2 m2c mtc carbon fiber side skirt for bmw m2c m2 f87 side fender side skirt oem m2 m2c mtc carbon fiber side skirt for bmw m2c m2 f87 side fender side skirt   f87" data-price-min="" data-rating="" data-reviews="0" data-cat="carbon" data-band="" data-chassis="F87" data-material="Carbon fiber">
+<article class="prod-card" data-name="oem m2 m2c mtc carbon fiber side skirt for bmw m2c m2 f87 side fender side skirt oem m2 m2c mtc carbon fiber side skirt for bmw m2c m2 f87 side fender side skirt guangzhou mingchi international trade co., ltd.  f87" data-price-min="220" data-rating="4.6" data-reviews="0" data-cat="carbon" data-band="100-300" data-chassis="F87" data-material="Carbon fiber">
 <a class="pimg" href="/factoryplug-catalog/carbon/oem-m2-m2c-mtc-carbon-fiber-side-skirt-for-bmw-m2c-m2-f87-si.html"><img src="/factoryplug-catalog/assets/img/products/oem-m2-m2c-mtc-carbon-fiber-side-skirt-for-bmw-m2c-m2-f87-si/hero.webp" alt="Oem M2 M2c Mtc Carbon Fiber Side Skirt For BMW M2c M2 F87 Side Fender Side Skirt" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/oem-m2-m2c-mtc-carbon-fiber-side-skirt-for-bmw-m2c-m2-f87-si.html">Oem M2 M2c Mtc Carbon Fiber Side Skirt For BMW M2c M2 F87 Side Fender Side Skirt</a></h3>
-<div class="price"><span class="conv-price">See listing</span></div>
-
-<div class="psupplier"></div>
+<div class="price"><span class="conv-price" data-min="220" data-max="240" data-cur="USD" data-orig="$220–240">$220–240</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.6 out of 5">[★ 4.6]</span> · Made by <a href="/factoryplug-catalog/manufacturers/guangzhou-mingchi-international-trade-co-ltd.html">Guangzhou Mingchi International Trade Co., Ltd.</a></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/oem-m2-m2c-mtc-carbon-fiber-side-skirt-for-bmw-m2c-m2-f87-si.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -377,7 +380,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/carbon-fiber-intake-for-bmw-m2-f87-m3-f80-m4-f82-s55-er-styl.html">Carbon Fiber Intake For BMW M2 F87 M3 F80 M4 F82 S55 Er Style Gloss Black</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/carbon-fiber-intake-for-bmw-m2-f87-m3-f80-m4-f82-s55-er-styl.html">View details &rarr;</a></div>
 </div>
@@ -388,7 +391,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/rsc-style-dry-carbon-race-wing-rear-spoiler-for-f87-m2-m2c-f.html">Rsc Style Dry Carbon Race Wing Rear Spoiler For F87 M2 M2c F22 M240</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/rsc-style-dry-carbon-race-wing-rear-spoiler-for-f87-m2-m2c-f.html">View details &rarr;</a></div>
 </div>
@@ -399,7 +402,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/cs-style-carbon-fibre-front-engine-hood-bonnet-for-bmw-m2-f8.html">Cs Style Carbon Fibre Front Engine Hood Bonnet For BMW M2 F87 2016+</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/cs-style-carbon-fibre-front-engine-hood-bonnet-for-bmw-m2-f8.html">View details &rarr;</a></div>
 </div>
@@ -410,7 +413,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/gts-style-carbon-fiber-hood-bonnet-for-bmw-f22-f23-f87-m2-m2.html">GTS Style Carbon Fiber Hood Bonnet For BMW F22 F23 F87 M2 M2C 2014-2018</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/gts-style-carbon-fiber-hood-bonnet-for-bmw-f22-f23-f87-m2-m2.html">View details &rarr;</a></div>
 </div>
@@ -421,7 +424,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/original-vehicle-data-developed-for-bmw-m2-f87-front-bumper.html">Original Vehicle Data-developed For BMW M2 F87 Front Bumper With Clear Patterns Real Dry Carbon Fiber</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/original-vehicle-data-developed-for-bmw-m2-f87-front-bumper.html">View details &rarr;</a></div>
 </div>
@@ -432,7 +435,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/quality-assurance-mp-style-carbon-fiber-side-fender-fit-for.html">Quality Assurance Mp Style Carbon Fiber Side Fender Fit For F87 M2 M2c Fender</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/quality-assurance-mp-style-carbon-fiber-side-fender-fit-for.html">View details &rarr;</a></div>
 </div>
@@ -443,7 +446,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/high-quality-double-side-carbon-fiber-doors-for-f87-m2-m2c.html">High Quality Double Side Carbon Fiber Doors For F87 M2 M2c</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/high-quality-double-side-carbon-fiber-doors-for-f87-m2-m2c.html">View details &rarr;</a></div>
 </div>
@@ -454,7 +457,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/high-quality-dry-carbon-rsc-front-bumper-lip-for-bmw-f87-m2.html">High Quality Dry Carbon Rsc Front Bumper Lip For BMW F87 M2</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/high-quality-dry-carbon-rsc-front-bumper-lip-for-bmw-f87-m2.html">View details &rarr;</a></div>
 </div>
@@ -464,7 +467,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/rearview-lamp-led-dynamic-turn-signal-lights-for-bmw-1-f20-f.html">Rearview Lamp Led Dynamic Turn Signal Lights For BMW 1 F20 F21 2 F22 F23 F87 3 F30 F31 F34 F35 4 X1 I3 Indicators Blinker</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/rearview-lamp-led-dynamic-turn-signal-lights-for-bmw-1-f20-f.html">View details &rarr;</a></div>
 </div>
@@ -474,7 +477,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/jt-pc44-high-performance-side-mounted-radiator-for-bmw-f80-f.html">JT-PC44 High Performance Side Mounted Radiator for BMW F80 F83 F87 M3 M4 M2 S55, Aluminum Direct Fit</a></h3>
 <div class="price"><span class="conv-price" data-min="289.01" data-max="289.01" data-cur="USD" data-orig="$289.01">$289.01</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 unit</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 unit</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/jt-pc44-high-performance-side-mounted-radiator-for-bmw-f80-f.html">View details &rarr;</a></div>
 </div>
@@ -485,7 +488,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/cold-shield-air-intake-for-bmw-f30-335i-2012-2016-f87-m2-per.html">Cold Shield Air Intake For BMW F30 335i 2012-2016 F87 M2 Performance Cold Air Intake Induction</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/cold-shield-air-intake-for-bmw-f30-335i-2012-2016-f87-m2-per.html">View details &rarr;</a></div>
 </div>
@@ -496,7 +499,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/s55-titanium-charge-pipe-for-bmw-f80-m3-f82-f83-m4-f87-m2c-l.html">S55 Titanium Charge Pipe For BMW F80 M3 F82 F83 M4 F87 M2c Lci 3.0t</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/s55-titanium-charge-pipe-for-bmw-f80-m3-f82-f83-m4-f87-m2c-l.html">View details &rarr;</a></div>
 </div>
@@ -507,7 +510,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/s55-engine-titanium-charge-pipe-with-jpipe-for-bmw-f80-m3-f8.html">S55 Engine Titanium Charge Pipe With Jpipe For BMW F80 M3 F82 M4 F80 M3 Lci F83 M4 Lci F87 M2c Lci</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/s55-engine-titanium-charge-pipe-with-jpipe-for-bmw-f80-m3-f8.html">View details &rarr;</a></div>
 </div>
@@ -518,7 +521,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/fupower-for-bmw-f-series-n55-f87-front-mount-air-intake-zsf.html">Fupower For BMW F-series N55 F87 Front Mount Air Intake Zsf</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/fupower-for-bmw-f-series-n55-f87-front-mount-air-intake-zsf.html">View details &rarr;</a></div>
 </div>
@@ -529,7 +532,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/carbon-fiber-air-intake-system-for-bmw-m3-m4-s55-2015-2018-f.html">Carbon Fiber Air Intake System For BMW M3 M4 S55 2015-2018 F80 M3 Sedan F82 M4 Coupe F83 M4 Convertible F87 M2 Competition</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/carbon-fiber-air-intake-system-for-bmw-m3-m4-s55-2015-2018-f.html">View details &rarr;</a></div>
 </div>
@@ -540,7 +543,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/for-bmw-f2x-f3x-f87-bmw-135i-ix-m235i-ix-m2-335i-ix-435i-ix.html">For BMW F2x/f3x/f87 BMW 135i/ix,M235i/ix,M2,335i/ix,435i/ix N55 3.0l Air Intake Kit With Heat Shield</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/for-bmw-f2x-f3x-f87-bmw-135i-ix-m235i-ix-m2-335i-ix-435i-ix.html">View details &rarr;</a></div>
 </div>
@@ -551,7 +554,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/kyostar-for-bmw-m2-f87-m3-f80-m4-f82-f83-s55-3-0l-2015-2019.html">Kyostar For BMW M2 F87 M3 F80 M4 F82 F83 S55 3.0l 2015-2019 Inc. Competition Gts Model High-flow Titanium Cold Air Intake</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/kyostar-for-bmw-m2-f87-m3-f80-m4-f82-f83-s55-3-0l-2015-2019.html">View details &rarr;</a></div>
 </div>
@@ -562,7 +565,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/cold-air-intake-system-for-bmw-f30-f32-f87-335i-435i-m235i-m.html">Cold Air Intake System For BMW F30 F32 F87 335i 435i M235i M2 N55 Xdrive Gt 3.0</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/cold-air-intake-system-for-bmw-f30-f32-f87-335i-435i-m235i-m.html">View details &rarr;</a></div>
 </div>
@@ -573,7 +576,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/complete-intercooler-with-charge-pipe-turbo-inlet-pipe-kit-f.html">Complete Intercooler With Charge Pipe &amp; Turbo Inlet Pipe Kit For BMW S55 F80 M3 F82 M4 F87</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/complete-intercooler-with-charge-pipe-turbo-inlet-pipe-kit-f.html">View details &rarr;</a></div>
 </div>
@@ -584,7 +587,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/high-performance-front-mount-heat-exchanger-for-bmw-s55-f80.html">High Performance Front Mount Heat Exchanger For BMW S55 F80 M3 F82 M4 F87 M2c</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/high-performance-front-mount-heat-exchanger-for-bmw-s55-f80.html">View details &rarr;</a></div>
 </div>
@@ -595,18 +598,18 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/new-stock-front-mount-heat-exchanger-upgrade-for-m2c-m3-m4-f.html">New Stock Front Mount Heat Exchanger Upgrade For M2c,M3,M4 F80/f82/f87 S55 2015-2019</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/new-stock-front-mount-heat-exchanger-upgrade-for-m2c-m3-m4-f.html">View details &rarr;</a></div>
 </div>
 </article>
-</div><div class="sec-head"><h2 class="sec">Interior Accessories (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="leather + carbon fiber d-shape sport steering wheel for bmw g20 g22 g28 g29 f87 g80 f82 f83 g30 g31 g32 g38 g11 g12 g01 g02 g05 g06 f90 | steering wheels leather + carbon fiber d-shape sport steering wheel for bmw g20 g22 g28 g29 f87 g80 f82 f83 g30 g31 g32 g38 g11 g12 g01 g02 g05 g06 f90 | steering wheels jiangmen chichuang automotive parts co., ltd.  g20 g22 g28 g29 f87 g80 f82 f83 g30 g32 g38 g11 g12 g01 g02 g05 g06 f90" data-price-min="1" data-rating="4.6" data-reviews="0" data-cat="interior" data-band="under-100" data-chassis="G20 G22 G28 G29 F87 G80 F82 F83 G30 G32 G38 G11 G12 G01 G02 G05 G06 F90" data-material="Carbon fiber">
-<a class="pimg" href="/factoryplug-catalog/interior/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2.html"><img src="/factoryplug-catalog/assets/img/products/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2/hero.jpg" alt="Leather + Carbon Fiber D-Shape Sport Steering Wheel for BMW G20 G22 G28 G29 F87 G80 F82 F83 G30 G31 G32 G38 G11 G12 G01 G02 G05 G06 F90 | Steering Wheels" loading="lazy"></a>
+</div><div class="sec-head"><h2 class="sec">Interior Accessories (2)</h2></div><div class="prod-grid"><article class="prod-card" data-name="carbon fiber d-shape steering wheel for bmw g20/g30 &amp; more — leather leather + carbon fiber d-shape sport steering wheel for bmw g20 g22 g28 g29 f87 g80 f82 f83 g30 g31 g32 g38 g11 g12 g01 g02 g05 g06 f90 | steering wheels jiangmen chichuang automotive parts co., ltd.  g20 g22 g28 g29 f87 g80 f82 f83 g30 g32 g38 g11 g12 g01 g02 g05 g06 f90" data-price-min="270" data-rating="4.6" data-reviews="0" data-cat="interior" data-band="100-300" data-chassis="G20 G22 G28 G29 F87 G80 F82 F83 G30 G32 G38 G11 G12 G01 G02 G05 G06 F90" data-material="Carbon fiber">
+<a class="pimg" href="/factoryplug-catalog/interior/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2.html"><img src="/factoryplug-catalog/assets/img/products/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2/hero.jpg" alt="Carbon Fiber D-Shape Steering Wheel for BMW G20/G30 &amp; More — Leather" loading="lazy"></a>
 <div class="body">
-<h3><a href="/factoryplug-catalog/interior/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2.html">Leather + Carbon Fiber D-Shape Sport Steering Wheel for BMW G20 G22 G28 G29 F87 G80 F82 F83 G30 G31 G32 G38 G11 G12 G01 G02 G05 G06 F90 | Steering Wheels</a></h3>
-<div class="price"><span class="conv-price" data-min="1" data-max="270" data-cur="USD" data-orig="$270 (1–14 pcs)">$270 (1–14 pcs)</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.6 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:92%">★★★★★</span></span> · Made by Jiangmen Chichuang Automotive Parts Co., Ltd. · <b>4.6</b></div>
+<h3><a href="/factoryplug-catalog/interior/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2.html">Carbon Fiber D-Shape Steering Wheel for BMW G20/G30 &amp; More — Leather</a></h3>
+<div class="price"><span class="conv-price" data-min="270" data-max="270" data-cur="USD" data-orig="$270 (1–14 pcs)">$270 (1–14 pcs)</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 piece</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.6 out of 5">[★ 4.6]</span> · Made by Jiangmen Chichuang Automotive Parts Co., Ltd.</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/leather-carbon-fiber-d-shape-sport-steering-wheel-for-bmw-g2.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -616,7 +619,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/half-alcantara-purple-forged-carbon-led-steering-wheel-for-f.html">Half Alcantara Purple Forged Carbon Led Steering Wheel For F10 F30 F32 F36 M3 F80 M4 F82 M2 F87 X5</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/half-alcantara-purple-forged-carbon-led-steering-wheel-for-f.html">View details &rarr;</a></div>
 </div>
@@ -626,7 +629,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exterior/bonoss-wheel-spacers-for-bmw-g80-m3-g82-m4-f87-m2-comp-g87-m.html">Bonoss Wheel Spacers For BMW G80 M3 G82 M4 F87 M2 Comp G87 M2 G20 G28 330i M340i F90 M5 7075-t6 Forged Al Alloy 5x112 Cb66.5</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exterior/bonoss-wheel-spacers-for-bmw-g80-m3-g82-m4-f87-m2-comp-g87-m.html">View details &rarr;</a></div>
 </div>
@@ -636,19 +639,20 @@ and VIN directly with the supplier contact before buying.</p>
 <a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
 </section>
 <footer class="site"><div class="wrap"><div class="cols">
-<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
-<div><b style="color:var(--text)">Catalog</b><br>
+<div><b style="color:#F5F5F2">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:#F5F5F2">Catalog</b><br>
 <a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
-<div><b style="color:var(--text)">More</b><br>
+<div><b style="color:#F5F5F2">More</b><br>
 <a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
-<div><b style="color:var(--text)">Trust</b><br>
+<div><b style="color:#F5F5F2">Trust</b><br>
 <a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
-<div><b style="color:var(--text)">Follow Conroy</b><br>
+<div><b style="color:#F5F5F2">Follow Conroy</b><br>
 <a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
-<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+<span style="font-size:.85rem;color:#9AA1A9">Want more info? Follow me here.</span></div>
 </div>
 <small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
-Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+Contact: <a href="mailto:support@thefactoryplug.com">support@thefactoryplug.com</a> · 3939 Castro Valley Blvd #1051, Castro Valley, CA 94546 · or DM <a href="https://www.instagram.com/royblinge90" target="_blank" rel="noopener">@royblinge90 on Instagram</a>.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b><br>
 &copy; 2026 FactoryPlug. All rights reserved.</small>
 </div></footer>
 </body>

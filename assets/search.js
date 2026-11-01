@@ -27,6 +27,10 @@
      then per-category shards stream in and FPSearch.onShard fires so live
      results refresh as each shard arrives. Phones never block on one giant
      JSON download/parse. */
+  /* indexComplete: false while category shards are still streaming in.
+     Consumers must show a "searching" state — never a false "no matches" —
+     until every shard has settled (Tier-2 fix, 2026-11-01). */
+  var indexComplete = false;
   function loadIndex() {
     if (cache) return Promise.resolve(cache);
     return fetch(fpUrl("/search-index-manifest.json")).then(function (r) { return r.json(); })
@@ -34,14 +38,26 @@
         return fetch(fpUrl(m.core)).then(function (r) { return r.json(); })
           .then(function (core) {
             cache = core.slice();
-            (m.shards || []).forEach(function (shard) {
+            var shards = m.shards || [];
+            if (!shards.length) { indexComplete = true; }
+            var pending = shards.length;
+            function shardDone() {
+              pending -= 1;
+              if (pending <= 0 && !indexComplete) {
+                indexComplete = true;
+                if (window.FPSearch && window.FPSearch.onShard) {
+                  try { window.FPSearch.onShard(cache); } catch (e) {}
+                }
+              }
+            }
+            shards.forEach(function (shard) {
               fetch(fpUrl(shard)).then(function (r) { return r.json(); })
                 .then(function (docs) {
                   cache = cache.concat(docs);
                   if (window.FPSearch && window.FPSearch.onShard) {
                     try { window.FPSearch.onShard(cache); } catch (e) {}
                   }
-                }).catch(function () {});
+                }).catch(function () {}).then(shardDone);
             });
             return cache;
           });
@@ -124,6 +140,7 @@
   window.FPSearch = {
     loadIndex: loadIndex, score: score, wordsOf: wordsOf,
     highlight: highlight, resultRow: resultRow, liveItem: liveItem, esc: esc,
-    url: fpUrl, onShard: null
+    url: fpUrl, onShard: null,
+    indexComplete: function () { return indexComplete; }
   };
 })();

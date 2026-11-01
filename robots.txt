@@ -1,3 +1,8 @@
 User-agent: *
 Allow: /
+
+# Block Meta's AI training crawler (meta-externalagent)
+User-agent: meta-externalagent
+Disallow: /
+
 Sitemap: https://conroyd372-pixel.github.io/factoryplug-catalog/sitemap.xml

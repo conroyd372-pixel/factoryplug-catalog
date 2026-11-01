@@ -12,11 +12,14 @@
 <meta property="og:title" content="BMW 3 Series Touring (F31) Parts (2013–2019) — 16 Parts | FactoryPlug">
 <meta property="og:description" content="Every BMW 3 Series Touring (F31) (2013–2019) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
 <meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/f31/">
-<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="BMW 3 Series Touring (F31) Parts (2013–2019) — 16 Parts | FactoryPlug">
 <meta name="twitter:description" content="Every BMW 3 Series Touring (F31) (2013–2019) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
-<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
+<link rel="icon" type="image/png" href="/factoryplug-catalog/assets/img/brand/favicon.png">
+<link rel="apple-touch-icon" href="/factoryplug-catalog/assets/img/brand/app-icon-512.png">
+<link rel="manifest" href="/factoryplug-catalog/site.webmanifest">
 <link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
 <script src="/factoryplug-catalog/assets/fx.js" defer></script>
 <script src="/factoryplug-catalog/assets/search.js" defer></script>
@@ -39,9 +42,9 @@
   var ind = document.getElementById('garage-indicator');
   var g = load();
   if (g && g.code && ind) {
-    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
     ind.classList.remove('hidden');
     var c = document.getElementById('garage-clear');
     if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -150,9 +153,9 @@
       save({ code: code, make: v.make, label: label });
       g = load();
       if (ind) {
-        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
         ind.classList.remove('hidden');
         var cc = document.getElementById('garage-clear');
         if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -233,13 +236,13 @@
 })();
 </script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "BMW 3 Series Touring (F31) Parts (2013\u20132019)", "description": "Every BMW 3 Series Touring (F31) compatible part in the FactoryPlug catalog."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#organization", "name": "FactoryPlug", "alternateName": ["TheFactoryPlug", "The Factory Plug", "The Factory Plug Directory", "thefactoryplug.com"], "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "disambiguatingDescription": "FactoryPlug (thefactoryplug.com) is a verified B2B direct-to-factory manufacturer directory and global supply-chain intelligence platform indexing 3,800+ vetted automotive parts supplier listings from OEM and ODM manufacturers. Distinct from automotive engine block freeze plugs or expansion plugs.", "knowsAbout": ["Direct-to-factory sourcing", "OEM and ODM manufacturer verification", "Forged wheels", "Big brake kits", "Carbon fiber aero parts", "Titanium exhaust systems", "Alibaba supplier listings"], "logo": {"@type": "ImageObject", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#logo", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/app-icon-512.png"}, "image": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/logo-lockup.png", "sameAs": ["https://x.com/royblinge90"], "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@thefactoryplug.com"}}</script>
 </head>
 <body>
 <header class="site"><div class="wrap nav">
-<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<a class="logo" href="/factoryplug-catalog/"><img src="/factoryplug-catalog/assets/img/brand/logo-lockup.png" alt="FactoryPlug" height="40"></a>
 <nav>
-<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
 </nav>
 </div></header>
 <section class="content-sec"><div class="wrap-narrow">
@@ -254,13 +257,13 @@ category. 16 parts and counting.</p>
 and VIN directly with the supplier contact before buying.</p>
 </div></section>
 <section class="content-sec" style="max-width:none">
-<div class="sec-head"><h2 class="sec">Exhaust Systems (4)</h2></div><div class="prod-grid"><article class="prod-card" data-name="car exhaust pipes downpipe for bmw b48 2.0t 120i 125i f20 f21 220 230 f22 f23 330i 320i f31 f34 420 430i f33 f36 with insulation car exhaust pipes downpipe for bmw b48 2.0t 120i 125i f20 f21 220 230 f22 f23 330i 320i f31 f34 420 430i f33 f36 with insulation guangzhou shengyi auto supplies co., ltd.  f20 f21 f22 f23 f31 f34 f33 f36" data-price-min="10" data-rating="4.5" data-reviews="0" data-cat="exhaust" data-band="under-100" data-chassis="F20 F21 F22 F23 F31 F34 F33 F36" data-material="">
-<a class="pimg" href="/factoryplug-catalog/exhaust/car-exhaust-pipes-downpipe-for-bmw-b48-2-0t-120i-125i-f20-f2.html"><img src="/factoryplug-catalog/assets/img/products/car-exhaust-pipes-downpipe-for-bmw-b48-2-0t-120i-125i-f20-f2/hero.png" alt="Car Exhaust Pipes Downpipe for BMW B48 2.0T 120i 125i F20 F21 220 230 F22 F23 330i 320i F31 F34 420 430i F33 F36 With Insulation" loading="lazy"></a>
+<div class="sec-head"><h2 class="sec">Exhaust Systems (4)</h2></div><div class="prod-grid"><article class="prod-card" data-name="downpipe for bmw b48 2.0t — 1/2/3/4 series (f20/f22/f31/f33), insulated car exhaust pipes downpipe for bmw b48 2.0t 120i 125i f20 f21 220 230 f22 f23 330i 320i f31 f34 420 430i f33 f36 with insulation guangzhou shengyi auto supplies co., ltd.  f20 f21 f22 f23 f31 f34 f33 f36" data-price-min="110.7" data-rating="4.5" data-reviews="0" data-cat="exhaust" data-band="100-300" data-chassis="F20 F21 F22 F23 F31 F34 F33 F36" data-material="">
+<a class="pimg" href="/factoryplug-catalog/exhaust/car-exhaust-pipes-downpipe-for-bmw-b48-2-0t-120i-125i-f20-f2.html"><img src="/factoryplug-catalog/assets/img/products/car-exhaust-pipes-downpipe-for-bmw-b48-2-0t-120i-125i-f20-f2/hero.png" alt="Downpipe for BMW B48 2.0T — 1/2/3/4 Series (F20/F22/F31/F33), Insulated" loading="lazy"></a>
 <div class="body">
-<h3><a href="/factoryplug-catalog/exhaust/car-exhaust-pipes-downpipe-for-bmw-b48-2-0t-120i-125i-f20-f2.html">Car Exhaust Pipes Downpipe for BMW B48 2.0T 120i 125i F20 F21 220 230 F22 F23 330i 320i F31 F34 420 430i F33 F36 With Insulation</a></h3>
-<div class="price"><span class="conv-price" data-min="10" data-max="123" data-cur="USD" data-orig="$110.70 ($123, 10% off)">$110.70 ($123, 10% off)</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.5 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:90%">★★★★★</span></span> · Made by Guangzhou Shengyi Auto Supplies Co., Ltd. · <b>4.5</b></div>
+<h3><a href="/factoryplug-catalog/exhaust/car-exhaust-pipes-downpipe-for-bmw-b48-2-0t-120i-125i-f20-f2.html">Downpipe for BMW B48 2.0T — 1/2/3/4 Series (F20/F22/F31/F33), Insulated</a></h3>
+<div class="price"><span class="conv-price" data-min="110.7" data-max="123" data-cur="USD" data-orig="$110.70 ($123, 10% off)">$110.70 ($123, 10% off)</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 piece</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.5 out of 5">[★ 4.5]</span> · Made by Guangzhou Shengyi Auto Supplies Co., Ltd.</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/car-exhaust-pipes-downpipe-for-bmw-b48-2-0t-120i-125i-f20-f2.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -270,7 +273,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/catback-exhaust-muffler-for-bmw-335i-340i-gt-f30-f31-f34-3-0.html">Catback Exhaust Muffler For BMW 335i/340i Gt F30/f31/f34 3.0t 2012-2016 Stainless Steel Exhaust</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/catback-exhaust-muffler-for-bmw-335i-340i-gt-f30-f31-f34-3-0.html">View details &rarr;</a></div>
 </div>
@@ -281,7 +284,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/kyostar-cat-back-valvetronic-exhaust-system-for-f30-f31-f32.html">Kyostar Cat-back Valvetronic Exhaust System For F30 F31 F32 F33 F34 N20 2.0t (4 Tips)</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/kyostar-cat-back-valvetronic-exhaust-system-for-f30-f31-f32.html">View details &rarr;</a></div>
 </div>
@@ -292,7 +295,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/wholesale-high-quality-evo2-intercooler-downpipe-for-m135i-2.html">Wholesale High Quality Evo2 Intercooler+downpipe For M135i 235i 335i 435i F20 F21 F22 F30 F31 F32</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/wholesale-high-quality-evo2-intercooler-downpipe-for-m135i-2.html">View details &rarr;</a></div>
 </div>
@@ -302,8 +305,8 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/xlstyling-car-carbon-fiber-mp-m-performance-kit-front-bumper.html">XLstyling Car Carbon Fiber MP M Performance Kit Front Bumper Splitter Spoiler Lip Rear Diffuser for BMW F30 F31 F32 F33</a></h3>
 <div class="price"><span class="conv-price" data-min="800" data-max="800" data-cur="USD" data-orig="$800/set">$800/set</span></div>
-<div class="meta-row"><span class="chip">MOQ: 2 sets</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.7 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:94%">★★★★★</span></span> · Made by Ningbo Xing Lun Industry Co., Ltd. · <b>4.7</b></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">2 sets</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.7 out of 5">[★ 4.7]</span> · Made by Ningbo Xing Lun Industry Co., Ltd.</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/xlstyling-car-carbon-fiber-mp-m-performance-kit-front-bumper.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -313,7 +316,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/carbon-fiber-side-view-m-look-wing-mirror-covers-for-bmw-f20.html">Carbon Fiber Side View M Look Wing Mirror Covers For BMW F20 F22 F30 F31 F35 F34 F32 F33 F36 E84</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/carbon-fiber-side-view-m-look-wing-mirror-covers-for-bmw-f20.html">View details &rarr;</a></div>
 </div>
@@ -323,7 +326,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/rearview-lamp-led-dynamic-turn-signal-lights-for-bmw-1-f20-f.html">Rearview Lamp Led Dynamic Turn Signal Lights For BMW 1 F20 F21 2 F22 F23 F87 3 F30 F31 F34 F35 4 X1 I3 Indicators Blinker</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/rearview-lamp-led-dynamic-turn-signal-lights-for-bmw-1-f20-f.html">View details &rarr;</a></div>
 </div>
@@ -333,7 +336,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/suspension/adjustable-control-arm-rear-camber-kits-for-bmw-f30-f35-f20.html">Adjustable Control Arm Rear Camber Kits For BMW F30 F35 F20 F21 F22 F31 F34 F36 Car Lower Tie Rod</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/adjustable-control-arm-rear-camber-kits-for-bmw-f30-f35-f20.html">View details &rarr;</a></div>
 </div>
@@ -343,7 +346,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/silver-aluminum-zf8hp45-transmission-oil-pan-for-bmw-f10-f18.html">Silver Aluminum ZF8HP45 Transmission Oil Pan for BMW F10 F18 F20 F21 F30 F31</a></h3>
 <div class="price"><span class="conv-price" data-min="230.7" data-max="230.7" data-cur="USD" data-orig="$230.70">$230.70</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 piece</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 piece</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/silver-aluminum-zf8hp45-transmission-oil-pan-for-bmw-f10-f18.html">View details &rarr;</a></div>
 </div>
@@ -354,7 +357,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/for-bmw-f10-f18-f20-f21-f30-f31-forged-aluminum-alloy-oil-pa.html">For BMW F10 F18 F20 F21 F30 F31 Forged Aluminum Alloy Oil Pan ZF8HP45</a></h3>
 <div class="price"><span class="conv-price" data-min="230.7" data-max="230.7" data-cur="USD" data-orig="$230.70">$230.70</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/for-bmw-f10-f18-f20-f21-f30-f31-forged-aluminum-alloy-oil-pa.html">View details &rarr;</a></div>
 </div>
@@ -365,7 +368,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/b58-gen1-turbo-inlet-pipe-upgrade-for-bmw-2014-2019-models-f.html">B58 Gen1 Turbo Inlet Pipe Upgrade For BMW 2014-2019 Models F20 F21 F22 F23 M140i M240i F30 F31 F34 340i F32 F33 F34 Engine Parts</a></h3>
 <div class="price"><span class="conv-price" data-min="80" data-max="90" data-cur="USD" data-orig="$90-$85-$80">$80–$90-$80</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/b58-gen1-turbo-inlet-pipe-upgrade-for-bmw-2014-2019-models-f.html">View details &rarr;</a></div>
 </div>
@@ -376,7 +379,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/coolant-water-pump-11517583836-11518635092-suitable-for-bmw.html">Coolant Water Pump 11517583836,11518635092 Suitable For BMW N52 Engine Cooling Electric Water Pump F20 F22 F30 F31 F34 F35 F10</a></h3>
 <div class="price"><span class="conv-price" data-min="57" data-max="69" data-cur="USD" data-orig="$69-$57">$57–$69</span></div>
-<div class="meta-row"><span class="chip">MOQ: 5 pieces</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">5 pieces</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/coolant-water-pump-11517583836-11518635092-suitable-for-bmw.html">View details &rarr;</a></div>
 </div>
@@ -387,7 +390,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/f20-f30-b58-3-0t-charge-pipe-f22-f23-f31-f32-f33-f34-f36-for.html">F20 F30 B58 3.0t Charge Pipe,F22 F23 F31 F32 F33 F34 F36 For BMW Charge Pipe</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/f20-f30-b58-3-0t-charge-pipe-f22-f23-f31-f32-f33-f34-f36-for.html">View details &rarr;</a></div>
 </div>
@@ -397,7 +400,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/shasha-carbon-car-interior-accessories-real-carbon-fiber-car.html">Shasha Carbon Car Interior Accessories Real Carbon Fiber Car Dashboard Trim For BMW F30 F31 F34 F33</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/shasha-carbon-car-interior-accessories-real-carbon-fiber-car.html">View details &rarr;</a></div>
 </div>
@@ -408,7 +411,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/f30-interior-upgrade-matte-carbon-fiber-interior-trim-for-bm.html">F30 Interior Upgrade Matte Carbon Fiber Interior Trim For BMW F30 F31 F32 F36 Lhd</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/f30-interior-upgrade-matte-carbon-fiber-interior-trim-for-bm.html">View details &rarr;</a></div>
 </div>
@@ -418,7 +421,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/electronics/kanor-lcd-auto-speedometer-retrofit-for-bmw-3-4-series-f30-f.html">Kanor Lcd Auto Speedometer Retrofit For BMW 3 4 Series F30 F31 F32 F33 F36 Apple Carplay Digital</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/electronics/kanor-lcd-auto-speedometer-retrofit-for-bmw-3-4-series-f30-f.html">View details &rarr;</a></div>
 </div>
@@ -428,19 +431,20 @@ and VIN directly with the supplier contact before buying.</p>
 <a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
 </section>
 <footer class="site"><div class="wrap"><div class="cols">
-<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
-<div><b style="color:var(--text)">Catalog</b><br>
+<div><b style="color:#F5F5F2">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:#F5F5F2">Catalog</b><br>
 <a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
-<div><b style="color:var(--text)">More</b><br>
+<div><b style="color:#F5F5F2">More</b><br>
 <a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
-<div><b style="color:var(--text)">Trust</b><br>
+<div><b style="color:#F5F5F2">Trust</b><br>
 <a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
-<div><b style="color:var(--text)">Follow Conroy</b><br>
+<div><b style="color:#F5F5F2">Follow Conroy</b><br>
 <a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
-<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+<span style="font-size:.85rem;color:#9AA1A9">Want more info? Follow me here.</span></div>
 </div>
 <small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
-Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+Contact: <a href="mailto:support@thefactoryplug.com">support@thefactoryplug.com</a> · 3939 Castro Valley Blvd #1051, Castro Valley, CA 94546 · or DM <a href="https://www.instagram.com/royblinge90" target="_blank" rel="noopener">@royblinge90 on Instagram</a>.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b><br>
 &copy; 2026 FactoryPlug. All rights reserved.</small>
 </div></footer>
 </body>

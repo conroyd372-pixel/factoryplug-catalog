@@ -12,11 +12,14 @@
 <meta property="og:title" content="BMW M2 (G87) Parts (2023+) — 37 Parts | FactoryPlug">
 <meta property="og:description" content="Every BMW M2 (G87) (2023+) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
 <meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/g87/">
-<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="BMW M2 (G87) Parts (2023+) — 37 Parts | FactoryPlug">
 <meta name="twitter:description" content="Every BMW M2 (G87) (2023+) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
-<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
+<link rel="icon" type="image/png" href="/factoryplug-catalog/assets/img/brand/favicon.png">
+<link rel="apple-touch-icon" href="/factoryplug-catalog/assets/img/brand/app-icon-512.png">
+<link rel="manifest" href="/factoryplug-catalog/site.webmanifest">
 <link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
 <script src="/factoryplug-catalog/assets/fx.js" defer></script>
 <script src="/factoryplug-catalog/assets/search.js" defer></script>
@@ -39,9 +42,9 @@
   var ind = document.getElementById('garage-indicator');
   var g = load();
   if (g && g.code && ind) {
-    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
     ind.classList.remove('hidden');
     var c = document.getElementById('garage-clear');
     if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -150,9 +153,9 @@
       save({ code: code, make: v.make, label: label });
       g = load();
       if (ind) {
-        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
         ind.classList.remove('hidden');
         var cc = document.getElementById('garage-clear');
         if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -233,13 +236,13 @@
 })();
 </script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "BMW M2 (G87) Parts (2023+)", "description": "Every BMW M2 (G87) compatible part in the FactoryPlug catalog."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#organization", "name": "FactoryPlug", "alternateName": ["TheFactoryPlug", "The Factory Plug", "The Factory Plug Directory", "thefactoryplug.com"], "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "disambiguatingDescription": "FactoryPlug (thefactoryplug.com) is a verified B2B direct-to-factory manufacturer directory and global supply-chain intelligence platform indexing 3,800+ vetted automotive parts supplier listings from OEM and ODM manufacturers. Distinct from automotive engine block freeze plugs or expansion plugs.", "knowsAbout": ["Direct-to-factory sourcing", "OEM and ODM manufacturer verification", "Forged wheels", "Big brake kits", "Carbon fiber aero parts", "Titanium exhaust systems", "Alibaba supplier listings"], "logo": {"@type": "ImageObject", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#logo", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/app-icon-512.png"}, "image": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/logo-lockup.png", "sameAs": ["https://x.com/royblinge90"], "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@thefactoryplug.com"}}</script>
 </head>
 <body>
 <header class="site"><div class="wrap nav">
-<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<a class="logo" href="/factoryplug-catalog/"><img src="/factoryplug-catalog/assets/img/brand/logo-lockup.png" alt="FactoryPlug" height="40"></a>
 <nav>
-<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
 </nav>
 </div></header>
 <section class="content-sec"><div class="wrap-narrow">
@@ -259,61 +262,61 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/wheels/g87-g80-g82-bmw-m2-m3-m4-custom-forged-monoblock-wheels-t606.html">G87/G80/G82 BMW M2/M3/M4 Custom Forged Monoblock Wheels - T6061 Aluminum, 18-20 Inch, 5x120, Deep Concave | Rims &amp; Mags</a></h3>
 <div class="price"><span class="conv-price" data-min="132" data-max="288" data-cur="USD" data-orig="$132–$288">$132–$288</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 piece</span><span class="chip hot">120 sold</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.7 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:94%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/nanjing-qiusheng-technology-co-ltd.html">Nanjing Qiusheng Technology Co., Ltd.</a> · <b>4.7</b> · 120 transactions</div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 piece</span></span> <span class="spec-cell hot"><span class="spec-label">Sold</span> <span class="spec-value">120</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.7 out of 5">[★ 4.7 · 120 TXNS]</span> · Made by <a href="/factoryplug-catalog/manufacturers/nanjing-qiusheng-technology-co-ltd.html">Nanjing Qiusheng Technology Co., Ltd.</a></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/wheels/g87-g80-g82-bmw-m2-m3-m4-custom-forged-monoblock-wheels-t606.html">View details &rarr;</a></div>
 </div>
 </article>
 
-<article class="prod-card" data-name="custom 827m forged wheel satin bronze stronger and lightweight high quality forged alloy wheels for bmw m3 g80 m4 g82 g83 m2 g87 custom 827m forged wheel satin bronze stronger and lightweight high quality forged alloy wheels for bmw m3 g80 m4 g82 g83 m2 g87 ningbo pinjia import &amp; export co., ltd., 5 yrs, 4.7/5  g80 g82 g83 g87" data-price-min="4" data-rating="4.7" data-reviews="0" data-cat="wheels" data-band="under-100" data-chassis="G80 G82 G83 G87" data-material="">
-<a class="pimg" href="/factoryplug-catalog/wheels/custom-827m-forged-wheel-satin-bronze-stronger-and-lightweig.html"><img src="/factoryplug-catalog/assets/img/products/custom-827m-forged-wheel-satin-bronze-stronger-and-lightweig/hero.jpg" alt="Custom 827M Forged Wheel Satin Bronze STRONGER and LIGHTWEIGHT High Quality Forged Alloy Wheels for BMW M3 G80 M4 G82 G83 M2 G87" loading="lazy"></a>
+<article class="prod-card" data-name="827m forged wheel for bmw m3 (g80), m4 (g82), m2 (g87) — satin bronze custom 827m forged wheel satin bronze stronger and lightweight high quality forged alloy wheels for bmw m3 g80 m4 g82 g83 m2 g87 ningbo pinjia import &amp; export co., ltd., 5 yrs, 4.7/5  g80 g82 g83 g87" data-price-min="260" data-rating="4.7" data-reviews="0" data-cat="wheels" data-band="100-300" data-chassis="G80 G82 G83 G87" data-material="">
+<a class="pimg" href="/factoryplug-catalog/wheels/custom-827m-forged-wheel-satin-bronze-stronger-and-lightweig.html"><img src="/factoryplug-catalog/assets/img/products/custom-827m-forged-wheel-satin-bronze-stronger-and-lightweig/hero.jpg" alt="827M Forged Wheel for BMW M3 (G80), M4 (G82), M2 (G87) — Satin Bronze" loading="lazy"></a>
 <div class="body">
-<h3><a href="/factoryplug-catalog/wheels/custom-827m-forged-wheel-satin-bronze-stronger-and-lightweig.html">Custom 827M Forged Wheel Satin Bronze STRONGER and LIGHTWEIGHT High Quality Forged Alloy Wheels for BMW M3 G80 M4 G82 G83 M2 G87</a></h3>
-<div class="price"><span class="conv-price" data-min="4" data-max="350" data-cur="USD" data-orig="$260/piece (4-11), $350/piece (12-24)">$260/piece (4-11), $350/piece (12-24)</span></div>
-<div class="meta-row"><span class="chip">MOQ: 4 pieces</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.7 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:94%">★★★★★</span></span> · Made by Ningbo Pinjia Import &amp; Export Co., Ltd., 5 yrs, 4.7/5 · <b>4.7</b></div>
+<h3><a href="/factoryplug-catalog/wheels/custom-827m-forged-wheel-satin-bronze-stronger-and-lightweig.html">827M Forged Wheel for BMW M3 (G80), M4 (G82), M2 (G87) — Satin Bronze</a></h3>
+<div class="price"><span class="conv-price" data-min="260" data-max="350" data-cur="USD" data-orig="$260/piece (4-11), $350/piece (12-24)">$260/piece (4-11), $350/piece (12-24)</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">4 pieces</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.7 out of 5">[★ 4.7]</span> · Made by Ningbo Pinjia Import &amp; Export Co., Ltd., 5 yrs, 4.7/5</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/wheels/custom-827m-forged-wheel-satin-bronze-stronger-and-lightweig.html">View details &rarr;</a></div>
 </div>
 </article>
 
-<article class="prod-card" data-name="mn forged wheels for bmw e90 e92 f80 f82 g87 g80 g82 g83 f90 g90 m2 m3 m4 m5 5x112 5x120 lightweight deep concave rims (model ra-12) mn forged wheels for bmw e90 e92 f80 f82 g87 g80 g82 g83 f90 g90 m2 m3 m4 m5 5x112 5x120 lightweight deep concave rims (model ra-12) maining forged wheels co., ltd., 4 yrs, 4.7/5  e90 e92 f80 f82 g87 g80 g82 g83 f90 g90" data-price-min="4" data-rating="4.7" data-reviews="0" data-cat="wheels" data-band="under-100" data-chassis="E90 E92 F80 F82 G87 G80 G82 G83 F90 G90" data-material="">
-<a class="pimg" href="/factoryplug-catalog/wheels/mn-forged-wheels-for-bmw-e90-e92-f80-f82-g87-g80-g82-g83-f90.html"><img src="/factoryplug-catalog/assets/img/products/mn-forged-wheels-for-bmw-e90-e92-f80-f82-g87-g80-g82-g83-f90/hero.png" alt="MN Forged Wheels for BMW E90 E92 F80 F82 G87 G80 G82 G83 F90 G90 M2 M3 M4 M5 5x112 5x120 Lightweight Deep Concave Rims (Model RA-12)" loading="lazy"></a>
+<article class="prod-card" data-name="mn forged wheels for bmw m2/m3/m4/m5 — lightweight deep-concave, 5x112/5x120 mn forged wheels for bmw e90 e92 f80 f82 g87 g80 g82 g83 f90 g90 m2 m3 m4 m5 5x112 5x120 lightweight deep concave rims (model ra-12) maining forged wheels co., ltd., 4 yrs, 4.7/5  e90 e92 f80 f82 g87 g80 g82 g83 f90 g90" data-price-min="188" data-rating="4.7" data-reviews="0" data-cat="wheels" data-band="100-300" data-chassis="E90 E92 F80 F82 G87 G80 G82 G83 F90 G90" data-material="">
+<a class="pimg" href="/factoryplug-catalog/wheels/mn-forged-wheels-for-bmw-e90-e92-f80-f82-g87-g80-g82-g83-f90.html"><img src="/factoryplug-catalog/assets/img/products/mn-forged-wheels-for-bmw-e90-e92-f80-f82-g87-g80-g82-g83-f90/hero.png" alt="MN Forged Wheels for BMW M2/M3/M4/M5 — Lightweight Deep-Concave, 5x112/5x120" loading="lazy"></a>
 <div class="body">
-<h3><a href="/factoryplug-catalog/wheels/mn-forged-wheels-for-bmw-e90-e92-f80-f82-g87-g80-g82-g83-f90.html">MN Forged Wheels for BMW E90 E92 F80 F82 G87 G80 G82 G83 F90 G90 M2 M3 M4 M5 5x112 5x120 Lightweight Deep Concave Rims (Model RA-12)</a></h3>
-<div class="price"><span class="conv-price" data-min="4" data-max="258" data-cur="USD" data-orig="$258/piece (4-19), $228 (20-79), $188 (80+)">$258/piece (4-19), $228 (20-79), $188 (80+)</span></div>
-<div class="meta-row"><span class="chip">MOQ: 4 pieces</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.7 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:94%">★★★★★</span></span> · Made by Maining Forged Wheels Co., Ltd., 4 yrs, 4.7/5 · <b>4.7</b></div>
+<h3><a href="/factoryplug-catalog/wheels/mn-forged-wheels-for-bmw-e90-e92-f80-f82-g87-g80-g82-g83-f90.html">MN Forged Wheels for BMW M2/M3/M4/M5 — Lightweight Deep-Concave, 5x112/5x120</a></h3>
+<div class="price"><span class="conv-price" data-min="188" data-max="258" data-cur="USD" data-orig="$258/piece (4-19), $228 (20-79), $188 (80+)">$258/piece (4-19), $228 (20-79), $188 (80+)</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">4 pieces</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.7 out of 5">[★ 4.7]</span> · Made by Maining Forged Wheels Co., Ltd., 4 yrs, 4.7/5</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/wheels/mn-forged-wheels-for-bmw-e90-e92-f80-f82-g87-g80-g82-g83-f90.html">View details &rarr;</a></div>
 </div>
 </article>
 
-<article class="prod-card" data-name="mn forged frozen gold 1000m wheels for bmw f87 f80 f82 f83 f90 g87 g80 g81 g82 g83 g90 m2 m3 m4 m5 rims (forged rims &amp; monoblock wheels) mn forged frozen gold 1000m wheels for bmw f87 f80 f82 f83 f90 g87 g80 g81 g82 g83 g90 m2 m3 m4 m5 rims (forged rims &amp; monoblock wheels) maining forged wheels co., ltd. — 4.7/5  f87 f80 f82 f83 f90 g87 g80 g81 g82 g83 g90" data-price-min="4" data-rating="4.7" data-reviews="359" data-cat="wheels" data-band="under-100" data-chassis="F87 F80 F82 F83 F90 G87 G80 G81 G82 G83 G90" data-material="">
-<a class="pimg" href="/factoryplug-catalog/wheels/mn-forged-frozen-gold-1000m-wheels-for-bmw-f87-f80-f82-f83-f.html"><img src="/factoryplug-catalog/assets/img/products/mn-forged-frozen-gold-1000m-wheels-for-bmw-f87-f80-f82-f83-f/hero.jpg" alt="MN Forged Frozen Gold 1000M Wheels for BMW F87 F80 F82 F83 F90 G87 G80 G81 G82 G83 G90 M2 M3 M4 M5 Rims (Forged Rims &amp; Monoblock Wheels)" loading="lazy"></a>
+<article class="prod-card" data-name="mn forged 1000m wheels for bmw m2/m3/m4/m5 — frozen gold mn forged frozen gold 1000m wheels for bmw f87 f80 f82 f83 f90 g87 g80 g81 g82 g83 g90 m2 m3 m4 m5 rims (forged rims &amp; monoblock wheels) maining forged wheels co., ltd.  f87 f80 f82 f83 f90 g87 g80 g81 g82 g83 g90" data-price-min="282" data-rating="4.7" data-reviews="359" data-cat="wheels" data-band="100-300" data-chassis="F87 F80 F82 F83 F90 G87 G80 G81 G82 G83 G90" data-material="">
+<a class="pimg" href="/factoryplug-catalog/wheels/mn-forged-frozen-gold-1000m-wheels-for-bmw-f87-f80-f82-f83-f.html"><img src="/factoryplug-catalog/assets/img/products/mn-forged-frozen-gold-1000m-wheels-for-bmw-f87-f80-f82-f83-f/hero.jpg" alt="MN Forged 1000M Wheels for BMW M2/M3/M4/M5 — Frozen Gold" loading="lazy"></a>
 <div class="body">
-<h3><a href="/factoryplug-catalog/wheels/mn-forged-frozen-gold-1000m-wheels-for-bmw-f87-f80-f82-f83-f.html">MN Forged Frozen Gold 1000M Wheels for BMW F87 F80 F82 F83 F90 G87 G80 G81 G82 G83 G90 M2 M3 M4 M5 Rims (Forged Rims &amp; Monoblock Wheels)</a></h3>
-<div class="price"><span class="conv-price" data-min="4" data-max="400" data-cur="USD" data-orig="$282–$352/piece (tiered: $352 for 4–39 pcs, $322 for 40–399, $282 for 400+; sample $332)">$282–$352/piece (tiered: $352 for 4–39 pcs, $322 for 40–399, $282 for 400+; sample $332)</span></div>
-<div class="meta-row"><span class="chip">MOQ: 4 pieces</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.7 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:94%">★★★★★</span></span> · Made by Maining Forged Wheels Co., Ltd. — 4.7/5 · <b>4.7</b> · 359 ratings</div>
+<h3><a href="/factoryplug-catalog/wheels/mn-forged-frozen-gold-1000m-wheels-for-bmw-f87-f80-f82-f83-f.html">MN Forged 1000M Wheels for BMW M2/M3/M4/M5 — Frozen Gold</a></h3>
+<div class="price"><span class="conv-price" data-min="282" data-max="352" data-cur="USD" data-orig="$282–352">$282–352</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">4 pieces</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.7 out of 5">[★ 4.7]</span> · Made by Maining Forged Wheels Co., Ltd. · 359 ratings</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/wheels/mn-forged-frozen-gold-1000m-wheels-for-bmw-f87-f80-f82-f83-f.html">View details &rarr;</a></div>
 </div>
 </article>
-</div><div class="sec-head"><h2 class="sec">Exhaust Systems (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="boska 1 with z pipe equal length mid pipe for bmw m2 m3 m4 g80 g82 g87 g8x 3.0t s58 2021-2024 valvetronic exhaust pipe boska 1 ss304 with z pipe equal length mid pipe for bmw m2 m3 m4 g80 g82 g87 g8x 3.0t s58 2021-2024 valvetronic exhaust pipe jiangxi boska trading co., ltd., 6 yrs, custom manufacturer, ganzhou cn, 4.8/5, intertek verified  g80 g82 g87" data-price-min="599" data-rating="4.8" data-reviews="0" data-cat="exhaust" data-band="300-600" data-chassis="G80 G82 G87" data-material="">
-<a class="pimg" href="/factoryplug-catalog/exhaust/boska-1-ss304-with-z-pipe-equal-length-mid-pipe-for-bmw-m2-m.html"><img src="/factoryplug-catalog/assets/img/products/boska-1-ss304-with-z-pipe-equal-length-mid-pipe-for-bmw-m2-m/hero.jpg" alt="BOSKA 1 With Z Pipe Equal Length Mid Pipe for BMW M2 M3 M4 G80 G82 G87 G8X 3.0T S58 2021-2024 Valvetronic Exhaust Pipe" loading="lazy"></a>
+</div><div class="sec-head"><h2 class="sec">Exhaust Systems (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="equal-length mid-pipe for bmw m2/m3/m4 (s58) 2021–2024 — valvetronic boska 1 ss304 with z pipe equal length mid pipe for bmw m2 m3 m4 g80 g82 g87 g8x 3.0t s58 2021-2024 valvetronic exhaust pipe jiangxi boska trading co., ltd., 6 yrs, custom manufacturer, ganzhou cn, 4.8/5, intertek  g80 g82 g87" data-price-min="599" data-rating="4.8" data-reviews="0" data-cat="exhaust" data-band="300-600" data-chassis="G80 G82 G87" data-material="">
+<a class="pimg" href="/factoryplug-catalog/exhaust/boska-1-ss304-with-z-pipe-equal-length-mid-pipe-for-bmw-m2-m.html"><img src="/factoryplug-catalog/assets/img/products/boska-1-ss304-with-z-pipe-equal-length-mid-pipe-for-bmw-m2-m/hero.jpg" alt="Equal-Length Mid-Pipe for BMW M2/M3/M4 (S58) 2021–2024 — Valvetronic" loading="lazy"></a>
 <div class="body">
-<h3><a href="/factoryplug-catalog/exhaust/boska-1-ss304-with-z-pipe-equal-length-mid-pipe-for-bmw-m2-m.html">BOSKA 1 With Z Pipe Equal Length Mid Pipe for BMW M2 M3 M4 G80 G82 G87 G8X 3.0T S58 2021-2024 Valvetronic Exhaust Pipe</a></h3>
+<h3><a href="/factoryplug-catalog/exhaust/boska-1-ss304-with-z-pipe-equal-length-mid-pipe-for-bmw-m2-m.html">Equal-Length Mid-Pipe for BMW M2/M3/M4 (S58) 2021–2024 — Valvetronic</a></h3>
 <div class="price"><span class="conv-price" data-min="599" data-max="599" data-cur="USD" data-orig="$599 / set">$599 / set</span></div>
-<div class="meta-row"><span class="chip">MOQ: Min. order: 1 set</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.8 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:96%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/jiangxi-boska-trading-co-ltd.html">Jiangxi Boska Trading Co., Ltd., 6 yrs, Custom Manufacturer, Ganzhou CN, 4.8/5, Intertek verified</a> · <b>4.8</b></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.8 out of 5">[★ 4.8]</span> · Made by <a href="/factoryplug-catalog/manufacturers/jiangxi-boska-trading-co-ltd.html">Jiangxi Boska Trading Co., Ltd., 6 yrs, Custom Manufacturer, Ganzhou CN, 4.8/5, Intertek</a></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/boska-1-ss304-with-z-pipe-equal-length-mid-pipe-for-bmw-m2-m.html">View details &rarr;</a></div>
 </div>
 </article>
-</div><div class="sec-head"><h2 class="sec">Aerodynamics &amp; Exterior (17)</h2><a class="more" href="/factoryplug-catalog/carbon/">More Aerodynamics &amp; Exterior →</a></div><div class="prod-grid"><article class="prod-card" data-name="g80/g82/g87 bmw m3/m4/m2 2023+ carbon fiber replacement mirror covers | mirror caps &amp; mirror shells g80/g82/g87 bmw m3/m4/m2 2023+ carbon fiber replacement mirror covers | mirror caps &amp; mirror shells guangdong carbonss tuning co., ltd.  g80 g82 g87" data-price-min="2" data-rating="4.5" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="G80 G82 G87" data-material="Carbon fiber">
+</div><div class="sec-head"><h2 class="sec">Aerodynamics &amp; Exterior (17)</h2><a class="more" href="/factoryplug-catalog/carbon/">More Aerodynamics &amp; Exterior →</a></div><div class="prod-grid"><article class="prod-card" data-name="g80/g82/g87 bmw m3/m4/m2 2023+ carbon fiber replacement mirror covers | mirror caps &amp; mirror shells g80/g82/g87 bmw m3/m4/m2 2023+ carbon fiber replacement mirror covers | mirror caps &amp; mirror shells guangdong carbonss tuning co., ltd.  g80 g82 g87" data-price-min="84" data-rating="4.5" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="G80 G82 G87" data-material="Carbon fiber">
 <a class="pimg" href="/factoryplug-catalog/carbon/g80-g82-g87-bmw-m3-m4-m2-2023-carbon-fiber-replacement-mirro.html"><span class="win-badge">Winning</span><img src="/factoryplug-catalog/assets/img/products/g80-g82-g87-bmw-m3-m4-m2-2023-carbon-fiber-replacement-mirro/hero.webp" alt="G80/G82/G87 BMW M3/M4/M2 2023+ Carbon Fiber Replacement Mirror Covers | Mirror Caps &amp; Mirror Shells" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/g80-g82-g87-bmw-m3-m4-m2-2023-carbon-fiber-replacement-mirro.html">G80/G82/G87 BMW M3/M4/M2 2023+ Carbon Fiber Replacement Mirror Covers | Mirror Caps &amp; Mirror Shells</a></h3>
-<div class="price"><span class="conv-price" data-min="2" data-max="106.4" data-cur="USD" data-orig="$106.40 (2–4 sets) / $89.60 (5–19) / $84.00 (≥20)">$106.40 (2–4 sets) / $89.60 (5–19) / $84.00 (≥20)</span></div>
-<div class="meta-row"><span class="chip">MOQ: 2 sets</span><span class="chip hot">37 sold</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.5 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:90%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/guangdong-carbonss-tuning-co-ltd.html">Guangdong Carbonss Tuning Co., Ltd.</a> · <b>4.5</b> · 37 transactions</div>
+<div class="price"><span class="conv-price" data-min="84" data-max="106.4" data-cur="USD" data-orig="$106.40 (2–4 sets) / $89.60 (5–19) / $84.00 (≥20)">$106.40 (2–4 sets) / $89.60 (5–19) / $84.00 (≥20)</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">2 sets</span></span> <span class="spec-cell hot"><span class="spec-label">Sold</span> <span class="spec-value">37</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.5 out of 5">[★ 4.5 · 37 TXNS]</span> · Made by <a href="/factoryplug-catalog/manufacturers/guangdong-carbonss-tuning-co-ltd.html">Guangdong Carbonss Tuning Co., Ltd.</a></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/g80-g82-g87-bmw-m3-m4-m2-2023-carbon-fiber-replacement-mirro.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -323,8 +326,8 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/g42-g20-g22-g26-g87-g82-g81-bmw-dry-carbon-fiber-antenna-cov.html">G42/G20/G22/G26/G87/G82/G81 BMW Dry Carbon Fiber Antenna Cover - Shark Fin Roof Trim | Fin Cover &amp; Roof Antenna Trim</a></h3>
 <div class="price"><span class="conv-price" data-min="20" data-max="25" data-cur="USD" data-orig="$20-25">$20-25</span></div>
-<div class="meta-row"><span class="chip">MOQ: 2 sets</span><span class="chip hot">17 sold</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="5.0 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:100%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/guangzhou-dcr-tuning-trade-company-limited.html">Guangzhou Dcr Tuning Trade Company Limited</a> · <b>5.0</b> · 17 transactions</div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">2 sets</span></span> <span class="spec-cell hot"><span class="spec-label">Sold</span> <span class="spec-value">17</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 5.0 out of 5">[★ 5.0 · 17 TXNS]</span> · Made by <a href="/factoryplug-catalog/manufacturers/guangzhou-dcr-tuning-trade-company-limited.html">Guangzhou Dcr Tuning Trade Company Limited</a></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/g42-g20-g22-g26-g87-g82-g81-bmw-dry-carbon-fiber-antenna-cov.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -334,8 +337,8 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/2023-2024-g87-bmw-m2-carbon-fiber-side-skirts-rocker-panels.html">2023-2024 G87 BMW M2 Carbon Fiber Side Skirts - Rocker Panels | Rockers &amp; Side Splitters</a></h3>
 <div class="price"><span class="conv-price" data-min="261" data-max="387" data-cur="USD" data-orig="$261–$387">$261–$387</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span><span class="chip hot">6 sold</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.8 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:96%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/jc-sportline-auto-parts-co-ltd.html">Jc Sportline Auto Parts Co., Ltd.</a> · <b>4.8</b> · 6 transactions</div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span> <span class="spec-cell hot"><span class="spec-label">Sold</span> <span class="spec-value">6</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.8 out of 5">[★ 4.8 · 6 TXNS]</span> · Made by <a href="/factoryplug-catalog/manufacturers/jc-sportline-auto-parts-co-ltd.html">Jc Sportline Auto Parts Co., Ltd.</a></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/2023-2024-g87-bmw-m2-carbon-fiber-side-skirts-rocker-panels.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -345,7 +348,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/carbon-fiber-engine-cover-for-bmw-m3-g80-m4-g82-s58-m2-g87-2.html">Carbon Fiber Engine Cover For BMW M3 G80 M4 G82 S58 M2 G87 2021+</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/carbon-fiber-engine-cover-for-bmw-m3-g80-m4-g82-s58-m2-g87-2.html">View details &rarr;</a></div>
 </div>
@@ -356,7 +359,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/bmw-g80-g82-g83-g87-2021-carbon-fiber-rear-view-mirror-cover.html">BMW G80 G82 G83 G87 2021+ Carbon Fiber Rear View Mirror Cover Replacement Bodykit Lhd Rhd</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/bmw-g80-g82-g83-g87-2021-carbon-fiber-rear-view-mirror-cover.html">View details &rarr;</a></div>
 </div>
@@ -367,7 +370,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/oem-style-100-real-dry-carbon-fiber-front-bumper-lower-grill.html">Oem Style 100% Real Dry Carbon Fiber Front Bumper Lower Grill Kit For BMW G87 M2 2023+ Car Lower Grille Cover</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/oem-style-100-real-dry-carbon-fiber-front-bumper-lower-grill.html">View details &rarr;</a></div>
 </div>
@@ -378,7 +381,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/for-bmw-g87-m2-cs-2023-2026-carbon-fiber-alpha-n-style-car-b.html">For BMW G87 M2 Cs 2023-2026 Carbon Fiber Alpha-n Style Car Body Kits Front Engine Hood Bonnet Cover 41618082029</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/for-bmw-g87-m2-cs-2023-2026-carbon-fiber-alpha-n-style-car-b.html">View details &rarr;</a></div>
 </div>
@@ -389,7 +392,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/for-bmw-g87-m2-2023-2026-dry-carbon-fiber-mp-style-front-bum.html">For BMW G87 M2 2023-2026 Dry Carbon Fiber Mp Style Front Bumper Air Ducts Vents Covers Side Mesh Grille 51115a44f43 51115a44f42</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/for-bmw-g87-m2-2023-2026-dry-carbon-fiber-mp-style-front-bum.html">View details &rarr;</a></div>
 </div>
@@ -400,7 +403,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/for-bmw-g87-m2-cs-2023-2026-carbon-fiber-car-body-kits-auto.html">For BMW G87 M2 Cs 2023-2026 Carbon Fiber Car Body Kits Auto Parts Vehicle Trims Tuning Rear Bumper Side Air Vents Canards</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/for-bmw-g87-m2-cs-2023-2026-carbon-fiber-car-body-kits-auto.html">View details &rarr;</a></div>
 </div>
@@ -411,7 +414,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/high-quality-ventilation-fender-suitable-for-bmw-m2-g87-carb.html">High Quality Ventilation Fender Suitable For BMW M2 G87 Carbon Fiber Fender Car Fender</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/high-quality-ventilation-fender-suitable-for-bmw-m2-g87-carb.html">View details &rarr;</a></div>
 </div>
@@ -422,7 +425,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/high-quality-g87-carbon-fiber-car-kit-car-bumper-suitable-fo.html">High Quality G87 Carbon Fiber Car Kit Car Bumper Suitable For BMW M2 G87 Carbon Fiber Body Kit</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/high-quality-g87-carbon-fiber-car-kit-car-bumper-suitable-fo.html">View details &rarr;</a></div>
 </div>
@@ -433,7 +436,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/magnetic-carbon-fiber-paddle-shifter-for-bmw-g87-g20-g21-g28.html">Magnetic Carbon Fiber Paddle Shifter For BMW G87/g20/g21/g28/g30/g38/f90/m5/g14/g15/g16/f91/m8/f92/m8/f40/g42/f44 Paddles Shift</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/magnetic-carbon-fiber-paddle-shifter-for-bmw-g87-g20-g21-g28.html">View details &rarr;</a></div>
 </div>
@@ -443,17 +446,17 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/suspension/dry-carbon-fiber-strut-brace-engine-compartment-sway-rod-for.html">Dry Carbon Fiber Strut Brace Engine Compartment Sway Rod For BMW G80 M3 G82 M4 G87 M2 Engine Balance Rod</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/dry-carbon-fiber-strut-brace-engine-compartment-sway-rod-for.html">View details &rarr;</a></div>
 </div>
 </article>
-</div><div class="sec-head"><h2 class="sec">Engine &amp; Fuel (7)</h2></div><div class="prod-grid"><article class="prod-card" data-name="aluminum alloy engine compartment oil and water cap oil cap/radiator cap/engine oil cap for bmw g80 g81 g82 g83 g87 g8x m2 m3 m4 aluminum alloy engine compartment oil and water cap oil cap/radiator cap/engine oil cap for bmw g80 g81 g82 g83 g87 g8x m2 m3 m4   g80 g81 g82 g83 g87" data-price-min="109" data-rating="" data-reviews="0" data-cat="engine" data-band="100-300" data-chassis="G80 G81 G82 G83 G87" data-material="Aluminum">
-<a class="pimg" href="/factoryplug-catalog/engine/aluminum-alloy-engine-compartment-oil-and-water-cap-oil-cap.html"><img src="/factoryplug-catalog/assets/img/products/aluminum-alloy-engine-compartment-oil-and-water-cap-oil-cap/hero.webp" alt="Aluminum Alloy Engine Compartment Oil and Water Cap Oil Cap/radiator Cap/engine Oil Cap for BMW G80 G81 G82 G83 G87 G8x M2 M3 M4" loading="lazy"></a>
+</div><div class="sec-head"><h2 class="sec">Engine &amp; Fuel (7)</h2></div><div class="prod-grid"><article class="prod-card" data-name="aluminum oil &amp; radiator cap set for bmw m2/m3/m4 (g8x) aluminum alloy engine compartment oil and water cap oil cap/radiator cap/engine oil cap for bmw g80 g81 g82 g83 g87 g8x m2 m3 m4   g80 g81 g82 g83 g87" data-price-min="109" data-rating="" data-reviews="0" data-cat="engine" data-band="100-300" data-chassis="G80 G81 G82 G83 G87" data-material="Aluminum">
+<a class="pimg" href="/factoryplug-catalog/engine/aluminum-alloy-engine-compartment-oil-and-water-cap-oil-cap.html"><img src="/factoryplug-catalog/assets/img/products/aluminum-alloy-engine-compartment-oil-and-water-cap-oil-cap/hero.webp" alt="Aluminum Oil &amp; Radiator Cap Set for BMW M2/M3/M4 (G8x)" loading="lazy"></a>
 <div class="body">
-<h3><a href="/factoryplug-catalog/engine/aluminum-alloy-engine-compartment-oil-and-water-cap-oil-cap.html">Aluminum Alloy Engine Compartment Oil and Water Cap Oil Cap/radiator Cap/engine Oil Cap for BMW G80 G81 G82 G83 G87 G8x M2 M3 M4</a></h3>
+<h3><a href="/factoryplug-catalog/engine/aluminum-alloy-engine-compartment-oil-and-water-cap-oil-cap.html">Aluminum Oil &amp; Radiator Cap Set for BMW M2/M3/M4 (G8x)</a></h3>
 <div class="price"><span class="conv-price" data-min="109" data-max="109" data-cur="USD" data-orig="$109">$109</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span><span class="chip hot">5 sold</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span> <span class="spec-cell hot"><span class="spec-label">Sold</span> <span class="spec-value">5</span></span></div>
 <div class="psupplier">5 transactions</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/aluminum-alloy-engine-compartment-oil-and-water-cap-oil-cap.html">View details &rarr;</a></div>
 </div>
@@ -464,7 +467,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/m2-m3-m4-single-turbo-kit-s58-full-frame-single-turbo-kit-tu.html">M2 M3 M4 Single Turbo Kit S58 FULL FRAME Single Turbo Kit TURBO KIT with 44MM Wastegates for BMW G87 G80 G82</a></h3>
 <div class="price"><span class="conv-price" data-min="4850" data-max="4999" data-cur="USD" data-orig="$4,999-$4,850">$4,850–$4,999</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/m2-m3-m4-single-turbo-kit-s58-full-frame-single-turbo-kit-tu.html">View details &rarr;</a></div>
 </div>
@@ -475,7 +478,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/fix-oem-intake-pipe-collapse-m-series-g80-g82-g83-g87-racing.html">Fix OEM Intake Pipe Collapse M Series G80 G82 G83 G87 Racing High Flow Aluminum Turbo Inlet Pipe for BMW S58 G8X M3 M4</a></h3>
 <div class="price"><span class="conv-price" data-min="200" data-max="260" data-cur="USD" data-orig="$260-$200">$200–$260</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/fix-oem-intake-pipe-collapse-m-series-g80-g82-g83-g87-racing.html">View details &rarr;</a></div>
 </div>
@@ -486,7 +489,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/high-performance-aluminum-charge-cooler-manifold-for-bmw-m2.html">High Performance Aluminum Charge Cooler Manifold For BMW M2 M3 M4 G80 G82 G87 S58 2021+</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/high-performance-aluminum-charge-cooler-manifold-for-bmw-m2.html">View details &rarr;</a></div>
 </div>
@@ -497,7 +500,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/2021-for-bmw-g80-m3-g82-g83-m4-g87-m2-s58-3-0tt-titanium-fro.html">2021+ For BMW G80 M3 G82 G83 M4 G87 M2 S58 3.0tt Titanium Front Mount Intake Kit Include Competition Model For Air Filters</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/2021-for-bmw-g80-m3-g82-g83-m4-g87-m2-s58-3-0tt-titanium-fro.html">View details &rarr;</a></div>
 </div>
@@ -508,7 +511,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/preferment-titanium-front-mount-intake-for-2021-bmw-g80-m3-g.html">Preferment Titanium Front Mount Intake For 2021+ BMW G80 M3 G82 G83 M4 G87 M2 S58 3.0tt Intake Kit Include Competition Model</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/preferment-titanium-front-mount-intake-for-2021-bmw-g80-m3-g.html">View details &rarr;</a></div>
 </div>
@@ -519,7 +522,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/cold-air-intake-system-for-2020-2025-bmw-g80-g81-m3-g82-g83.html">Cold Air Intake System For 2020-2025 BMW G80 G81 M3 G82 G83 M4 G87 M2 S58 3.0tt S58</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/cold-air-intake-system-for-2020-2025-bmw-g80-g81-m3-g82-g83.html">View details &rarr;</a></div>
 </div>
@@ -529,7 +532,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/full-alcantara-steering-wheel-for-g20-g22-g30-g31-m2-g87-m3.html">Full Alcantara Steering Wheel For G20 G22 G30 G31 M2 G87 M3 G80 M4 G82 G42 M5 F90 F80 F82 F95 X3m</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/full-alcantara-steering-wheel-for-g20-g22-g30-g31-m2-g87-m3.html">View details &rarr;</a></div>
 </div>
@@ -540,7 +543,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/bmw-g8x-g87-m2-g80-g81-m3-g82-g83-m4-competition-cs-2020-202.html">BMW G8x G87 M2 G80 G81 M3 G82 G83 M4 Competition Cs 2020-2026 Dry Carbon Fiber Rear Seat Back Cover</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/bmw-g8x-g87-m2-g80-g81-m3-g82-g83-m4-competition-cs-2020-202.html">View details &rarr;</a></div>
 </div>
@@ -551,7 +554,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/rsc-dry-carbon-fiber-rear-seat-delete-closeout-kit-for-bmw-g.html">Rsc Dry Carbon Fiber Rear Seat Delete Closeout Kit For BMW G87 M2 G42 M240</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/rsc-dry-carbon-fiber-rear-seat-delete-closeout-kit-for-bmw-g.html">View details &rarr;</a></div>
 </div>
@@ -562,7 +565,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/for-bmw-g-chassis-g87-g28-g30-g38-m5-f92-f40-f44-g12-g08-x5.html">For BMW G Chassis G87/g28/g30/g38/m5/f92/f40/f44/g12/g08/x5/f97/x3m/g06competitive Carbon Fiber Steering Wheel Magnetic Paddles</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/for-bmw-g-chassis-g87-g28-g30-g38-m5-f92-f40-f44-g12-g08-x5.html">View details &rarr;</a></div>
 </div>
@@ -573,7 +576,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/suitable-for-2020-2024-bmw-m2-m3-m4-x3-x5-g87-g80-g82-g20-g2.html">Suitable For 2020-2024 BMW M2/m3/m4 X3 X5 G87 G80 G82 G20 G21 Carbon Fiber Leather Steering Wheel Sports Performance Lci Design</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/suitable-for-2020-2024-bmw-m2-m3-m4-x3-x5-g87-g80-g82-g20-g2.html">View details &rarr;</a></div>
 </div>
@@ -584,7 +587,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/interior/matte-dry-carbon-fiber-interior-trims-csl-center-console-for.html">Matte Dry Carbon Fiber Interior Trims Csl Center Console For G87 M2 G80 M3 G82 M4</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/interior/matte-dry-carbon-fiber-interior-trims-csl-center-console-for.html">View details &rarr;</a></div>
 </div>
@@ -594,7 +597,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exterior/bonoss-wheel-spacers-for-bmw-g80-m3-g82-m4-f87-m2-comp-g87-m.html">Bonoss Wheel Spacers For BMW G80 M3 G82 M4 F87 M2 Comp G87 M2 G20 G28 330i M340i F90 M5 7075-t6 Forged Al Alloy 5x112 Cb66.5</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exterior/bonoss-wheel-spacers-for-bmw-g80-m3-g82-m4-f87-m2-comp-g87-m.html">View details &rarr;</a></div>
 </div>
@@ -604,19 +607,20 @@ and VIN directly with the supplier contact before buying.</p>
 <a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
 </section>
 <footer class="site"><div class="wrap"><div class="cols">
-<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
-<div><b style="color:var(--text)">Catalog</b><br>
+<div><b style="color:#F5F5F2">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:#F5F5F2">Catalog</b><br>
 <a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
-<div><b style="color:var(--text)">More</b><br>
+<div><b style="color:#F5F5F2">More</b><br>
 <a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
-<div><b style="color:var(--text)">Trust</b><br>
+<div><b style="color:#F5F5F2">Trust</b><br>
 <a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
-<div><b style="color:var(--text)">Follow Conroy</b><br>
+<div><b style="color:#F5F5F2">Follow Conroy</b><br>
 <a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
-<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+<span style="font-size:.85rem;color:#9AA1A9">Want more info? Follow me here.</span></div>
 </div>
 <small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
-Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+Contact: <a href="mailto:support@thefactoryplug.com">support@thefactoryplug.com</a> · 3939 Castro Valley Blvd #1051, Castro Valley, CA 94546 · or DM <a href="https://www.instagram.com/royblinge90" target="_blank" rel="noopener">@royblinge90 on Instagram</a>.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b><br>
 &copy; 2026 FactoryPlug. All rights reserved.</small>
 </div></footer>
 </body>

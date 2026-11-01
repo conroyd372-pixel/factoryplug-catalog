@@ -12,11 +12,14 @@
 <meta property="og:title" content="Audi A6 S6 RS6 A7 Parts (2012–2014) — 31 Parts | FactoryPlug">
 <meta property="og:description" content="Every Audi A6 S6 RS6 A7 (2012–2014) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
 <meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/c7/">
-<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Audi A6 S6 RS6 A7 Parts (2012–2014) — 31 Parts | FactoryPlug">
 <meta name="twitter:description" content="Every Audi A6 S6 RS6 A7 (2012–2014) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
-<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
+<link rel="icon" type="image/png" href="/factoryplug-catalog/assets/img/brand/favicon.png">
+<link rel="apple-touch-icon" href="/factoryplug-catalog/assets/img/brand/app-icon-512.png">
+<link rel="manifest" href="/factoryplug-catalog/site.webmanifest">
 <link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
 <script src="/factoryplug-catalog/assets/fx.js" defer></script>
 <script src="/factoryplug-catalog/assets/search.js" defer></script>
@@ -39,9 +42,9 @@
   var ind = document.getElementById('garage-indicator');
   var g = load();
   if (g && g.code && ind) {
-    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
     ind.classList.remove('hidden');
     var c = document.getElementById('garage-clear');
     if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -150,9 +153,9 @@
       save({ code: code, make: v.make, label: label });
       g = load();
       if (ind) {
-        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
         ind.classList.remove('hidden');
         var cc = document.getElementById('garage-clear');
         if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -233,13 +236,13 @@
 })();
 </script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Audi A6 S6 RS6 A7 Parts (2012\u20132014)", "description": "Every Audi A6 S6 RS6 A7 compatible part in the FactoryPlug catalog."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#organization", "name": "FactoryPlug", "alternateName": ["TheFactoryPlug", "The Factory Plug", "The Factory Plug Directory", "thefactoryplug.com"], "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "disambiguatingDescription": "FactoryPlug (thefactoryplug.com) is a verified B2B direct-to-factory manufacturer directory and global supply-chain intelligence platform indexing 3,800+ vetted automotive parts supplier listings from OEM and ODM manufacturers. Distinct from automotive engine block freeze plugs or expansion plugs.", "knowsAbout": ["Direct-to-factory sourcing", "OEM and ODM manufacturer verification", "Forged wheels", "Big brake kits", "Carbon fiber aero parts", "Titanium exhaust systems", "Alibaba supplier listings"], "logo": {"@type": "ImageObject", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#logo", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/app-icon-512.png"}, "image": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/logo-lockup.png", "sameAs": ["https://x.com/royblinge90"], "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@thefactoryplug.com"}}</script>
 </head>
 <body>
 <header class="site"><div class="wrap nav">
-<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<a class="logo" href="/factoryplug-catalog/"><img src="/factoryplug-catalog/assets/img/brand/logo-lockup.png" alt="FactoryPlug" height="40"></a>
 <nav>
-<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
 </nav>
 </div></header>
 <section class="content-sec"><div class="wrap-narrow">
@@ -259,7 +262,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/wheels/forged-2-piece-custom-polish-5x114-3-5x130-5x120-for-mercede.html">Forged 2-piece Custom Polish 5x114.3 5x130 5x120 For Mercedes C7 C8 Alloy Deep Lip 18x7 18x8 26</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/wheels/forged-2-piece-custom-polish-5x114-3-5x130-5x120-for-mercede.html">View details &rarr;</a></div>
 </div>
@@ -270,7 +273,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/wheels/oem-forged-beadlock-wheel-5-lug-bolt-patterns-15x10-18x5-17x.html">Oem Forged Beadlock Wheel 5 Lug Bolt Patterns 15x10 18x5 17x10 20 Inch For Ford Mustang C7 C8</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/wheels/oem-forged-beadlock-wheel-5-lug-bolt-patterns-15x10-18x5-17x.html">View details &rarr;</a></div>
 </div>
@@ -281,7 +284,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/wheels/bw-forged-beadlock-ring-wheels-16-17-18-inch-bead-lock-5x120.html">Bw Forged Beadlock Ring Wheels 16 17 18 Inch Bead Lock 5x120 6x139.7 Inch Rims For C7 C8</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/wheels/bw-forged-beadlock-ring-wheels-16-17-18-inch-bead-lock-5x120.html">View details &rarr;</a></div>
 </div>
@@ -292,7 +295,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/wheels/deep-lip-rose-gold-2-pieces-3-pieces-forged-wheel-blank-rims.html">Deep Lip Rose Gold 2 Pieces 3 Pieces Forged Wheel Blank Rims 22 Inch For Sf90 718 911 F458 570 Gt 600lt 720s 650s C6 C7</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/wheels/deep-lip-rose-gold-2-pieces-3-pieces-forged-wheel-blank-rims.html">View details &rarr;</a></div>
 </div>
@@ -303,7 +306,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/wheels/his-lip-rose-gold-2-pieces-3-pieces-forged-wheel-blank-rims.html">His Lip Rose Gold 2 Pieces 3 Pieces Forged Wheel Blank Rims 22 Inch For Sf90 718 911 F458 570 Gt 600lt 720s 650s C6 C7</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/wheels/his-lip-rose-gold-2-pieces-3-pieces-forged-wheel-blank-rims.html">View details &rarr;</a></div>
 </div>
@@ -313,7 +316,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/brakes/factory-customized-brake-caliper-big-brake-parts-for-corvett.html">Factory Customized Brake Caliper Big Brake Parts For Corvette C5 C6 C7</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/brakes/factory-customized-brake-caliper-big-brake-parts-for-corvett.html">View details &rarr;</a></div>
 </div>
@@ -324,7 +327,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/brakes/400mm-disc-brake-rotor-for-audi-c7-s6-4h0615301t-4h0615301m.html">400mm Disc Brake Rotor For Audi C7 S6 4h0615301t 4h0615301m 4h0615301al</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/brakes/400mm-disc-brake-rotor-for-audi-c7-s6-4h0615301t-4h0615301m.html">View details &rarr;</a></div>
 </div>
@@ -335,7 +338,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/brakes/380-400-420mm-car-disk-rotots-and-pads-wavy-slotted-brakes-r.html">380 400 420mm Car Disk Rotots And Pads Wavy Slotted Brakes Rotor Set For Audi S6 C7 Rs6 Rs7 B9 S5</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/brakes/380-400-420mm-car-disk-rotots-and-pads-wavy-slotted-brakes-r.html">View details &rarr;</a></div>
 </div>
@@ -345,7 +348,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/c7-s6-s7-rs6-rs7-4-0t-exhaust-downpipe-c7-s6-s7-rs6-rs7-4-0t.html">C7 S6 S7 Rs6 Rs7 4.0t Exhaust Downpipe C7 S6 S7 Rs6 Rs7 4.0t Ss304 Exhaust Pipes Rs6 C7 S6 S7 Auto</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/c7-s6-s7-rs6-rs7-4-0t-exhaust-downpipe-c7-s6-s7-rs6-rs7-4-0t.html">View details &rarr;</a></div>
 </div>
@@ -356,7 +359,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/titanium-exhaust-for-chevrolet-corvette-c7-stingray-z51-z06.html">Titanium Exhaust For Chevrolet Corvette C7 Stingray/z51/z06/zr1 6.2l 2014-2019 X-pipe Valved</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/titanium-exhaust-for-chevrolet-corvette-c7-stingray-z51-z06.html">View details &rarr;</a></div>
 </div>
@@ -367,7 +370,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/exhaust-headers-for-audi-s4-s5-s6-s7-3-0t-c7-b8-2009-2016-ma.html">Exhaust Headers For Audi S4 S5 S6 S7 3.0t C7 B8 2009-2016 Manifolds Double-layer Heat Wrap</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/exhaust-headers-for-audi-s4-s5-s6-s7-3-0t-c7-b8-2009-2016-ma.html">View details &rarr;</a></div>
 </div>
@@ -378,7 +381,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/rs6-rs7-s6-s7-c7-exhaust-catback-for-audi-rs6-rs7-s6-s7-c7-e.html">Rs6 Rs7 S6 S7 C7 Exhaust Catback For Audi Rs6 Rs7 S6 S7 C7 Exhaust 2013-2015 4.0t C7 Exhaust</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/rs6-rs7-s6-s7-c7-exhaust-catback-for-audi-rs6-rs7-s6-s7-c7-e.html">View details &rarr;</a></div>
 </div>
@@ -389,7 +392,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/racing-valved-catback-exhaust-for-corvette-c7-2013-2019-high.html">Racing Valved Catback Exhaust For Corvette C7 (2013-2019) - High Flow Stainless Steel Exhaust System</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/racing-valved-catback-exhaust-for-corvette-c7-2013-2019-high.html">View details &rarr;</a></div>
 </div>
@@ -400,7 +403,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/high-flow-stainless-steel-turbo-downpipe-for-audi-a6-a7-c7-c.html">High Flow Stainless Steel Turbo Downpipe For Audi A6 A7 C7 C7.5 2.0 Tfsi 2012-2018 Performance</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/high-flow-stainless-steel-turbo-downpipe-for-audi-a6-a7-c7-c.html">View details &rarr;</a></div>
 </div>
@@ -411,29 +414,29 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/upgrade-twin-kit-turbo-for-audi-rs7-s7-rs6-s6-s8-40-40t-c6-c.html">Upgrade Twin Kit Turbo For Audi Rs7 S7 Rs6 S6 S8 40 40t C6 C7 C8 Engine Turbos D2 D4 4k 4f Dbb Dual Ball Bearing Downpipe Forged</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/upgrade-twin-kit-turbo-for-audi-rs7-s7-rs6-s6-s8-40-40t-c6-c.html">View details &rarr;</a></div>
 </div>
 </article>
-</div><div class="sec-head"><h2 class="sec">Aerodynamics &amp; Exterior (9)</h2></div><div class="prod-grid"><article class="prod-card" data-name="mrd carbon fiber fenders for chevrolet corvette c7 stingray z06 carbon fenders mrd carbon fiber fenders for chevrolet corvette c7 stingray z06 carbon fenders suzhou m.r.d. imp and exp co., ltd., 4 yrs, suzhou cn, 4.6/5  z06 c7" data-price-min="1" data-rating="4.6" data-reviews="0" data-cat="carbon" data-band="under-100" data-chassis="Z06 C7" data-material="Carbon fiber">
+</div><div class="sec-head"><h2 class="sec">Aerodynamics &amp; Exterior (9)</h2></div><div class="prod-grid"><article class="prod-card" data-name="mrd carbon fiber fenders for chevrolet corvette c7 stingray z06 carbon fenders mrd carbon fiber fenders for chevrolet corvette c7 stingray z06 carbon fenders suzhou m.r.d. imp and exp co., ltd., 4 yrs, suzhou cn, 4.6/5  z06 c7" data-price-min="950" data-rating="4.6" data-reviews="0" data-cat="carbon" data-band="600-plus" data-chassis="Z06 C7" data-material="Carbon fiber">
 <a class="pimg" href="/factoryplug-catalog/carbon/mrd-carbon-fiber-fenders-for-chevrolet-corvette-c7-stingray.html"><img src="/factoryplug-catalog/assets/img/products/mrd-carbon-fiber-fenders-for-chevrolet-corvette-c7-stingray/hero.webp" alt="MRD Carbon Fiber Fenders for Chevrolet Corvette C7 Stingray Z06 Carbon Fenders" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/mrd-carbon-fiber-fenders-for-chevrolet-corvette-c7-stingray.html">MRD Carbon Fiber Fenders for Chevrolet Corvette C7 Stingray Z06 Carbon Fenders</a></h3>
-<div class="price"><span class="conv-price" data-min="1" data-max="1150" data-cur="USD" data-orig="$1,150 (1-4), $1,050 (5-9), $950 (10+) / set">$1,150 (1-4), $1,050 (5-9), $950 (10+) / set</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.6 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:92%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/suzhou-m-r-d-imp-and-exp-co-ltd.html">Suzhou M.r.d. Imp And Exp Co., Ltd., 4 yrs, Suzhou CN, 4.6/5</a> · <b>4.6</b></div>
+<div class="price"><span class="conv-price" data-min="950" data-max="1150" data-cur="USD" data-orig="$1,150 (1-4), $1,050 (5-9), $950 (10+) / set">$1,150 (1-4), $1,050 (5-9), $950 (10+) / set</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.6 out of 5">[★ 4.6]</span> · Made by <a href="/factoryplug-catalog/manufacturers/suzhou-m-r-d-imp-and-exp-co-ltd.html">Suzhou M.r.d. Imp And Exp Co., Ltd., 4 yrs, Suzhou CN, 4.6/5</a></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/mrd-carbon-fiber-fenders-for-chevrolet-corvette-c7-stingray.html">View details &rarr;</a></div>
 </div>
 </article>
 
-<article class="prod-card" data-name="chevrolet corvette c7 carbon fiber rear diffuser body kit car bumper for sports car body parts chevrolet corvette c7 carbon fiber rear diffuser body kit car bumper for sports car body parts   c7" data-price-min="" data-rating="" data-reviews="0" data-cat="carbon" data-band="" data-chassis="C7" data-material="Carbon fiber">
+<article class="prod-card" data-name="chevrolet corvette c7 carbon fiber rear diffuser body kit car bumper for sports car body parts chevrolet corvette c7 carbon fiber rear diffuser body kit car bumper for sports car body parts guangdong chefeifan trading co., ltd.  c7" data-price-min="500" data-rating="3.9" data-reviews="0" data-cat="carbon" data-band="300-600" data-chassis="C7" data-material="Carbon fiber">
 <a class="pimg" href="/factoryplug-catalog/carbon/chevrolet-corvette-c7-carbon-fiber-rear-diffuser-body-kit-ca.html"><img src="/factoryplug-catalog/assets/img/products/chevrolet-corvette-c7-carbon-fiber-rear-diffuser-body-kit-ca/hero.webp" alt="Chevrolet Corvette C7 Carbon Fiber Rear Diffuser Body Kit Car Bumper For Sports Car Body Parts" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/chevrolet-corvette-c7-carbon-fiber-rear-diffuser-body-kit-ca.html">Chevrolet Corvette C7 Carbon Fiber Rear Diffuser Body Kit Car Bumper For Sports Car Body Parts</a></h3>
-<div class="price"><span class="conv-price">See listing</span></div>
-
-<div class="psupplier"></div>
+<div class="price"><span class="conv-price" data-min="500" data-max="580" data-cur="USD" data-orig="$500–580">$500–580</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 3.9 out of 5">[★ 3.9]</span> · Made by Guangdong Chefeifan Trading Co., Ltd.</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/chevrolet-corvette-c7-carbon-fiber-rear-diffuser-body-kit-ca.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -443,7 +446,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/c6-c7-clear-forged-carbon-fiber-bonnet-hood-cover-for-c6-c7.html">C6 C7 Clear Forged Carbon Fiber Bonnet Hood Cover For C6 C7 Corvette Chevrolet</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/c6-c7-clear-forged-carbon-fiber-bonnet-hood-cover-for-c6-c7.html">View details &rarr;</a></div>
 </div>
@@ -454,7 +457,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/c7-gt-style-carbon-fiber-fibre-rear-trunk-spoiler-wing-for-c.html">C7 Gt Style Carbon Fiber Fibre Rear Trunk Spoiler Wing For Corvette C7 2014-2017</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/c7-gt-style-carbon-fiber-fibre-rear-trunk-spoiler-wing-for-c.html">View details &rarr;</a></div>
 </div>
@@ -465,7 +468,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/a-pillar-column-for-chevrolet-for-corvette-c7-2014-2019-dry.html">A Pillar Column For Chevrolet For Corvette C7 2014-2019 Dry Carbon Fiber Stick Style</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/a-pillar-column-for-chevrolet-for-corvette-c7-2014-2019-dry.html">View details &rarr;</a></div>
 </div>
@@ -476,7 +479,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/chevrolet-corvette-c7-z06-2014-2019-air-duct-fender-inlet-co.html">Chevrolet Corvette C7 Z06 2014-2019 Air Duct Fender Inlet Cover Dry Carbon Fiber Auto Parts Car</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/chevrolet-corvette-c7-z06-2014-2019-air-duct-fender-inlet-co.html">View details &rarr;</a></div>
 </div>
@@ -487,7 +490,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/factory-direct-carbon-fiber-high-wing-rear-spoiler-for-chevr.html">Factory Direct Carbon Fiber High Wing Rear Spoiler For Chevrolet Corvette C7 Z06 2014-2019 Trunk</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/factory-direct-carbon-fiber-high-wing-rear-spoiler-for-chevr.html">View details &rarr;</a></div>
 </div>
@@ -498,7 +501,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/carbon-fiber-body-kit-bumper-front-lip-diffuser-skirt-is-sui.html">Carbon Fiber Body Kit Bumper Front Lip Diffuser Skirt Is Suitable For Chevrolet Corvette C7 Supercar</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/carbon-fiber-body-kit-bumper-front-lip-diffuser-skirt-is-sui.html">View details &rarr;</a></div>
 </div>
@@ -509,18 +512,18 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/z06-bumper-diffuser-carbon-fiber-rear-diffuser-for-chevrolet.html">Z06 Bumper Diffuser Carbon Fiber Rear Diffuser For Chevrolet Corvette C7 Z06</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/z06-bumper-diffuser-carbon-fiber-rear-diffuser-for-chevrolet.html">View details &rarr;</a></div>
 </div>
 </article>
-</div><div class="sec-head"><h2 class="sec">Lighting (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="yu guang for chevrolet corvette c6 generation 2005-2013 automotive headlamp upgrade full led c7 style drl headlights assembly yu guang for chevrolet corvette c6 generation 2005-2013 automotive headlamp upgrade full led c7 style drl headlights assembly guangzhou yuguang automotive lighting co., ltd., guangzhou, 3 yrs, multispecialty, 4.6/5  c7" data-price-min="2" data-rating="4.6" data-reviews="0" data-cat="lighting" data-band="under-100" data-chassis="C7" data-material="">
-<a class="pimg" href="/factoryplug-catalog/lighting/yu-guang-for-chevrolet-corvette-c6-generation-2005-2013-auto.html"><img src="/factoryplug-catalog/assets/img/products/yu-guang-for-chevrolet-corvette-c6-generation-2005-2013-auto/hero.jpg" alt="YU GUANG for Chevrolet Corvette C6 Generation 2005-2013 Automotive Headlamp Upgrade Full LED C7 Style DRL Headlights Assembly" loading="lazy"></a>
+</div><div class="sec-head"><h2 class="sec">Lighting (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="full-led headlights for corvette c6 2005–2013 — c7-style drl yu guang for chevrolet corvette c6 generation 2005-2013 automotive headlamp upgrade full led c7 style drl headlights assembly guangzhou yuguang automotive lighting co., ltd., guangzhou, 3 yrs, multispecialty, 4.6/5  c7" data-price-min="234" data-rating="4.6" data-reviews="0" data-cat="lighting" data-band="100-300" data-chassis="C7" data-material="">
+<a class="pimg" href="/factoryplug-catalog/lighting/yu-guang-for-chevrolet-corvette-c6-generation-2005-2013-auto.html"><img src="/factoryplug-catalog/assets/img/products/yu-guang-for-chevrolet-corvette-c6-generation-2005-2013-auto/hero.jpg" alt="Full-LED Headlights for Corvette C6 2005–2013 — C7-Style DRL" loading="lazy"></a>
 <div class="body">
-<h3><a href="/factoryplug-catalog/lighting/yu-guang-for-chevrolet-corvette-c6-generation-2005-2013-auto.html">YU GUANG for Chevrolet Corvette C6 Generation 2005-2013 Automotive Headlamp Upgrade Full LED C7 Style DRL Headlights Assembly</a></h3>
-<div class="price"><span class="conv-price" data-min="2" data-max="270" data-cur="USD" data-orig="$270 (2-78 pcs), $252 (80-158), $234 (160+); 10% off; 17 sold; 5.0 (3 reviews)">$270 (2-78 pcs), $252 (80-158), $234 (160+); 10% off; 17 sold; 5.0 (3 reviews)</span></div>
-<div class="meta-row"><span class="chip">MOQ: 2 pieces</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.6 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:92%">★★★★★</span></span> · Made by Guangzhou Yuguang Automotive Lighting Co., Ltd., Guangzhou, 3 yrs, multispecialty, 4.6/5 · <b>4.6</b></div>
+<h3><a href="/factoryplug-catalog/lighting/yu-guang-for-chevrolet-corvette-c6-generation-2005-2013-auto.html">Full-LED Headlights for Corvette C6 2005–2013 — C7-Style DRL</a></h3>
+<div class="price"><span class="conv-price" data-min="234" data-max="270" data-cur="USD" data-orig="$234–270">$234–270</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">2 pieces</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.6 out of 5">[★ 4.6]</span> · Made by Guangzhou Yuguang Automotive Lighting Co., Ltd., Guangzhou, 3 yrs, multispecialty, 4.6/5</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/yu-guang-for-chevrolet-corvette-c6-generation-2005-2013-auto.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -529,8 +532,8 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/suspension/2012-2018-c7-4g-audi-s6-coilovers-32-step-adjustable-monotub.html">2012-2018 C7/4G Audi S6 Coilovers - 32-Step Adjustable Monotube | Coils &amp; 32-Way Coilovers</a></h3>
 <div class="price"><span class="conv-price" data-min="575" data-max="820" data-cur="USD" data-orig="$575-820">$575-820</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.6 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:92%">★★★★★</span></span> · Made by <a href="/factoryplug-catalog/manufacturers/zhejiang-longtai-shock-absorber-co-ltd.html">Zhejiang Longtai Shock Absorber Co., Ltd.</a> · <b>4.6</b></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.6 out of 5">[★ 4.6]</span> · Made by <a href="/factoryplug-catalog/manufacturers/zhejiang-longtai-shock-absorber-co-ltd.html">Zhejiang Longtai Shock Absorber Co., Ltd.</a></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/2012-2018-c7-4g-audi-s6-coilovers-32-step-adjustable-monotub.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -540,7 +543,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/suspension/adjustable-spherical-front-rear-stabilizer-link-sway-bar-end.html">Adjustable Spherical Front &amp; Rear Stabilizer Link Sway Bar Endlink Set For Audi A4l A5 Q5 A6 C7</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/suspension/adjustable-spherical-front-rear-stabilizer-link-sway-bar-end.html">View details &rarr;</a></div>
 </div>
@@ -550,7 +553,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/free-logo-customization-cold-air-intake-system-kit-for-audi.html">Free Logo Customization Cold Air Intake System Kit For Audi C7/c7.5 A6/a7 3.0t Supercharged V6</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/free-logo-customization-cold-air-intake-system-kit-for-audi.html">View details &rarr;</a></div>
 </div>
@@ -561,7 +564,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/performances-for-2011-audi-c7-c7-5-a6-a7-3-0t-high-flow-alum.html">Performances For 2011+ Audi C7 C7.5 A6 A7 3.0t High-flow Aluminum Series True 3.5&#x27;&#x27; Velocity Stack Cold Air Intake System</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/performances-for-2011-audi-c7-c7-5-a6-a7-3-0t-high-flow-alum.html">View details &rarr;</a></div>
 </div>
@@ -572,7 +575,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/performances-intake-for-2011-audi-c7-c7-5-a6-a7-3-0t-cold-ai.html">Performances Intake For 2011+ Audi C7 C7.5 A6 A7 3.0t Cold Air Intake System True 3.5&#x27;&#x27; Velocity Stack High-flow Aluminum Series</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/performances-intake-for-2011-audi-c7-c7-5-a6-a7-3-0t-cold-ai.html">View details &rarr;</a></div>
 </div>
@@ -583,7 +586,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/engine/audi-a4l-a5-a6-s3-s4-q7-b8-c7-v6-3-0t-ea837-engine-oil-coole.html">Audi A4l A5 A6 S3 S4 Q7 B8 C7 V6 3.0t Ea837 Engine Oil Cooler Kit 15 Rows Oil Radiator Cooler Kit</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/engine/audi-a4l-a5-a6-s3-s4-q7-b8-c7-v6-3-0t-ea837-engine-oil-coole.html">View details &rarr;</a></div>
 </div>
@@ -593,19 +596,20 @@ and VIN directly with the supplier contact before buying.</p>
 <a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
 </section>
 <footer class="site"><div class="wrap"><div class="cols">
-<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
-<div><b style="color:var(--text)">Catalog</b><br>
+<div><b style="color:#F5F5F2">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:#F5F5F2">Catalog</b><br>
 <a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
-<div><b style="color:var(--text)">More</b><br>
+<div><b style="color:#F5F5F2">More</b><br>
 <a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
-<div><b style="color:var(--text)">Trust</b><br>
+<div><b style="color:#F5F5F2">Trust</b><br>
 <a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
-<div><b style="color:var(--text)">Follow Conroy</b><br>
+<div><b style="color:#F5F5F2">Follow Conroy</b><br>
 <a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
-<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+<span style="font-size:.85rem;color:#9AA1A9">Want more info? Follow me here.</span></div>
 </div>
 <small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
-Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+Contact: <a href="mailto:support@thefactoryplug.com">support@thefactoryplug.com</a> · 3939 Castro Valley Blvd #1051, Castro Valley, CA 94546 · or DM <a href="https://www.instagram.com/royblinge90" target="_blank" rel="noopener">@royblinge90 on Instagram</a>.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b><br>
 &copy; 2026 FactoryPlug. All rights reserved.</small>
 </div></footer>
 </body>

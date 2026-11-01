@@ -12,11 +12,14 @@
 <meta property="og:title" content="Porsche Cayenne Parts (2011–2012) — 17 Parts | FactoryPlug">
 <meta property="og:description" content="Every Porsche Cayenne (2011–2012) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
 <meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/958/">
-<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Porsche Cayenne Parts (2011–2012) — 17 Parts | FactoryPlug">
 <meta name="twitter:description" content="Every Porsche Cayenne (2011–2012) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
-<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
+<link rel="icon" type="image/png" href="/factoryplug-catalog/assets/img/brand/favicon.png">
+<link rel="apple-touch-icon" href="/factoryplug-catalog/assets/img/brand/app-icon-512.png">
+<link rel="manifest" href="/factoryplug-catalog/site.webmanifest">
 <link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
 <script src="/factoryplug-catalog/assets/fx.js" defer></script>
 <script src="/factoryplug-catalog/assets/search.js" defer></script>
@@ -39,9 +42,9 @@
   var ind = document.getElementById('garage-indicator');
   var g = load();
   if (g && g.code && ind) {
-    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
     ind.classList.remove('hidden');
     var c = document.getElementById('garage-clear');
     if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -150,9 +153,9 @@
       save({ code: code, make: v.make, label: label });
       g = load();
       if (ind) {
-        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
         ind.classList.remove('hidden');
         var cc = document.getElementById('garage-clear');
         if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -233,13 +236,13 @@
 })();
 </script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Porsche Cayenne Parts (2011\u20132012)", "description": "Every Porsche Cayenne compatible part in the FactoryPlug catalog."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#organization", "name": "FactoryPlug", "alternateName": ["TheFactoryPlug", "The Factory Plug", "The Factory Plug Directory", "thefactoryplug.com"], "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "disambiguatingDescription": "FactoryPlug (thefactoryplug.com) is a verified B2B direct-to-factory manufacturer directory and global supply-chain intelligence platform indexing 3,800+ vetted automotive parts supplier listings from OEM and ODM manufacturers. Distinct from automotive engine block freeze plugs or expansion plugs.", "knowsAbout": ["Direct-to-factory sourcing", "OEM and ODM manufacturer verification", "Forged wheels", "Big brake kits", "Carbon fiber aero parts", "Titanium exhaust systems", "Alibaba supplier listings"], "logo": {"@type": "ImageObject", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#logo", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/app-icon-512.png"}, "image": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/logo-lockup.png", "sameAs": ["https://x.com/royblinge90"], "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@thefactoryplug.com"}}</script>
 </head>
 <body>
 <header class="site"><div class="wrap nav">
-<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<a class="logo" href="/factoryplug-catalog/"><img src="/factoryplug-catalog/assets/img/brand/logo-lockup.png" alt="FactoryPlug" height="40"></a>
 <nav>
-<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
 </nav>
 </div></header>
 <section class="content-sec"><div class="wrap-narrow">
@@ -259,7 +262,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/cayenne-958-2-3-0t-stainless-exhaust.html">Cayenne 958.2 3.0t Stainless Exhaust</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/cayenne-958-2-3-0t-stainless-exhaust.html">View details &rarr;</a></div>
 </div>
@@ -269,7 +272,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/carbon-fiber-middle-wing-spoiler-for-porsche-cayenne-958-201.html">Carbon Fiber Middle Wing Spoiler For Porsche Cayenne 958 2015-2017 Easy</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/carbon-fiber-middle-wing-spoiler-for-porsche-cayenne-958-201.html">View details &rarr;</a></div>
 </div>
@@ -280,18 +283,18 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/gugo-gts-style-body-kit-conversion-upgrade-for-porsche-cayen.html">Gugo Gts Style Body Kit Conversion Upgrade For Porsche Cayenne 958.1 2011-2014 Front Rear Bumper Side Skirt Complete Bodykit</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/gugo-gts-style-body-kit-conversion-upgrade-for-porsche-cayen.html">View details &rarr;</a></div>
 </div>
 </article>
-</div><div class="sec-head"><h2 class="sec">Lighting (7)</h2></div><div class="prod-grid"><article class="prod-card" data-name="[1979ll] car lamp 2015 2016 2017 92a lights upgrade to 2023 pdls style led headlights for porsche cayenne 958 958.2 [1979ll] car lamp 2015 2016 2017 92a lights upgrade to 2023 pdls style led headlights for porsche cayenne 958 958.2 danyang linglu auto parts co., ltd., 6 yrs, zhenjiang cn, 4.7/5, tuv rheinland  92a 958" data-price-min="2" data-rating="4.7" data-reviews="0" data-cat="lighting" data-band="under-100" data-chassis="92A 958" data-material="">
-<a class="pimg" href="/factoryplug-catalog/lighting/1979ll-car-lamp-2015-2016-2017-92a-lights-upgrade-to-2023-pd.html"><img src="/factoryplug-catalog/assets/img/products/1979ll-car-lamp-2015-2016-2017-92a-lights-upgrade-to-2023-pd/hero.jpg" alt="[1979LL] Car Lamp 2015 2016 2017 92A Lights Upgrade to 2023 PDLS Style LED Headlights for Porsche Cayenne 958 958.2" loading="lazy"></a>
+</div><div class="sec-head"><h2 class="sec">Lighting (7)</h2></div><div class="prod-grid"><article class="prod-card" data-name="led headlights for porsche cayenne (958) 2015–2017 — 2023 pdls style [1979ll] car lamp 2015 2016 2017 92a lights upgrade to 2023 pdls style led headlights for porsche cayenne 958 958.2 danyang linglu auto parts co., ltd., 6 yrs, zhenjiang cn, 4.7/5, tuv rheinland  92a 958" data-price-min="234" data-rating="4.7" data-reviews="0" data-cat="lighting" data-band="100-300" data-chassis="92A 958" data-material="">
+<a class="pimg" href="/factoryplug-catalog/lighting/1979ll-car-lamp-2015-2016-2017-92a-lights-upgrade-to-2023-pd.html"><img src="/factoryplug-catalog/assets/img/products/1979ll-car-lamp-2015-2016-2017-92a-lights-upgrade-to-2023-pd/hero.jpg" alt="LED Headlights for Porsche Cayenne (958) 2015–2017 — 2023 PDLS Style" loading="lazy"></a>
 <div class="body">
-<h3><a href="/factoryplug-catalog/lighting/1979ll-car-lamp-2015-2016-2017-92a-lights-upgrade-to-2023-pd.html">[1979LL] Car Lamp 2015 2016 2017 92A Lights Upgrade to 2023 PDLS Style LED Headlights for Porsche Cayenne 958 958.2</a></h3>
-<div class="price"><span class="conv-price" data-min="2" data-max="270" data-cur="USD" data-orig="$270 (2-19 pcs), $260 (20-29), $250 (30+) ; sample $234">$270 (2-19 pcs), $260 (20-29), $250 (30+) ; sample $234</span></div>
-<div class="meta-row"><span class="chip">MOQ: 2 pcs</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.7 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:94%">★★★★★</span></span> · Made by Danyang Linglu Auto Parts Co., Ltd., 6 yrs, Zhenjiang CN, 4.7/5, TUV Rheinland · <b>4.7</b></div>
+<h3><a href="/factoryplug-catalog/lighting/1979ll-car-lamp-2015-2016-2017-92a-lights-upgrade-to-2023-pd.html">LED Headlights for Porsche Cayenne (958) 2015–2017 — 2023 PDLS Style</a></h3>
+<div class="price"><span class="conv-price" data-min="234" data-max="270" data-cur="USD" data-orig="$270 (2-19 pcs), $260 (20-29), $250 (30+) ; sample $234">$270 (2-19 pcs), $260 (20-29), $250 (30+) ; sample $234</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">2 pcs</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.7 out of 5">[★ 4.7]</span> · Made by Danyang Linglu Auto Parts Co., Ltd., 6 yrs, Zhenjiang CN, 4.7/5, TUV Rheinland</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/1979ll-car-lamp-2015-2016-2017-92a-lights-upgrade-to-2023-pd.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -301,7 +304,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/yu-guang-for-porsche-cayenne-92a-head-light-usa-stock-led-20.html">Yu Guang For Porsche Cayenne 92a Head Light Usa Stock Led 2015 2017 Headlights 958.2 Upgrade 2024</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/yu-guang-for-porsche-cayenne-92a-head-light-usa-stock-led-20.html">View details &rarr;</a></div>
 </div>
@@ -312,7 +315,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/auto-lighting-system-dual-color-drl-headlight-for-porsche-ca.html">Auto Lighting System Dual-color Drl Headlight For Porsche Cayenne 958.1 11-13 Upgrade Matrix 2025</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/auto-lighting-system-dual-color-drl-headlight-for-porsche-ca.html">View details &rarr;</a></div>
 </div>
@@ -323,7 +326,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/porsche-cayenne-958-1-2011-2014-headlights-upgrade-to-2023-p.html">Porsche Cayenne 958.1 2011-2014 Headlights Upgrade To 2023 PDLS Style LED</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/porsche-cayenne-958-1-2011-2014-headlights-upgrade-to-2023-p.html">View details &rarr;</a></div>
 </div>
@@ -334,7 +337,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/porsche-cayenne-958-1-2011-2014-headlight-upgrade-to-2025-pd.html">Porsche Cayenne 958.1 2011-2014 Headlight Upgrade To 2025 PDLS Matrix LED</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/porsche-cayenne-958-1-2011-2014-headlight-upgrade-to-2025-pd.html">View details &rarr;</a></div>
 </div>
@@ -345,7 +348,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/porsche-cayenne-958-2-2015-2017-led-headlight-upgrade-to-202.html">Porsche Cayenne 958.2 2015-2017 LED Headlight Upgrade To 2024 PDLS Matrix</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/porsche-cayenne-958-2-2015-2017-led-headlight-upgrade-to-202.html">View details &rarr;</a></div>
 </div>
@@ -356,7 +359,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/porsche-cayenne-958-2-2015-2017-headlight-upgrade-to-2023-pd.html">Porsche Cayenne 958.2 2015-2017 Headlight Upgrade To 2023 PDLS Matrix Style LED</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/porsche-cayenne-958-2-2015-2017-headlight-upgrade-to-2023-pd.html">View details &rarr;</a></div>
 </div>
@@ -366,7 +369,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/electronics/car-auto-meter-2014-lcd-dashboard-digital-instrument-cluster.html">Car Auto Meter 2014 Lcd Dashboard Digital Instrument Cluster For Porsche Cayenne 958.1 958.2 2010-2017</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/electronics/car-auto-meter-2014-lcd-dashboard-digital-instrument-cluster.html">View details &rarr;</a></div>
 </div>
@@ -377,7 +380,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/electronics/car-monitor-entertainment-system-gps-headunit-radio-media-95.html">Car Monitor Entertainment System Gps Headunit Radio Media 958 Carplay Porsche Cayenne For Porsche Cayenne 2018-2023</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/electronics/car-monitor-entertainment-system-gps-headunit-radio-media-95.html">View details &rarr;</a></div>
 </div>
@@ -387,7 +390,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/conversion-kits/porsche-cayenne-958-body-kit-gts-style-polypropylene-front-l.html">Porsche Cayenne 958 Body Kit Gts Style Polypropylene Front Lip Side Skirts Rear Diffuser Lip</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/conversion-kits/porsche-cayenne-958-body-kit-gts-style-polypropylene-front-l.html">View details &rarr;</a></div>
 </div>
@@ -398,7 +401,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/conversion-kits/body-kit-for-porsche-958-cayenne-to-gts-style-2011-2014-year.html">Body Kit For Porsche 958 Cayenne To Gts Style 2011-2014 Year Pu Material</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/conversion-kits/body-kit-for-porsche-958-cayenne-to-gts-style-2011-2014-year.html">View details &rarr;</a></div>
 </div>
@@ -409,7 +412,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/conversion-kits/porsche-cayenne-958-front-bumper-body-kit-upgrade-to-2024-tu.html">Porsche Cayenne 958 Front Bumper Body Kit Upgrade To 2024 Turbo Style 2011-2014</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/conversion-kits/porsche-cayenne-958-front-bumper-body-kit-upgrade-to-2024-tu.html">View details &rarr;</a></div>
 </div>
@@ -420,7 +423,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/conversion-kits/porsche-cayenne-958-rear-bumper-body-kit-upgrade-to-2024-tur.html">Porsche Cayenne 958 Rear Bumper Body Kit Upgrade To 2024 Turbo Style 2011-2014</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/conversion-kits/porsche-cayenne-958-rear-bumper-body-kit-upgrade-to-2024-tur.html">View details &rarr;</a></div>
 </div>
@@ -431,7 +434,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/conversion-kits/porsche-cayenne-958-front-bumper-body-kit-upgrade-to-2024-gt.html">Porsche Cayenne 958 Front Bumper Body Kit Upgrade To 2024 GT Style</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/conversion-kits/porsche-cayenne-958-front-bumper-body-kit-upgrade-to-2024-gt.html">View details &rarr;</a></div>
 </div>
@@ -441,19 +444,20 @@ and VIN directly with the supplier contact before buying.</p>
 <a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
 </section>
 <footer class="site"><div class="wrap"><div class="cols">
-<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
-<div><b style="color:var(--text)">Catalog</b><br>
+<div><b style="color:#F5F5F2">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:#F5F5F2">Catalog</b><br>
 <a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
-<div><b style="color:var(--text)">More</b><br>
+<div><b style="color:#F5F5F2">More</b><br>
 <a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
-<div><b style="color:var(--text)">Trust</b><br>
+<div><b style="color:#F5F5F2">Trust</b><br>
 <a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
-<div><b style="color:var(--text)">Follow Conroy</b><br>
+<div><b style="color:#F5F5F2">Follow Conroy</b><br>
 <a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
-<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+<span style="font-size:.85rem;color:#9AA1A9">Want more info? Follow me here.</span></div>
 </div>
 <small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
-Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+Contact: <a href="mailto:support@thefactoryplug.com">support@thefactoryplug.com</a> · 3939 Castro Valley Blvd #1051, Castro Valley, CA 94546 · or DM <a href="https://www.instagram.com/royblinge90" target="_blank" rel="noopener">@royblinge90 on Instagram</a>.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b><br>
 &copy; 2026 FactoryPlug. All rights reserved.</small>
 </div></footer>
 </body>

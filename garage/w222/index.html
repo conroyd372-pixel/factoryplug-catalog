@@ -12,11 +12,14 @@
 <meta property="og:title" content="Mercedes-Benz S Class Parts (2014) — 11 Parts | FactoryPlug">
 <meta property="og:description" content="Every Mercedes-Benz S Class (2014) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
 <meta property="og:url" content="https://conroyd372-pixel.github.io/factoryplug-catalog/garage/w222/">
-<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta property="og:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mercedes-Benz S Class Parts (2014) — 11 Parts | FactoryPlug">
 <meta name="twitter:description" content="Every Mercedes-Benz S Class (2014) compatible part: exhaust, wheels, suspension, aero, lighting and more — factory-direct.">
-<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.png">
+<meta name="twitter:image" content="https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/og-default.jpg">
+<link rel="icon" type="image/png" href="/factoryplug-catalog/assets/img/brand/favicon.png">
+<link rel="apple-touch-icon" href="/factoryplug-catalog/assets/img/brand/app-icon-512.png">
+<link rel="manifest" href="/factoryplug-catalog/site.webmanifest">
 <link rel="stylesheet" href="/factoryplug-catalog/assets/style.css">
 <script src="/factoryplug-catalog/assets/fx.js" defer></script>
 <script src="/factoryplug-catalog/assets/search.js" defer></script>
@@ -39,9 +42,9 @@
   var ind = document.getElementById('garage-indicator');
   var g = load();
   if (g && g.code && ind) {
-    ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-      '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+    ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+      esc(g.label || g.code) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+      '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
     ind.classList.remove('hidden');
     var c = document.getElementById('garage-clear');
     if (c) c.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -150,9 +153,9 @@
       save({ code: code, make: v.make, label: label });
       g = load();
       if (ind) {
-        ind.innerHTML = '<span class="g-dot">🔌</span> Shopping for: <b>' +
-          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">✎ change</a> ' +
-          '<button id="garage-clear" type="button" aria-label="Clear garage">✕</button>';
+        ind.innerHTML = '<span class="g-dot" aria-hidden="true"></span> Shopping for: <b>' +
+          esc(label) + '</b> <a href="/factoryplug-catalog/garage/">change</a> ' +
+          '<button id="garage-clear" type="button" aria-label="Clear garage">&times;</button>';
         ind.classList.remove('hidden');
         var cc = document.getElementById('garage-clear');
         if (cc) cc.addEventListener('click', function(){ clear(); ind.classList.add('hidden'); });
@@ -233,13 +236,13 @@
 })();
 </script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Mercedes-Benz S Class Parts (2014)", "description": "Every Mercedes-Benz S Class compatible part in the FactoryPlug catalog."}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog#organization", "name": "FactoryPlug", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@factoryplug.store"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#organization", "name": "FactoryPlug", "alternateName": ["TheFactoryPlug", "The Factory Plug", "The Factory Plug Directory", "thefactoryplug.com"], "url": "https://conroyd372-pixel.github.io/factoryplug-catalog", "description": "Factory-direct car parts directory — real supplier prices, ratings, and specs for aftermarket parts, with direct links to the suppliers.", "disambiguatingDescription": "FactoryPlug (thefactoryplug.com) is a verified B2B direct-to-factory manufacturer directory and global supply-chain intelligence platform indexing 3,800+ vetted automotive parts supplier listings from OEM and ODM manufacturers. Distinct from automotive engine block freeze plugs or expansion plugs.", "knowsAbout": ["Direct-to-factory sourcing", "OEM and ODM manufacturer verification", "Forged wheels", "Big brake kits", "Carbon fiber aero parts", "Titanium exhaust systems", "Alibaba supplier listings"], "logo": {"@type": "ImageObject", "@id": "https://conroyd372-pixel.github.io/factoryplug-catalog/#logo", "url": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/app-icon-512.png"}, "image": "https://conroyd372-pixel.github.io/factoryplug-catalog/assets/img/brand/logo-lockup.png", "sameAs": ["https://x.com/royblinge90"], "contactPoint": {"@type": "ContactPoint", "contactType": "customer service", "email": "info@thefactoryplug.com"}}</script>
 </head>
 <body>
 <header class="site"><div class="wrap nav">
-<a class="logo" href="/factoryplug-catalog/"><b>FACTORY</b>&nbsp;PLUG</a>
+<a class="logo" href="/factoryplug-catalog/"><img src="/factoryplug-catalog/assets/img/brand/logo-lockup.png" alt="FactoryPlug" height="40"></a>
 <nav>
-<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped 🔌</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">🚗 My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
+<a href="/factoryplug-catalog/wheels/">Wheels</a><a href="/factoryplug-catalog/brakes/">Brakes & Rotors</a><a href="/factoryplug-catalog/exhaust/">Exhaust</a><a href="/factoryplug-catalog/carbon/">Aero & Exterior</a><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><a href="/factoryplug-catalog/just-dropped.html">Just Dropped</a><a href="/factoryplug-catalog/guides/">Guides</a><a href="/factoryplug-catalog/garage/">My Garage</a><a href="/factoryplug-catalog/search.html" class="search-link">Search</a><a href="/factoryplug-catalog/guides/member-perks.html">Member Perks</a><a href="/factoryplug-catalog/disclosure.html">Disclosure</a>
 </nav>
 </div></header>
 <section class="content-sec"><div class="wrap-narrow">
@@ -259,7 +262,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/brakes/factory-direct-sale-new-carbon-ceramic-brake-kit-10-pot-cali.html">Factory Direct Sale New Carbon Ceramic Brake Kit 10 Pot Caliper Rotor Upgrade For Benz W222 W204</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/brakes/factory-direct-sale-new-carbon-ceramic-brake-kit-10-pot-cali.html">View details &rarr;</a></div>
 </div>
@@ -270,7 +273,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/brakes/gt6-6-pot-caliper-brake-kit-auto-brake-system-for-mercedes-b.html">Gt6 6 Pot Caliper Brake Kit Auto Brake System For Mercedes Benz W221 W222 S63</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/brakes/gt6-6-pot-caliper-brake-kit-auto-brake-system-for-mercedes-b.html">View details &rarr;</a></div>
 </div>
@@ -280,29 +283,29 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/valvetronic-catback-for-mercedes-benz-s550-s63-s500-amg-w222.html">Valvetronic Catback For Mercedes-benz S550/s63/s500 Amg W222 4.7t 5.5t Four-door 2014-2019 Titanium</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/valvetronic-catback-for-mercedes-benz-s550-s63-s500-amg-w222.html">View details &rarr;</a></div>
 </div>
 </article>
 
-<article class="prod-card" data-name="high performance stainless steel downpipe front pipe for mercedes benz s63 amg w222 c217 5.5l v8 biturbo m157 engine high performance stainless steel downpipe front pipe for mercedes benz s63 amg w222 c217 5.5l v8 biturbo m157 engine qingdao jtld industrial and trade co., ltd.  w222" data-price-min="1" data-rating="4.5" data-reviews="0" data-cat="exhaust" data-band="under-100" data-chassis="W222" data-material="Stainless steel">
+<article class="prod-card" data-name="high performance stainless steel downpipe front pipe for mercedes benz s63 amg w222 c217 5.5l v8 biturbo m157 engine high performance stainless steel downpipe front pipe for mercedes benz s63 amg w222 c217 5.5l v8 biturbo m157 engine qingdao jtld industrial and trade co., ltd.  w222" data-price-min="330" data-rating="4.5" data-reviews="0" data-cat="exhaust" data-band="300-600" data-chassis="W222" data-material="Stainless steel">
 <a class="pimg" href="/factoryplug-catalog/exhaust/high-performance-stainless-steel-downpipe-front-pipe-for-mer.html"><img src="https://s.alicdn.com/@sc04/kf/H556e7f4369f3472299e67a72a4c665f9C.jpg" alt="High Performance Stainless Steel Downpipe Front Pipe for Mercedes Benz S63 AMG W222 C217 5.5L V8 Biturbo M157 Engine" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/exhaust/high-performance-stainless-steel-downpipe-front-pipe-for-mer.html">High Performance Stainless Steel Downpipe Front Pipe for Mercedes Benz S63 AMG W222 C217 5.5L V8 Biturbo M157 Engine</a></h3>
-<div class="price"><span class="conv-price" data-min="1" data-max="398" data-cur="USD" data-orig="$398 (1–4 sets) / $390 (5–9) / $330 (10+) — listed as 180-day lowest">$398 (1–4 sets) / $390 (5–9) / $330 (10+) — listed as 180-day lowest</span></div>
-<div class="meta-row"><span class="chip">MOQ: 1 set</span></div>
-<div class="psupplier"><span class="stars" role="img" aria-label="4.5 out of 5 stars"><span class="s-bg">★★★★★</span><span class="s-fg" style="width:90%">★★★★★</span></span> · Made by Qingdao Jtld Industrial And Trade Co., Ltd. · <b>4.5</b></div>
+<div class="price"><span class="conv-price" data-min="330" data-max="398" data-cur="USD" data-orig="$330–398">$330–398</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">1 set</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.5 out of 5">[★ 4.5]</span> · Made by Qingdao Jtld Industrial And Trade Co., Ltd.</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/exhaust/high-performance-stainless-steel-downpipe-front-pipe-for-mer.html">View details &rarr;</a></div>
 </div>
 </article>
-</div><div class="sec-head"><h2 class="sec">Aerodynamics &amp; Exterior (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="carbon fiber body kit for s-class w222 2019 s63 s65 upgrades b style front lip fender rear diffuser carbon fiber body kit for s-class w222 2019 s63 s65 upgrades b style front lip fender rear diffuser   w222" data-price-min="" data-rating="" data-reviews="0" data-cat="carbon" data-band="" data-chassis="W222" data-material="Carbon fiber">
+</div><div class="sec-head"><h2 class="sec">Aerodynamics &amp; Exterior (1)</h2></div><div class="prod-grid"><article class="prod-card" data-name="carbon fiber body kit for s-class w222 2019 s63 s65 upgrades b style front lip fender rear diffuser carbon fiber body kit for s-class w222 2019 s63 s65 upgrades b style front lip fender rear diffuser guangzhou yulong auto parts trading co., ltd.  w222" data-price-min="120" data-rating="4.2" data-reviews="0" data-cat="carbon" data-band="100-300" data-chassis="W222" data-material="Carbon fiber">
 <a class="pimg" href="/factoryplug-catalog/carbon/carbon-fiber-body-kit-for-s-class-w222-2019-s63-s65-upgrades.html"><img src="/factoryplug-catalog/assets/img/products/carbon-fiber-body-kit-for-s-class-w222-2019-s63-s65-upgrades/hero.webp" alt="Carbon Fiber Body Kit For S-class W222 2019 S63 S65 Upgrades B Style Front Lip Fender Rear Diffuser" loading="lazy"></a>
 <div class="body">
 <h3><a href="/factoryplug-catalog/carbon/carbon-fiber-body-kit-for-s-class-w222-2019-s63-s65-upgrades.html">Carbon Fiber Body Kit For S-class W222 2019 S63 S65 Upgrades B Style Front Lip Fender Rear Diffuser</a></h3>
-<div class="price"><span class="conv-price">See listing</span></div>
-
-<div class="psupplier"></div>
+<div class="price"><span class="conv-price" data-min="120" data-max="1000" data-cur="USD" data-orig="$120–1,000">$120–1,000</span></div>
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
+<div class="psupplier"><span class="rating-badge" role="img" aria-label="Rated 4.2 out of 5">[★ 4.2]</span> · Made by Guangzhou Yulong Auto Parts Trading Co., Ltd.</div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/carbon/carbon-fiber-body-kit-for-s-class-w222-2019-s63-s65-upgrades.html">View details &rarr;</a></div>
 </div>
 </article>
@@ -311,7 +314,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/mercedes-benz-s-class-w222-2014-2018-headlights-upgrade-to-2.html">Mercedes Benz S Class W222 2014-2018 Headlights Upgrade To 2020 Style LED Headlights</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/mercedes-benz-s-class-w222-2014-2018-headlights-upgrade-to-2.html">View details &rarr;</a></div>
 </div>
@@ -322,7 +325,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/led-flash-mirror-dynamic-turn-signal-lights-for-mercedes-ben.html">Led Flash Mirror Dynamic Turn Signal Lights For Mercedes Benz W205 W213 W222 X253 Scroll Side Rear View Indicator Blinker Lamp</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/led-flash-mirror-dynamic-turn-signal-lights-for-mercedes-ben.html">View details &rarr;</a></div>
 </div>
@@ -333,7 +336,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/factory-led-mirror-dynamic-turn-signal-lights-for-mercedes-b.html">Factory Led Mirror Dynamic Turn Signal Lights For Mercedes Benz W205 E W213 W222 X253 Side Rear View Sequential Indicator Lamps</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/factory-led-mirror-dynamic-turn-signal-lights-for-mercedes-b.html">View details &rarr;</a></div>
 </div>
@@ -344,18 +347,18 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/lighting/led-dynamic-rearview-blinker-for-mercedes-benz-c-s-e-glc-cla.html">Led Dynamic Rearview Blinker For Mercedes Benz C S E Glc Class W205 W222 W217 W213 Auto Accessories Sequential Turn Signal Light</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/led-dynamic-rearview-blinker-for-mercedes-benz-c-s-e-glc-cla.html">View details &rarr;</a></div>
 </div>
 </article>
 
-<article class="prod-card" data-name="fetonauto led amber mirror non-dynamic turn signal lights for w205/e/w213/w222/x253 oem rear view sequential indicator lamps 12v fetonauto led amber mirror non-dynamic turn signal lights for w205/e/w213/w222/x253 oem rear view sequential indicator lamps 12v   w205 w213 w222" data-price-min="" data-rating="" data-reviews="0" data-cat="lighting" data-band="" data-chassis="W205 W213 W222" data-material="">
-<a class="pimg" href="/factoryplug-catalog/lighting/fetonauto-led-amber-mirror-non-dynamic-turn-signal-lights-fo.html"><img src="/factoryplug-catalog/assets/img/products/fetonauto-led-amber-mirror-non-dynamic-turn-signal-lights-fo/hero.webp" alt="Fetonauto Led Amber Mirror Non-dynamic Turn Signal Lights For W205/e/w213/w222/x253 Oem Rear View Sequential Indicator Lamps 12v" loading="lazy"></a>
+<article class="prod-card" data-name="led mirror turn signals for mercedes c/e/s-class (w205/w213/w222) fetonauto led amber mirror non-dynamic turn signal lights for w205/e/w213/w222/x253 oem rear view sequential indicator lamps 12v   w205 w213 w222" data-price-min="" data-rating="" data-reviews="0" data-cat="lighting" data-band="" data-chassis="W205 W213 W222" data-material="">
+<a class="pimg" href="/factoryplug-catalog/lighting/fetonauto-led-amber-mirror-non-dynamic-turn-signal-lights-fo.html"><img src="/factoryplug-catalog/assets/img/products/fetonauto-led-amber-mirror-non-dynamic-turn-signal-lights-fo/hero.webp" alt="LED Mirror Turn Signals for Mercedes C/E/S-Class (W205/W213/W222)" loading="lazy"></a>
 <div class="body">
-<h3><a href="/factoryplug-catalog/lighting/fetonauto-led-amber-mirror-non-dynamic-turn-signal-lights-fo.html">Fetonauto Led Amber Mirror Non-dynamic Turn Signal Lights For W205/e/w213/w222/x253 Oem Rear View Sequential Indicator Lamps 12v</a></h3>
+<h3><a href="/factoryplug-catalog/lighting/fetonauto-led-amber-mirror-non-dynamic-turn-signal-lights-fo.html">LED Mirror Turn Signals for Mercedes C/E/S-Class (W205/W213/W222)</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/lighting/fetonauto-led-amber-mirror-non-dynamic-turn-signal-lights-fo.html">View details &rarr;</a></div>
 </div>
@@ -365,7 +368,7 @@ and VIN directly with the supplier contact before buying.</p>
 <div class="body">
 <h3><a href="/factoryplug-catalog/conversion-kits/body-kit-for-mercedes-benz-s-class-w221-modified-to-w222-s63.html">Body Kit For Mercedes Benz S Class W221 Modified To W222 S63 Amg Model Front And Rear Bumpers</a></h3>
 <div class="price"><span class="conv-price">See listing</span></div>
-
+<div class="meta-row"><span class="spec-cell"><span class="spec-label">MOQ</span> <span class="spec-value">Confirm with supplier</span></span></div>
 <div class="psupplier"></div>
 <div class="foot"><a class="btn deal" href="/factoryplug-catalog/conversion-kits/body-kit-for-mercedes-benz-s-class-w221-modified-to-w222-s63.html">View details &rarr;</a></div>
 </div>
@@ -375,19 +378,20 @@ and VIN directly with the supplier contact before buying.</p>
 <a class="btn ghost" href="/factoryplug-catalog/garage/">← Shop another vehicle</a></div></div>
 </section>
 <footer class="site"><div class="wrap"><div class="cols">
-<div><b style="color:var(--text)">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
-<div><b style="color:var(--text)">Catalog</b><br>
+<div><b style="color:#F5F5F2">FACTORYPLUG</b><br>An automotive supply-chain intelligence directory.<br>No inventory. No checkout. No middlemen.</div>
+<div><b style="color:#F5F5F2">Catalog</b><br>
 <a href="/factoryplug-catalog/wheels/">Forged Wheels</a><br><a href="/factoryplug-catalog/brakes/">Brakes</a><br><a href="/factoryplug-catalog/exhaust/">Exhaust</a><br><a href="/factoryplug-catalog/carbon/">Carbon &amp; Body</a></div>
-<div><b style="color:var(--text)">More</b><br>
+<div><b style="color:#F5F5F2">More</b><br>
 <a href="/factoryplug-catalog/about.html">Why I Built This</a><br><a href="/factoryplug-catalog/manufacturers/">Who Makes What</a><br><a href="/factoryplug-catalog/suspension/">Suspension</a><br><a href="/factoryplug-catalog/engine/">Engine &amp; Fueling</a><br><a href="/factoryplug-catalog/interior/">Interior</a><br><a href="/factoryplug-catalog/lighting/">Lighting</a></div>
-<div><b style="color:var(--text)">Trust</b><br>
+<div><b style="color:#F5F5F2">Trust</b><br>
 <a href="/factoryplug-catalog/disclosure.html">Affiliate Disclosure</a><br><a href="/factoryplug-catalog/privacy.html">Privacy Policy</a><br><a href="/factoryplug-catalog/terms.html">Terms of Service</a><br><a href="/factoryplug-catalog/refund.html">Refund Policy</a><br><a href="/factoryplug-catalog/shipping.html">Shipping Policy</a><br><a href="/factoryplug-catalog/contact.html">Contact</a></div>
-<div><b style="color:var(--text)">Follow Conroy</b><br>
+<div><b style="color:#F5F5F2">Follow Conroy</b><br>
 <a href="https://www.instagram.com/royblinge90" rel="noopener" target="_blank">Instagram — @royblinge90</a><br><a href="https://www.tiktok.com/@pistonplays" rel="noopener" target="_blank">TikTok — @pistonplays</a><br><a href="https://www.youtube.com/@pistonplay" rel="noopener" target="_blank">YouTube — Piston Play (@pistonplay)</a><br><a href="https://www.threads.com/@royblinge90" rel="noopener" target="_blank">Threads — @royblinge90</a><br><a href="https://x.com/royblinge90" rel="noopener" target="_blank">X — @royblinge90</a><br>
-<span style="font-size:.85rem;color:var(--muted)">Want more info? Follow me here.</span></div>
+<span style="font-size:.85rem;color:#9AA1A9">Want more info? Follow me here.</span></div>
 </div>
 <small>As an affiliate, we may earn a commission when you buy through links on this site, at no extra cost to you. Fitment is never guaranteed — always confirm year, model, trim and VIN directly with the supplier contact before buying.<br>
-Free sourcing by <b style="color:var(--gold)">RoyblingE90</b> 🔌<br>
+Contact: <a href="mailto:support@thefactoryplug.com">support@thefactoryplug.com</a> · 3939 Castro Valley Blvd #1051, Castro Valley, CA 94546 · or DM <a href="https://www.instagram.com/royblinge90" target="_blank" rel="noopener">@royblinge90 on Instagram</a>.<br>
+Free sourcing by <b style="color:var(--gold)">RoyblingE90</b><br>
 &copy; 2026 FactoryPlug. All rights reserved.</small>
 </div></footer>
 </body>
