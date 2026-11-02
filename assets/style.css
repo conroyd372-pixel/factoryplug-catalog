@@ -66,6 +66,7 @@ header.site{position:sticky;top:0;z-index:60;background:rgba(26,29,33,.97);backd
 .nav nav a{color:#C9CDD2;font-size:.86rem;font-weight:600;padding:8px 11px;min-height:44px;display:inline-flex;align-items:center;border-radius:10px;white-space:nowrap;flex-shrink:0}
 .nav nav a:hover{color:#FFFFFF;background:rgba(255,255,255,.09);text-decoration:none}
 .nav nav a.search-link{color:var(--gold);border:1px solid rgba(255,107,26,.4)}
+@media (max-width:720px){.logo img{height:32px}.nav nav{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 30px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 30px),transparent)}}
 /* ---------- hero ---------- */
 .hero{background:var(--ink);color:#F5F5F2;padding:44px 0 36px;text-align:center;border-bottom:0}
 .hero h1{font-size:clamp(1.75rem,6vw,3.1rem);line-height:1.14;margin-bottom:10px;letter-spacing:-.02em;font-weight:800}
