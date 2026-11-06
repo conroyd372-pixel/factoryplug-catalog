@@ -61,9 +61,10 @@ header.site{position:sticky;top:0;z-index:60;background:rgba(26,29,33,.97);backd
 .logo{font-weight:800;font-size:1.2rem;letter-spacing:.5px;color:#F5F5F2;flex-shrink:0;display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo b{color:var(--gold)}
 .logo img{height:40px;width:auto;display:block}
-.nav nav{display:flex;gap:2px;margin-left:auto;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 0}
+header.site .wrap{max-width:1360px}
+.nav nav{display:flex;gap:0;margin-left:auto;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 0}
 .nav nav::-webkit-scrollbar{display:none}
-.nav nav a{color:#C9CDD2;font-size:.86rem;font-weight:600;padding:8px 11px;min-height:44px;display:inline-flex;align-items:center;border-radius:10px;white-space:nowrap;flex-shrink:0}
+.nav nav a{color:#C9CDD2;font-size:.82rem;font-weight:600;padding:8px 7px;min-height:44px;display:inline-flex;align-items:center;border-radius:10px;white-space:nowrap;flex-shrink:0}
 .nav nav a:hover{color:#FFFFFF;background:rgba(255,255,255,.09);text-decoration:none}
 .nav nav a.search-link{color:var(--gold);border:1px solid rgba(255,107,26,.4)}
 @media (max-width:720px){.logo img{height:32px}.nav nav{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 30px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 30px),transparent)}}
