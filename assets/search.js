@@ -119,7 +119,7 @@
 
   /* Full result row for /search.html */
   function resultRow(d, words) {
-    var thumb = d.img ? '<img class="rthumb" src="' + esc(fpUrl(d.img)) + '" alt="" loading="lazy">' : "";
+    var thumb = d.img ? '<img class="rthumb" src="' + esc(fpUrl(d.img)) + '" alt="" width="84" height="63" loading="lazy">' : "";
     var badge = d.win ? ' <span class="chip hot">\uD83D\uDD25 Winning</span>' : "";
     return '<div class="result-item">' + thumb + '<div style="min-width:0;flex:1">' +
       '<div class="rtype">' + typeLabel(d) + "</div>" +
@@ -130,7 +130,7 @@
 
   /* Compact row for the homepage live-search dropdown */
   function liveItem(d, words) {
-    var thumb = d.img ? '<img class="sl-thumb" src="' + esc(fpUrl(d.img)) + '" alt="" loading="lazy">' : "";
+    var thumb = d.img ? '<img class="sl-thumb" src="' + esc(fpUrl(d.img)) + '" alt="" width="56" height="42" loading="lazy">' : "";
     var price = (d.type === "part" && d.pm != null)
       ? '<span class="sl-price">' + priceSpan(d) + "</span>" : "";
     return '<a class="sl-item" href="' + esc(fpUrl(d.u)) + '">' + thumb +

@@ -147,6 +147,24 @@
     var backdrop = null;
     var triggerEl = null;
 
+    // iOS-safe scroll lock (2026-11-11): overflow:hidden alone does not stop
+    // background scroll on iOS Safari; the position:fixed technique does.
+    var fpLockY = 0, fpLocked = false;
+    function fpLockScroll() {
+      if (fpLocked) return;
+      fpLocked = true;
+      fpLockY = window.scrollY || window.pageYOffset || 0;
+      var s = document.body.style;
+      s.position = 'fixed'; s.top = (-fpLockY) + 'px'; s.left = '0'; s.right = '0'; s.width = '100%'; s.overflow = 'hidden';
+    }
+    function fpUnlockScroll() {
+      if (!fpLocked) return;
+      fpLocked = false;
+      var s = document.body.style;
+      s.position = ''; s.top = ''; s.left = ''; s.right = ''; s.width = ''; s.overflow = '';
+      window.scrollTo(0, fpLockY);
+    }
+
     function openModal(href, trigger) {
       pendingHref = href;
       triggerEl = trigger || null;
@@ -196,7 +214,7 @@
         });
       }
       backdrop.classList.add('open');
-      document.body.style.overflow = 'hidden';
+      fpLockScroll();
       var vEl = backdrop.querySelector('#fpVehicle');
       if (vEl) {
         if (vehLine) { vEl.innerHTML = vehLine; vEl.hidden = false; }
@@ -219,7 +237,7 @@
 
     function closeModal() {
       if (backdrop) backdrop.classList.remove('open');
-      document.body.style.overflow = '';
+      fpUnlockScroll();
       pendingHref = null;
       if (triggerEl && document.contains(triggerEl)) {
         try { triggerEl.focus(); } catch (err) {}
